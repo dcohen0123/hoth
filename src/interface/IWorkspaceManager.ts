@@ -1,6 +1,6 @@
 import { IWorkspace } from "./IWorkspace";
 
 export interface IWorkspaceManager {
-    selected: string;
+    selected: IWorkspace;
     workspaces: IWorkspace[];
 }

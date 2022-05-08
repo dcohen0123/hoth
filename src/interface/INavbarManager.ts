@@ -1,7 +1,5 @@
-export enum INavbarItem {
-    DashBoard="dashboard"
-}
+import { INavbar } from "./INavbar";
 
 export interface INavbarManager {
-    selected: INavbarItem
+    navbar: INavbar;
 }

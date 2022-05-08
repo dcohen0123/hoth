@@ -1,5 +1,5 @@
-import { IInput, InputContent } from "./IInput";
-import { IWidget, WidgetContent } from "./IWidget";
+import { IInput } from "./IInput";
+import { IWidget } from "./IWidget";
 
 export interface IDashboard {
     inputs: IInput[];

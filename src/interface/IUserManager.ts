@@ -1,3 +1,5 @@
+import { IUser } from "./IUser";
+
 export interface IUserManager {
-    user: any;
+    user: IUser;
 }

@@ -1,3 +1,5 @@
+import { ISettings } from "./ISettings";
+
 export interface ISettingsManager {
-    settings: any;
+    settings: ISettings;
 }
