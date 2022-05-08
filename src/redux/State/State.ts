@@ -1,16 +1,16 @@
 const State = {
-    nav: {
+    navbarManager: {
         selected: null
     },
-    workspace: {
+    workspaceManager: {
         selected: null,
         workspaces: []
     },
-    user: {
-        info: null
+    userManager: {
+        user: null
     },
-    settings: {
-        info: null
+    settingsManager: {
+        settings: null
     }
 }
 
