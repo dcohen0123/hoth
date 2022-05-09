@@ -1,4 +1,13 @@
-// TODO - create and export store w/ reducer from combine reducer.
-const store = "";
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from '@redux-saga/core';
+import reducer from './Reducer/Reducer';
+import State from './State/State';
+import rootSaga from './Saga/Saga';
 
-export default store;
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(reducer, State, applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(rootSaga)
+
+export default store
