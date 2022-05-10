@@ -3,11 +3,11 @@ export enum InputType {
     Search="search"
 }
 
-export type InputContent = /* ISelect | ISearch */ "";
+export type InputMain = /* ISelect | ISearch */ "";
 
 export interface IInput {
     id: string;
     title: string;
     type: InputType;
-    content: InputContent;
+    main: InputMain;
 }

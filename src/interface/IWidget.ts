@@ -1,20 +1,20 @@
+import { IChart } from "./IChart";
+import { IDataGrid } from "./IDataGrid";
 import { IInput } from "./IInput";
 
 export enum WidgetType {
-    CumulativeSubjects="cumulativeSubjects",
-    Stats="stats",
-    Completeness="completeness",
-    NumberSubjects="numberSubjects",
-    Contact="contact"
+    Chart="chart",
+    Grid="grid"
 }
 
-export type WidgetContent = /* ICumulativeSubject | IStats | ICompleteness | INumberSubjects | IContact */ "";
+export type WidgetMain = IChart | IDataGrid
 
 export interface IWidget {
     id: string;
     title: string;
     type: WidgetType;
-    header: string;
+    drill: any;
+    data: any;
     inputs: IInput[];
-    content: WidgetContent;
+    main: WidgetMain;
 }
