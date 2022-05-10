@@ -1,3 +1,4 @@
+import { IEvent } from "./IEvent";
 import { IInput } from "./IInput";
 
 export enum WidgetType {
@@ -12,5 +13,6 @@ export interface IWidget {
     drill: any;
     data: any;
     inputs: IInput[];
+    events: IEvent[];
     meta: any;
 }
