@@ -1,3 +1,4 @@
+import { IDrill } from "./IDrill";
 import { IEvent } from "./IEvent";
 import { IInput } from "./IInput";
 
@@ -10,7 +11,7 @@ export interface IWidget {
     id: string;
     title: string;
     type: WidgetType;
-    drill: any;
+    drill: IDrill[];
     data: any;
     inputs: IInput[];
     events: IEvent[];
