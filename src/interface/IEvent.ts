@@ -1,9 +1,8 @@
 export enum EventType {
-    Drill="drill"
+    WidgetDrill="WIDGET_DRILL"
 }
 
 export interface IEvent {
-    id: string;
     type: EventType;
     meta?: any;
 }
