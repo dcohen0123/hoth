@@ -1,4 +1,4 @@
 export interface ISearch {
-    url?: string;
-    data: any;
+    isRemoteData?: boolean;
+    data?: any;
 }

@@ -2,7 +2,11 @@ export enum InputType {
     Select="select",
     Search="search",
     Legend="legend",
-    Close="close"
+    Maximize="maximize",
+    Minimize="minimize",
+    Popout="popout",
+    Popin="popin",
+    Close="close",
 }
 
 export interface IInput {
@@ -10,5 +14,5 @@ export interface IInput {
     title: string;
     type: InputType;
     value: any;
-    meta: any;
+    meta?: any;
 }

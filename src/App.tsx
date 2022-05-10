@@ -1,13 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Hoth from './component/Hoth/Hoth';
 
 function App() {
-  return (
-    <div>
-      Hoth Intelligence
-    </div>
-  );
+  return <Hoth />;
 }
 
 export default App;
