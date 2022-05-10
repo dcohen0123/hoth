@@ -1,3 +1,4 @@
+import { IEventManager } from "./IEventManager";
 import { INavbarManager } from "./INavbarManager";
 import { ISettingsManager } from "./ISettingsManager";
 import { IUserManager } from "./IUserManager";
@@ -7,5 +8,6 @@ export interface IState {
     navbarManager: INavbarManager,
     workspaceManager: IWorkspaceManager,
     userManager: IUserManager,
-    settingsManager: ISettingsManager
+    settingsManager: ISettingsManager,
+    eventManager: IEventManager
 }

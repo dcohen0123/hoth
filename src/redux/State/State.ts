@@ -11,6 +11,9 @@ const State = {
     },
     settingsManager: {
         settings: null
+    },
+    eventManager: {
+        event: null
     }
 }
 

@@ -1,13 +1,14 @@
 export enum InputType {
     Select="select",
-    Search="search"
+    Search="search",
+    Legend="legend",
+    Close="close"
 }
-
-export type InputMain = /* ISelect | ISearch */ "";
 
 export interface IInput {
     id: string;
     title: string;
     type: InputType;
-    main: InputMain;
+    value: any;
+    meta: any;
 }

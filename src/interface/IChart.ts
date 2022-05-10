@@ -1,3 +1,1 @@
-export interface IChart {
-    data: any;
-}
+export interface IChart {}
