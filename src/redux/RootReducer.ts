@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import dataReducer from './Data/DataReducer';
 import eventReducer from './Event/EventReducer';
 import navbarReducer from './Navbar/NavbarReducer';
 import settingsReducer from './Settings/SettingsReducer';
@@ -10,5 +11,6 @@ export default combineReducers({
     navbarManager: navbarReducer,
     userManager: userReducer,
     settingsManager: settingsReducer,
-    eventManager: eventReducer
+    eventManager: eventReducer,
+    dataManager: dataReducer
 })

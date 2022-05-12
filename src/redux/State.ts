@@ -1,12 +1,10 @@
 const State = {
-    dashboardManager: {
-        dashboards: []
-    },
-    learnManager: {
-        learn: []
+    dataManager: {
+        dashboards: [],
+        videos: []
     },
     navbarManager: {
-        selected: null
+        selected: null,
     },
     workspaceManager: {
         selected: null,
