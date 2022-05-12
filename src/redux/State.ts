@@ -1,4 +1,10 @@
 const State = {
+    dashboardManager: {
+        dashboards: []
+    },
+    learnManager: {
+        learn: []
+    },
     navbarManager: {
         selected: null
     },

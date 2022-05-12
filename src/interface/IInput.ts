@@ -9,10 +9,17 @@ export enum InputType {
     Close="close",
 }
 
+export enum Align {
+    Left="left",
+    Right="right"
+}
+
 export interface IInput {
     id: string;
     title: string;
     type: InputType;
     value: any;
+    align: Align;
+    index: number;
     meta?: any;
 }
