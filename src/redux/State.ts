@@ -18,6 +18,9 @@ const State = {
     },
     eventManager: {
         event: null
+    },
+    popupManager: {
+        popups: []
     }
 }
 
