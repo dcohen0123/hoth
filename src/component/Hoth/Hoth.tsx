@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import Navbar from "../Navbar/Navbar";
+import Nav from "../Nav/Nav";
+import Workspace from "../Workspace/Workspace";
 
 const StyledDiv = styled.div`
     display: flex;
@@ -9,8 +10,8 @@ const StyledDiv = styled.div`
 
 const Hoth = () => {
     return <StyledDiv>
-        <Navbar />
-        {/* <Workspace /> */}
+        <Nav />
+        <Workspace />
     </StyledDiv>
 }
 

@@ -1,27 +1,19 @@
-const State = {
-    dataManager: {
-        dashboards: [],
-        videos: []
-    },
-    navbarManager: {
-        selected: null,
-    },
-    workspaceManager: {
-        selected: null,
-        workspaces: []
-    },
-    userManager: {
-        user: null
-    },
-    settingsManager: {
-        settings: null
-    },
-    eventManager: {
-        event: null
-    },
-    popupManager: {
-        popups: []
-    }
+import dataManager from "./Data/DataManager";
+import eventManager from "./Event/EventManager";
+import navManager from "./Nav/NavManager";
+import popupManager from "./Popup/PopupManager";
+import settingsManager from "./Settings/SettingsManager";
+import userManager from "./User/UserManager";
+import workspaceManager from "./Workspace/WorkspaceManager";
+
+const state = {
+    dataManager,
+    navManager,
+    workspaceManager,
+    userManager,
+    settingsManager,
+    eventManager,
+    popupManager
 }
 
-export default State;
+export default state;

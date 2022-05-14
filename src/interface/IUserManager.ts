@@ -1,5 +1,5 @@
 import { IUser } from "./IUser";
 
 export interface IUserManager {
-    user: IUser;
+    user: IUser | null;
 }

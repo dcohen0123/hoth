@@ -2,7 +2,8 @@ import { IInput } from "./IInput";
 import { IWidget } from "./IWidget";
 
 export interface IDashboard {
-    title: string;
+    id: string;
+    name: string;
     inputs: IInput[];
     widgets: IWidget[];
 }

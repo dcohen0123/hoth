@@ -1,5 +1,5 @@
 import { ISettings } from "./ISettings";
 
 export interface ISettingsManager {
-    settings: ISettings;
+    settings: ISettings | null;
 }

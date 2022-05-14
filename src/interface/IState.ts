@@ -1,13 +1,17 @@
+import { IDataManager } from "./IDataManager";
 import { IEventManager } from "./IEventManager";
-import { INavbarManager } from "./INavbarManager";
+import { INavManager } from "./INavManager";
+import { IPopupManager } from "./IPopupManager";
 import { ISettingsManager } from "./ISettingsManager";
 import { IUserManager } from "./IUserManager";
 import { IWorkspaceManager } from "./IWorkspaceManager";
 
 export interface IState {
-    navbarManager: INavbarManager,
+    dataManager: IDataManager,
+    navbarManager: INavManager,
     workspaceManager: IWorkspaceManager,
     userManager: IUserManager,
     settingsManager: ISettingsManager,
-    eventManager: IEventManager
+    eventManager: IEventManager,
+    popupManager: IPopupManager
 }

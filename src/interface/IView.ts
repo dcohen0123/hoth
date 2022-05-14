@@ -4,7 +4,7 @@ export enum ViewType {
 
 export interface IView {
     id: string;
-    title: string;
+    name: string;
     type: ViewType;
     meta: any;
 }

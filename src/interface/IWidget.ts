@@ -10,7 +10,7 @@ export enum WidgetType {
 
 export interface IWidget {
     id: string;
-    title: string;
+    name: string;
     type: WidgetType;
     drill: IDrill[];
     data: any;

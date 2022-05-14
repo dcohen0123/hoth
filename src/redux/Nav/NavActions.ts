@@ -1,0 +1,1 @@
+export const NavItemSelected = "NAV_ITEM_SELECTED";

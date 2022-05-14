@@ -1,11 +1,80 @@
-import NavbarMain from "../NavbarMain/NavbarMain";
-import NavbarMenu from "../NavbarMenu/NavbarMenu";
+import styled from 'styled-components';
+//@ts-ignore
+import { EntypoLineGraph, EntypoExport, EntypoDatabase, EntypoBook, EntypoCircleWithPlus, EntypoUser, EntypoHelp, EntypoCog } from 'react-entypo';
+import { useDispatch, useSelector } from 'react-redux';
+import { IState } from '../../interface/IState';
+import { Tooltip } from 'antd';
+import { NavItemSelected } from '../../redux/Nav/NavActions';
+import { Align, INavItem, NavItemType } from '../../interface/INavItem';
+
+const StyledNavbar = styled.div`
+    display: inline-flex;
+    height: 100%;
+    background: #434343ff;
+    text-align: center;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 8px;
+`
+
+const StyledImg = styled.img`
+    width: 26px;
+    margin: 10px 5px 0px 5px;
+`
+
+const StyledIcon = styled.div<{selected?: boolean, indicator?: boolean}>`
+    color: #fff;
+    position: relative;
+    padding: 8px 0px;
+    svg {
+        width: 17px !important;
+        height: 17px !important;
+    }
+    ${props => props.selected && props.indicator && `:before {
+        content: "";
+        position: absolute;
+        background: #fff;
+        width: 2px;
+        height: 30px;
+        left: 0;
+        top: calc(50% - 15px);
+    }`}
+`
+
+export const iconMap: Map<NavItemType, JSX.Element> = new Map<NavItemType, JSX.Element>([
+    [NavItemType.DashBoard, <EntypoLineGraph />],
+    [NavItemType.Export, <EntypoExport />],
+    [NavItemType.Browse, <EntypoDatabase />],
+    [NavItemType.Learn, <EntypoBook />],
+    [NavItemType.More, <EntypoCircleWithPlus />],
+    [NavItemType.User, <EntypoUser />],
+    [NavItemType.Help, <EntypoHelp />],
+    [NavItemType.Settings, <EntypoCog />]
+])
 
 const Navbar = () => {
-    return <div>
-        <NavbarMenu />
-        <NavbarMain />
-    </div>
+    const selected = useSelector((state: IState) => state.navbarManager?.selected)
+    const items = useSelector((state: IState) => state.navbarManager?.items)
+    const dispatch = useDispatch()
+    const handleClick = (item: INavItem) => {
+        return () => dispatch({type: NavItemSelected, payload: item})
+    }
+    const getIcon = (x: INavItem) => {
+        return <Tooltip key={x.id} title={x.name} placement="right">
+            <StyledIcon onClick={handleClick(x)} selected={selected?.id === x?.id} indicator={selected?.align === Align.Top}>
+                {iconMap.get(x?.type)}
+            </StyledIcon>
+        </Tooltip>
+    }
+    return <StyledNavbar>
+        <div>
+            <StyledImg src='logo.webp' />
+            {items?.filter(x => x.align === Align.Top)?.map(x => getIcon(x))}
+        </div>
+        <div>
+            {items?.filter(x => x.align === Align.Bottom)?.map(x => getIcon(x))}
+        </div>
+    </StyledNavbar>
 }
 
 export default Navbar;
