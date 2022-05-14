@@ -3,14 +3,13 @@ import { INavListItem } from "../../interface/INavListItem";
 import { IState } from "../../interface/IState";
 import { ViewType } from "../../interface/IView";
 import { AddView } from "../../redux/Workspace/WorkspaceActions";
-import NavBody from "../NavBody/NavBody";
-import NavHeader from "../NavHeader/NavHeader";
-import MenuList from "../MenuList/MenuList";
+import NavHeader from "../NavHead/NavHead";
+import NavList from "../NavList/NavList";
 import { v4 as uuidv4 } from 'uuid';
 
 const DashboardMenu = () => {
     const dashboards = useSelector((state: IState) => state.dataManager?.dashboards);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(); 
     const items = dashboards?.map(x => ({id: x?.id, name: x?.name}));
     const handleSelect = (item: INavListItem) => {
         const dashboard = dashboards?.find(x => x.id === item.id);
@@ -18,9 +17,7 @@ const DashboardMenu = () => {
     }
     return <>
         <NavHeader />
-        <NavBody>
-            <MenuList items={items} onSelect={handleSelect} />
-        </NavBody>
+        <NavList items={items} onSelect={handleSelect} />
     </>
 }
 

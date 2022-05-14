@@ -14,7 +14,7 @@ export const menuMap: Map<NavItemType, JSX.Element> = new Map<NavItemType, JSX.E
 ])
 
 const StyledNavMenu = styled.div<{open: boolean}>`
-    width: ${props => props.open ? "225px" : "0px"};
+    width: ${props => props.open ? "210px" : "0px"};
     transition: width .2s;
     display: flex;
     flex-direction: column;

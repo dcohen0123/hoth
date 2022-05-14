@@ -6,7 +6,7 @@ import { IState } from "../../interface/IState";
 import { NavItemSelected } from "../../redux/Nav/NavActions";
 
 const StyledDiv = styled.div`
-    padding: 8px;
+    padding: 7px 4px 7px 7px;
     background: #696969ff;
     color: #fff;
     font-size: 13px;
@@ -24,7 +24,7 @@ const StyledIcon = styled.div`
     }
 `
 
-const NavHeader = () => {
+const NavHead = () => {
     const selected = useSelector((state: IState) => state.navbarManager?.selected)
     const dispatch = useDispatch()
     const handleClick = () => {
@@ -36,4 +36,4 @@ const NavHeader = () => {
     </StyledDiv>
 }
 
-export default NavHeader;
+export default NavHead;
