@@ -53,8 +53,8 @@ export const iconMap: Map<NavItemType, JSX.Element> = new Map<NavItemType, JSX.E
 ])
 
 const Navbar = () => {
-    const selected = useSelector((state: IState) => state.navbarManager?.selected)
-    const items = useSelector((state: IState) => state.navbarManager?.items)
+    const selected = useSelector((state: IState) => state.navManager?.selected)
+    const items = useSelector((state: IState) => state.navManager?.items)
     const dispatch = useDispatch()
     const handleClick = (item: INavItem) => {
         return () => dispatch({type: NavItemSelected, payload: item})

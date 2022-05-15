@@ -3,7 +3,7 @@ import { INavListItem } from "../../interface/INavListItem";
 import { IState } from "../../interface/IState";
 import { ViewType } from "../../interface/IView";
 import { AddView } from "../../redux/Workspace/WorkspaceActions";
-import NavHeader from "../NavHead/NavHead";
+import NavHead from "../NavHead/NavHead";
 import NavList from "../NavList/NavList";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -16,8 +16,11 @@ const DashboardMenu = () => {
         dispatch({type: AddView, payload: {id: uuidv4(), name: dashboard?.name, type: ViewType.Dashboard, meta: dashboard}});
     }
     return <>
-        <NavHeader />
-        <NavList items={items} onSelect={handleSelect} />
+        <NavHead />
+        <NavList 
+            items={items} 
+            onSelect={handleSelect} 
+        />
     </>
 }
 

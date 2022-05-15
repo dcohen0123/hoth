@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Nav from "../Nav/Nav";
-import Workspace from "../Workspace/Workspace";
+import WorkspaceContainer from "../Workspace/WorkspaceContainer";
 
 const StyledDiv = styled.div`
     display: flex;
@@ -11,7 +11,7 @@ const StyledDiv = styled.div`
 const Hoth = () => {
     return <StyledDiv>
         <Nav />
-        <Workspace />
+        <WorkspaceContainer />
     </StyledDiv>
 }
 

@@ -1,5 +1,5 @@
 export enum EventType {
-    WidgetDrill="WIDGET_DRILL"
+    WidgetDrill="WIDGET_DRILL",
 }
 
 export interface IEvent {

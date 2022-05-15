@@ -25,7 +25,7 @@ const StyledIcon = styled.div`
 `
 
 const NavHead = () => {
-    const selected = useSelector((state: IState) => state.navbarManager?.selected)
+    const selected = useSelector((state: IState) => state.navManager?.selected)
     const dispatch = useDispatch()
     const handleClick = () => {
         dispatch({type: NavItemSelected, payload: null})

@@ -8,7 +8,7 @@ import { IWorkspaceManager } from "./IWorkspaceManager";
 
 export interface IState {
     dataManager: IDataManager,
-    navbarManager: INavManager,
+    navManager: INavManager,
     workspaceManager: IWorkspaceManager,
     userManager: IUserManager,
     settingsManager: ISettingsManager,

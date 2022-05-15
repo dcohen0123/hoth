@@ -4,7 +4,6 @@ import { IState } from '../../interface/IState';
 import { NavItemType } from '../../interface/INavItem';
 import DashboardMenu from '../DashboardMenu/DashboardMenu';
 
-
 export const menuMap: Map<NavItemType, JSX.Element> = new Map<NavItemType, JSX.Element>([
     [NavItemType.DashBoard, <DashboardMenu />],
     // [NavbarItemType.Export, <ExportMenu />],
@@ -25,7 +24,7 @@ const StyledNavMenu = styled.div<{open: boolean}>`
 `;
 
 const NavMenu = () => {
-    const selected = useSelector((state: IState) => state.navbarManager?.selected)
+    const selected = useSelector((state: IState) => state.navManager?.selected)
     const menu = selected ? menuMap.get(selected?.type) : null
     return <StyledNavMenu open={!!menu}>{menu}</StyledNavMenu>
 }
