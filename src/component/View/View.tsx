@@ -9,7 +9,7 @@ export interface IViewProps {
 }
 
 export const viewMap: Map<ViewType, JSX.Element> = new Map<ViewType, JSX.Element>([
-    [ViewType.Dashboard, <Dashboard />],
+    [ViewType.Dashboard, <Dashboard viewId={""} />],
 ])
 
 const StyledView = styled.div`
@@ -22,7 +22,7 @@ const View = ({viewId}: IViewProps) => {
     const view = workspace?.views?.find(x => x?.id === viewId);
     const Elmt: any = view?.type ? viewMap?.get(view?.type) : null;
     // return <Elmt viewId={viewId} />;
-    return <StyledView><Dashboard /></StyledView>;
+    return <StyledView><Dashboard viewId={""} /></StyledView>;
 }
 
 

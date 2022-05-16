@@ -16,6 +16,6 @@ export interface IWidget {
     data: any;
     inputs: IInput[];
     events: IEvent[];
-    meta?: any;
     pos: IPos;
+    meta?: any;
 }
