@@ -42,7 +42,7 @@ const Split = ({direction="horizontal", children}: ISplitProps) => {
     const handleMouseMove = (e: any) => {
         if (isMouseDown.current) {
             let value: number = 1;
-            const rect = box.current.getBoundingClientRect()
+            const rect = box.current.getBoundingClientRect();
             if (direction === "vertical") {
                 value = (e.clientX - rect.left) / rect.width;
             } else if (direction === "horizontal") {
