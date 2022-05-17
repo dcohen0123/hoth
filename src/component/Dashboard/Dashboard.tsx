@@ -8,6 +8,7 @@ import Split from "../Split/Split";
 import Highcharts, { Chart } from 'highcharts'
 import { EventType } from "../../interface/IEvent";
 import { AddEvent } from "../../redux/Event/EventAction";
+import { AgGridReact } from "ag-grid-react";
 export interface IDashboardProps {
     viewId: string;   
 }
@@ -83,12 +84,38 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                 </div>
             </Split>
             <Split onResize={handleResize} direction={"horizontal"}>
-                <div style={{width: "100%", height: "100%", background: "#fff"}}>Widget 3</div>
+                <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", flexDirection: "column"}}>
+                    <h5 style={{marginLeft: "3px"}}><strong>Completeness Indicator</strong></h5>
+                    <div style={{flex: 1}}>
+                        <div className="ag-theme-balham" style={{height: "100%", width: "100%"}}>
+                            <AgGridReact 
+                                columnDefs={[{field: "Subject"}, {field: "Completeness"}, {field: "Percent"}, {field: "Go To Subject"}]} 
+                                rowData={[{"Subject": 88, "Percent": "84%", "Go To Subject": "<Link To Subject>"},
+                                {"Subject": 87, "Percent": "84%", "Go To Subject": "<Link To Subject>"},
+                                {"Subject": 86, "Percent": "82%", "Go To Subject": "<Link To Subject>"},
+                                {"Subject": 85, "Percent": "81%", "Go To Subject": "<Link To Subject>"}]}
+                            />
+                        </div>
+                    </div>
+                </div>
                 {null as any}
             </Split>
         </Split>
         <Split onResize={handleResize} direction={"vertical"}>
-            <div style={{width: "100%", height: "100%", background: "#fff"}}>Widget 4</div>
+            <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", flexDirection: "column"}}>
+                <h5 style={{marginLeft: "3px"}}><strong># Subjects</strong></h5>
+                <div style={{flex: 1}}>
+                    <div className="ag-theme-balham" style={{height: "100%", width: "100%"}}>
+                        <AgGridReact 
+                            columnDefs={[{field: "Date"}, {field: "# Subjects"}]} 
+                            rowData={[{"Date": "1/8/2022", "# Subjects": 14},
+                            {"Date": "1/15/2022", "# Subjects": 15},
+                            {"Date": "1/23/2022", "# Subjects": 12},
+                            {"Date": "1/31/2022", "# Subjects": 16}]}
+                        />
+                    </div>
+                </div>
+            </div>
             <div style={{width: "100%", height: "100%", background: "#fff"}}>Widget 5</div>
         </Split>
     </Split>
