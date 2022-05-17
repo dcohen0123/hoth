@@ -1,9 +1,14 @@
 import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { EventType } from "../../interface/IEvent";
+import { AddEvent } from "../../redux/Event/EventAction";
 
 export interface ISplitProps {
+    initSplit?: number;
     direction: "horizontal" | "vertical";
     children: JSX.Element[];
+    onResize?: (split: number) => void;
 }
 
 const StyledSplit = styled.div`
@@ -29,14 +34,15 @@ const StyledDiv = styled.div<{direction: "vertical" | "horizontal", fullSize?: b
     vertical-align: top;
 `
 
-const Split = ({direction="horizontal", children}: ISplitProps) => {
-    const [split, setSplit] = useState(.5);
+const Split = ({direction="horizontal", children, initSplit, onResize}: ISplitProps) => {
+    const [split, setSplit] = useState(initSplit ?? .5);
     const isMouseDown = useRef<boolean>(false);
     const box = useRef<any>();
     const handleMouseDown = () => {
         isMouseDown.current = true;
     }
     const handleMouseUp = () => {
+        onResize && onResize(split);
         isMouseDown.current = false;
     }
     const handleMouseMove = (e: any) => {

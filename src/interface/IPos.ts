@@ -1,6 +1,6 @@
 export interface IPos {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
+    pctX: number;
+    pctY: number;
+    pctWidth: number;
+    pctHeight: number;
 }

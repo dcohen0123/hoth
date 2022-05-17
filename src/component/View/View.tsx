@@ -22,7 +22,7 @@ const View = ({viewId}: IViewProps) => {
     const view = workspace?.views?.find(x => x?.id === viewId);
     const Elmt: any = view?.type ? viewMap?.get(view?.type) : null;
     // return <Elmt viewId={viewId} />;
-    return <StyledView><Dashboard viewId={""} /></StyledView>;
+    return <StyledView><Dashboard viewId={viewId} /></StyledView>;
 }
 
 

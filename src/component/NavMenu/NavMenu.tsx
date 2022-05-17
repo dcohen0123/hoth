@@ -3,13 +3,17 @@ import { useSelector } from 'react-redux';
 import { IState } from '../../interface/IState';
 import { NavItemType } from '../../interface/INavItem';
 import DashboardMenu from '../DashboardMenu/DashboardMenu';
+import ExportMenu from '../ExportMenu/ExportMenu';
+import BrowseMenu from '../BrowseMenu/BrowseMenu';
+import LearnMenu from '../LearnMenu/LearnMenu';
+import MoreMenu from '../MoreMenu/MoreMenu';
 
 export const menuMap: Map<NavItemType, JSX.Element> = new Map<NavItemType, JSX.Element>([
     [NavItemType.DashBoard, <DashboardMenu />],
-    // [NavbarItemType.Export, <ExportMenu />],
-    // [NavbarItemType.Browse, <BrowseMenu />],
-    // [NavbarItemType.Learn, <LearnMenu />],
-    // [NavbarItemType.More, <MoreMenu />],
+    [NavItemType.Export, <ExportMenu />],
+    [NavItemType.Browse, <BrowseMenu />],
+    [NavItemType.Learn, <LearnMenu />],
+    [NavItemType.More, <MoreMenu />],
 ])
 
 const StyledNavMenu = styled.div<{open: boolean}>`

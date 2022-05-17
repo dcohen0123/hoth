@@ -26,11 +26,15 @@ const StyledWorkspace = styled.div`
     height: 100%;
     overflow: hidden;
     .lm_tab {
-        background: white;
-        color: black;
-        font-weight: bold;
+        background: #fff;
+        color: #292929;
         margin: 0;
         border: 1px solid #cccccc;
+    }
+    .lm_tab.lm_active {
+        color: #000;
+        height: 15px;
+        font-weight: bold;
     }
     .lm_header {
         background: #d9d9d9ff;
@@ -64,18 +68,31 @@ class Workspace extends React.Component<any, any> {
         if (this._isMounted) return;
         this._isMounted = true;
         setTimeout(() => {
-            this.gl = new GoldenLayout(config, this.layoutRef.current);
-            this.gl.registerComponent('View', this.wrapComponent(View, store));
-            this.gl.init();
+            this.initGoldenLayout();
             window.addEventListener('resize', () => {
                 this.gl?.updateSize();
             });
         }, 0)
     }
+    private initGoldenLayout() {
+        this.gl = new GoldenLayout(config, this.layoutRef.current);
+        this.gl.registerComponent('View', this.wrapComponent(View, store));
+        this.gl.init();
+        this.gl.on('componentCreated', (component: any) => {
+            component.container.on('resize', (e: any) => {
+                this.props.resize(component?.config?.props?.viewId);
+            });
+        });
+    }
+
     componentDidUpdate(prevProps: any) {
         if (this.props?.views?.length > prevProps?.views?.length) {
             const view = this.props?.views?.[this.props?.views?.length - 1];
             setTimeout(() => {
+                if (this.gl?.root?.contentItems?.length === 0) {
+                    this.gl.destroy();
+                    this.initGoldenLayout();
+                }
                 this.gl?.root?.contentItems?.[0]?.addChild({
                     type: 'react-component',
                     component: 'View',

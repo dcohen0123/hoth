@@ -2,6 +2,7 @@ import { IDrill } from "./IDrill";
 import { IEvent } from "./IEvent";
 import { IInput } from "./IInput";
 import { IPos } from "./IPos";
+import { ISize } from "./ISize";
 
 export enum WidgetType {
     Chart="chart",
@@ -16,6 +17,7 @@ export interface IWidget {
     data: any;
     inputs: IInput[];
     events: IEvent[];
+    size: ISize;
     pos: IPos;
     meta?: any;
 }

@@ -1,5 +1,7 @@
 import { connect } from "react-redux";
+import { EventType } from "../../interface/IEvent";
 import { IState } from "../../interface/IState";
+import { AddEvent } from "../../redux/Event/EventAction";
 import Workspace from "./Workspace";
 
 function mapStateToProps(state: IState) {
@@ -8,4 +10,10 @@ function mapStateToProps(state: IState) {
     return { views, nav };
 }
 
-export default connect(mapStateToProps)(Workspace)
+const mapDispatchToProps = (dispatch: any) => ({
+    resize: (viewId: string) => {
+        return dispatch({type: AddEvent, payload: {type: EventType.WidgetResize, payload: {viewId}}})
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Workspace)
