@@ -64,7 +64,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
         <Split onResize={handleResize} direction={"horizontal"}>
             <Split onResize={handleResize} direction={"vertical"} initSplit={.8}>
                 <div style={{width: "100%", height: "100%", background: "#fff"}} ref={divRef}>
-                    <h5 style={{marginLeft: "3px"}}><strong>Number of Subjects Cumulative in Institution</strong></h5>
+                    <h5 style={{marginLeft: "3px"}}><strong># Subjects Cumulative in Institution</strong></h5>
                     <div>
                         <HighchartsReact highcharts={Highcharts} options={{...options, chart: {width, height}}} callback={handleChart}/>
                     </div>
@@ -85,7 +85,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
             </Split>
             <Split onResize={handleResize} direction={"horizontal"}>
                 <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", flexDirection: "column"}}>
-                    <h5 style={{marginLeft: "3px"}}><strong>Completeness Indicator</strong></h5>
+                    <h5 style={{marginLeft: "3px"}}><strong>Completeness</strong></h5>
                     <div style={{flex: 1}}>
                         <div className="ag-theme-balham" style={{height: "100%", width: "100%"}}>
                             <AgGridReact 
@@ -118,7 +118,12 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                     </div>
                 </div>
             </div>
-            <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", justifyContent: "center", alignItems: "center"}}><img style={{width: "600px", height: "300px"}} src="contact.png" /></div>
+            <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", flexDirection: "column"}}>
+                <h5 style={{marginLeft: "3px"}}><strong>Contact</strong></h5>
+                <div style={{display: "flex", flex: 1, justifyContent: "center", alignItems: "center"}}>
+                    <img style={{width: "600px", height: "300px"}} src="contact.png" />
+                </div>
+            </div>
         </Split>
     </Split>
 }
