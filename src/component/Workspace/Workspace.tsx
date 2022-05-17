@@ -22,6 +22,7 @@ const config: any = {
 };
 
 const StyledWorkspace = styled.div`
+    background: #000 !important;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -30,14 +31,30 @@ const StyledWorkspace = styled.div`
         color: #292929;
         margin: 0;
         border: 1px solid #cccccc;
+        height: 20px;
     }
     .lm_tab.lm_active {
         color: #000;
-        height: 15px;
         font-weight: bold;
+        position: relative;
+        top: 1px;
+        border-top: 1px solid #fff;
     }
     .lm_header {
         background: #d9d9d9ff;
+        height: 25px !important;
+    }
+    .lm_tab .lm_title {
+        padding-top: 2px;
+    }
+    .lm_tab .lm_close_tab {
+        top: 6px;
+    }
+    .lm_tab.lm_active .lm_title {
+        padding-top: 1px !important;
+    }
+    .lm_tab.lm_active .lm_close_tab {
+        top: 5px  !important;
     }
 `;
 

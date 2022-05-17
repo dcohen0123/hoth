@@ -11,7 +11,7 @@ export interface IDataGridProps {
 
 const DataGrid = ({viewId, widgetId}: IDataGridProps) => {
     const widget: IWidget = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.widgets?.find((x: IWidget) => x?.id === widgetId));
-    const datagrid: IDataGrid = widget?.meta;
+    const datagrid: IDataGrid = widget?.main?.meta;
     return <AgGridReact columnDefs={datagrid?.cols} />;
 }
 

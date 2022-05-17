@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { MainType } from "../../interface/IMain";
 import { IState } from "../../interface/IState";
-import { IWidget, WidgetType } from "../../interface/IWidget";
+import { IWidget } from "../../interface/IWidget";
 import DataGrid from "../DataGrid/DataGrid";
 
 const StyledWidgetBody = styled.div`
@@ -13,14 +14,14 @@ export interface IWidgetBodyProps {
     widgetId: string;
 }
 
-export const bodyMap: Map<WidgetType, JSX.Element> = new Map<WidgetType, JSX.Element>([
-    [WidgetType.Grid, <DataGrid viewId={""} widgetId={""} />],
+export const bodyMap: Map<MainType, JSX.Element> = new Map<MainType, JSX.Element>([
+    [MainType.Grid, <DataGrid viewId={""} widgetId={""} />],
     // [WidgetType.Chart, <Chart />]
 ])
 
 const WidgetBody = ({viewId, widgetId}: IWidgetBodyProps) => {
     const widget: IWidget = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.widgets?.find((x: IWidget) => x?.id === widgetId));
-    const Elmt: any = bodyMap.get(widget?.type);
+    const Elmt: any = bodyMap.get(widget?.main?.type);
     return <StyledWidgetBody>
         <Elmt viewId={viewId} widgetId={widgetId} />
     </StyledWidgetBody>

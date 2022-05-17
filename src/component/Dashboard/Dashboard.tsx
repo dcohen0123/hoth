@@ -89,6 +89,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                     <div style={{flex: 1}}>
                         <div className="ag-theme-balham" style={{height: "100%", width: "100%"}}>
                             <AgGridReact 
+                                defaultColDef={{resizable: true}}
                                 columnDefs={[{field: "Subject"}, {field: "Completeness"}, {field: "Percent"}, {field: "Go To Subject"}]} 
                                 rowData={[{"Subject": 88, "Percent": "84%", "Go To Subject": "<Link To Subject>"},
                                 {"Subject": 87, "Percent": "84%", "Go To Subject": "<Link To Subject>"},
@@ -107,6 +108,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                 <div style={{flex: 1}}>
                     <div className="ag-theme-balham" style={{height: "100%", width: "100%"}}>
                         <AgGridReact 
+                            defaultColDef={{resizable: true}}
                             columnDefs={[{field: "Date"}, {field: "# Subjects"}]} 
                             rowData={[{"Date": "1/8/2022", "# Subjects": 14},
                             {"Date": "1/15/2022", "# Subjects": 15},
@@ -116,7 +118,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                     </div>
                 </div>
             </div>
-            <div style={{width: "100%", height: "100%", background: "#fff"}}>Widget 5</div>
+            <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", justifyContent: "center", alignItems: "center"}}><img style={{width: "600px", height: "300px"}} src="contact.png" /></div>
         </Split>
     </Split>
 }
