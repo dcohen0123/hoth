@@ -25,12 +25,19 @@ const options = {
         title: ""
     },
     xAxis: {
-        categories: ['1/1/2022', '1/8/2022', '1/15/2022', '1/22/2022', '1/29/2022'],
+        categories: ['1/1/2022', '1/8/2022', '1/15/2022', '1/22/2022', '1/29/2022', '2/5/2022', '2/15/2022', 
+        '2/29/2022', '3/15/2022', '4/20/2022', '4/25/2022', '5/5/2022', '5/10/2022', '5/15/2022',
+        '5/20/2022', '5/25/2022', '5/30/2022', '6/5/2022', '6/10/2022', '6/15/2022'
+    ],
       },
     series: [{
         type: 'column',
-        data: [1 ,2, 3, 4, 5]
+        data: [10, 20, 30, 50, 80, 100, 120, 140, 160, 200, 210, 220, 230, 240, 250, 260, 280, 310, 350, 400]
     }]
+}
+
+const ProgressBar = () => {
+    return <div style={{marginTop: "5px", width: "100%", height: "15px", "border": "1px solid #ccc", borderRadius: "30px", background: "linear-gradient(to right, #51c734ff 80%, white 80% 100%)"}}></div>
 }
 
 const Dashboard = ({viewId}: IDashboardProps) => {
@@ -62,7 +69,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
     }
     return <Split onResize={handleResize} direction={"horizontal"} initSplit={.66}>
         <Split onResize={handleResize} direction={"horizontal"}>
-            <Split onResize={handleResize} direction={"vertical"} initSplit={.8}>
+            <Split onResize={handleResize} direction={"vertical"} initSplit={.9}>
                 <div style={{width: "100%", height: "100%", background: "#fff"}} ref={divRef}>
                     <h5 style={{marginLeft: "3px"}}><strong># Subjects Cumulative in Institution</strong></h5>
                     <div>
@@ -89,8 +96,14 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                     <div style={{flex: 1}}>
                         <div className="ag-theme-balham" style={{height: "100%", width: "100%"}}>
                             <AgGridReact 
-                                defaultColDef={{resizable: true}}
-                                columnDefs={[{field: "Subject"}, {field: "Completeness"}, {field: "Percent"}, {field: "Go To Subject"}]} 
+                                defaultColDef={{resizable: true, sortable: true}}
+                                columnDefs={[{field: "Subject"}, {field: "Completeness", width: 400, cellRenderer: ProgressBar}, {field: "Percent"}, {field: "Go To Subject"}]} 
+                                pinnedTopRowData={[{"Subject": "Total", "Percent": "84%", "Go To Subject": "<Link To Subject>"}]}
+                                getRowStyle={(params) => {
+                                    if (params.node.isRowPinned()) {
+                                        return {background: "#efefefff", fontWeight: "bold"}
+                                    }
+                                }}
                                 rowData={[{"Subject": 88, "Percent": "84%", "Go To Subject": "<Link To Subject>"},
                                 {"Subject": 87, "Percent": "84%", "Go To Subject": "<Link To Subject>"},
                                 {"Subject": 86, "Percent": "82%", "Go To Subject": "<Link To Subject>"},
@@ -108,8 +121,14 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                 <div style={{flex: 1}}>
                     <div className="ag-theme-balham" style={{height: "100%", width: "100%"}}>
                         <AgGridReact 
-                            defaultColDef={{resizable: true}}
+                            defaultColDef={{resizable: true, sortable: true}}
                             columnDefs={[{field: "Date"}, {field: "# Subjects"}]} 
+                            pinnedTopRowData={[{"Date": "Total", "# Subjects": "210"}]}
+                            getRowStyle={(params) => {
+                                if (params.node.isRowPinned()) {
+                                    return {background: "#efefefff", fontWeight: "bold"}
+                                }
+                            }}
                             rowData={[{"Date": "1/8/2022", "# Subjects": 14},
                             {"Date": "1/15/2022", "# Subjects": 15},
                             {"Date": "1/23/2022", "# Subjects": 12},
@@ -121,7 +140,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
             <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", flexDirection: "column"}}>
                 <h5 style={{marginLeft: "3px"}}><strong>Contact</strong></h5>
                 <div style={{display: "flex", flex: 1, justifyContent: "center", alignItems: "center"}}>
-                    <img style={{width: "600px", height: "300px"}} src="contact.png" />
+                    <img style={{width: "525px", height: "280px"}} src="contact.png" />
                 </div>
             </div>
         </Split>
