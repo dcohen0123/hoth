@@ -27,7 +27,7 @@ const StyledNavMenu = styled.div<{open: boolean}>`
     transition: width .2s;
     display: flex;
     flex-direction: column;
-    border-right: 1px solid #cccccc;
+    border-right: 1px solid #ccc;
     white-space: nowrap;
     overflow: hidden;
     user-select: none;

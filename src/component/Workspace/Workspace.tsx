@@ -30,7 +30,7 @@ const StyledWorkspace = styled.div`
         background: #fff;
         color: #292929;
         margin: 0;
-        border: 1px solid #cccccc;
+        border: 1px solid #ccc;
         height: 20px;
     }
     .lm_tab.lm_active {
@@ -43,6 +43,7 @@ const StyledWorkspace = styled.div`
     .lm_header {
         background: #d9d9d9ff;
         height: 25px !important;
+        width: calc(100% + 5px);
     }
     .lm_tab .lm_title {
         padding-top: 2px;

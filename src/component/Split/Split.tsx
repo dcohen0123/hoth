@@ -22,7 +22,7 @@ const StyledSplitter = styled.div<{direction: "vertical" | "horizontal"}>`
     height: ${props => props.direction === "horizontal" ? "2px" : "100%"};
     cursor: ${props => props.direction === "vertical" ? "col-resize" : "row-resize"};
     display: ${props => props.direction === "vertical" ? "inline-block" : "block"};
-    background: #cccccc;
+    background: #ccc;
     vertical-align: top;
 `;
 
