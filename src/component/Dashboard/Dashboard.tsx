@@ -9,10 +9,11 @@ import Highcharts, { Chart } from 'highcharts'
 import { EventType } from "../../interface/IEvent";
 import { AddEvent } from "../../redux/Event/EventAction";
 import { AgGridReact } from "ag-grid-react";
-import { Select, DatePicker } from "antd";
-
+import { Select, DatePicker, Input } from "antd";
+//@ts-ignore
+import { EntypoBarGraph } from 'react-entypo';
 import styled from "styled-components";
-import { MaximizeOutlined, MinimizeOutlined } from "@mui/icons-material";
+import { MaximizeOutlined, MinimizeOutlined, OpenInNewOutlined } from "@mui/icons-material";
 export interface IDashboardProps {
     viewId: string;   
 }
@@ -22,13 +23,20 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 
 const options = {
+    plotOptions: {
+        series: {
+            animation: false
+        }
+    },
     title: {
         text: ""
     },
     legend: {
         enabled: false
     },
-    chart: {},
+    chart: {
+        animation: false
+    },
     yAxis: {
         title: ""
     },
@@ -39,6 +47,7 @@ const options = {
     ],
       },
     series: [{
+        name: "# Subjects Cumulative",
         type: 'column',
         data: [10, 20, 30, 50, 80, 100, 120, 140, 160, 200, 210, 220, 230, 240, 250, 260, 280, 310, 350, 400]
     }]
@@ -55,8 +64,46 @@ const StyledSelect = styled(Select)`
     color: #000 !important;
     .ant-select-selector {
         border: 1px solid #c2c2c2 !important;
+        font-size: 13px;
+        height: 22px !important;
     }
     input::placeholder {
+        color: #000 !important;
+    }
+`
+
+const StyledWidgetSelect = styled(Select)`
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 100px;
+    top: -3px;
+    margin-right: 4px;
+    .ant-select-selector {
+        border: 1px solid #c2c2c2 !important;
+        padding: 0;
+        font-size: 12px;
+        height: 19px !important;
+    }
+    .ant-select-selection-item {
+        padding: 0;
+        position: relative;
+        top: -3px;
+    }
+`;
+
+const StyledInput = styled(Input)`
+    vertical-align: top;
+    position: relative;
+    top: 1px;
+    margin-right: 3px;
+    height: 19px;
+    width: 100px;
+    font-size: 12px;
+    padding:0;
+    padding-left: 5px;
+    border: 1px solid #c2c2c2 !important;
+    ::placeholder {
         color: #000 !important;
     }
 `
@@ -66,8 +113,21 @@ const StyledRangePicker = styled(RangePicker)`
     color: #000 !important;
     border: 1px solid #c2c2c2 !important;
     border-radius: 3px;
+    height: 22px !important;
     input::placeholder {
         color: #000 !important;
+        font-size: 13px;
+        height: 22px !important;
+    }
+`
+
+const StyledIcon = styled.div`
+    vertical-align: top;
+    display: inline-block;
+    margin-right: 2px;  
+    svg {
+        width: 13px !important;
+        height: 13px !important;
     }
 `
 
@@ -79,7 +139,10 @@ const Dashboard = ({viewId}: IDashboardProps) => {
     const [width, setWidth] = useState(0);
     const [height, setHeight] = useState(0);
     const [value, setValue] = useState(null);
-    const [max, setMax] = useState<any>(null)
+    const [max, setMax] = useState<any>(null);
+    const [interval1, setInterval1] = useState<string>("week")
+    const [interval2, setInterval2] = useState<string>("week")
+    const [legend, setLegend] = useState<boolean>(false)
     useEffect(() => {
         const rect: any = divRef.current.getBoundingClientRect();
         setWidth(rect?.width);
@@ -110,6 +173,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
             setMax(comp)
         }
     }
+    const handleLegend = () => setLegend(!legend)
     const handleMin = () => setMax(null)
     return <div style={{display: "flex", flexDirection: "column", width: "100%", height: "100%"}}>
         <div style={{width: "100%", background: "#fff",  padding: "2px 3px 2px 2px", borderBottom: "1px solid #ccc", borderTop: "1px solid #ccc", display: "flex", justifyContent: "space-between", flex: 0}}>
@@ -135,13 +199,29 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                 <Split onResize={handleResize} direction={"horizontal"}>
                     <Split onResize={handleResize} direction={"vertical"} initSplit={.9}>
                         <div style={{width: "100%", height: "100%", background: "#fff", position: max === "numSubjects" ? "absolute" : "static", zIndex: max === "numSubjects" ? 1 : 0, display: "flex", flexDirection: "column"}} ref={divRef}>
-                            <div style={{display: "flex", justifyContent: "space-between", flex: 0}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong># Subjects Cumulative in Institution</strong></h5>{max  === "numSubjects" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("numSubjects")} style={{width: 20, height: 20}}/>}</div>
+                            <div style={{display: "flex", justifyContent: "space-between", flex: 0, height: 22}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong># Subjects Cumulative in Institution</strong></h5><div>
+                            <StyledWidgetSelect
+                                placeholder={<span style={{color: "#000"}}>Interval</span>}
+                                size={"small"}
+                                optionFilterProp="children"
+                                value={interval1}
+                                onChange={(value: any) => setInterval1(value)}
+                                filterOption={(input: any, option: any) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                }
+                            >
+                                <Option value="week">By Week</Option>
+                                <Option value="month">By Month</Option>
+                                <Option value="year">By Year</Option>
+                                <Option value="day">By Day</Option>
+                            </StyledWidgetSelect>
+                                <StyledIcon onClick={handleLegend}><EntypoBarGraph /></ StyledIcon>{max  === "numSubjects" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("numSubjects")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined style={{width: 20, height: 20}} /></div></div>
                             <div style={{overflow: "hidden", width, height}}>
-                                <HighchartsReact highcharts={Highcharts} options={{...options, chart: {width, height}}} callback={handleChart}/>
+                                <HighchartsReact highcharts={Highcharts} options={{...options, legend: {enabled: legend}, chart: {...options.chart, width, height}}} callback={handleChart}/>
                             </div>
                         </div>
-                        <div style={{width: "100%", height: "100%", flexDirection: "column", background: "#fff", display: "flex"}}>
-                            <h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Stats</strong></h5>
+                        <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", left: 0, top: 0, flexDirection: "column", position: max === "Stats" ? "absolute" : "static", zIndex: max === "Stats" ? 1 : 0}}>
+                            <div style={{display: "flex", justifyContent: "space-between", flex: 0, height: 22}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Stats</strong></h5><div>{max  === "Stats" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("Stats")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined style={{width: 20, height: 20}} /></div></div>
                             <div style={{flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
                                 <div>
                                     <h3><strong>This Week</strong></h3>
@@ -156,7 +236,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                     </Split>
                     <Split onResize={handleResize} direction={"horizontal"}>
                         <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", left: 0, top: 0, flexDirection: "column", position: max === "completeness" ? "absolute" : "static", zIndex: max === "completeness" ? 1 : 0}}>
-                            <div style={{display: "flex", justifyContent: "space-between", flex: 0}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Completeness</strong></h5>{max === "completeness" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("completeness")} style={{width: 20, height: 20}}/>}</div>
+                            <div style={{display: "flex", justifyContent: "space-between", flex: 0, height: 22}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Completeness</strong></h5><div><StyledInput placeholder="Subject" />{max === "completeness" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("completeness")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined style={{width: 20, height: 20}} /></div></div>
                             <div style={{flex: 1}}>
                                 <div className="ag-theme-balham" style={{height: "100%", width: "100%"}}>
                                     <AgGridReact 
@@ -180,8 +260,24 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                     </Split>
                 </Split>
                 <Split onResize={handleResize} direction={"vertical"}>
-                    <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", flexDirection: "column"}}>
-                        <h5 style={{marginLeft: "3px", marginBottom: 0}}><strong># Subjects</strong></h5>
+                <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", left: 0, top: 0, flexDirection: "column", position: max === "#Subjects" ? "absolute" : "static", zIndex: max === "#Subjects" ? 1 : 0}}>
+                    <div style={{display: "flex", justifyContent: "space-between", flex: 0, height: 22}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong># Subjects</strong></h5><div>
+                        <StyledWidgetSelect
+                                placeholder={<span style={{color: "#000"}}>Interval</span>}
+                                size={"small"}
+                                optionFilterProp="children"
+                                value={interval2}
+                                onChange={(value: any) => setInterval2(value)}
+                                filterOption={(input: any, option: any) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                }
+                            >
+                                <Option value="week">By Week</Option>
+                                <Option value="month">By Month</Option>
+                                <Option value="year">By Year</Option>
+                                <Option value="day">By Day</Option>
+                            </StyledWidgetSelect>
+                        {max === "#Subjects" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("#Subjects")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined style={{width: 20, height: 20}} /></div></div>
                         <div style={{flex: 1}}>
                             <div className="ag-theme-balham" style={{height: "100%", width: "100%"}}>
                                 <AgGridReact 
@@ -201,8 +297,8 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                             </div>
                         </div>
                     </div>
-                    <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", flexDirection: "column"}}>
-                        <h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Contact</strong></h5>
+                    <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", left: 0, top: 0, flexDirection: "column", position: max === "Contact" ? "absolute" : "static", zIndex: max === "Contact" ? 1 : 0}}>
+                    <div style={{display: "flex", justifyContent: "space-between", flex: 0}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Contact</strong></h5><div>{max === "Contact" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("Contact")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined style={{width: 20, height: 20}} /></div></div>
                         <div style={{display: "flex", flex: 1, justifyContent: "center", alignItems: "center"}}>
                             <img style={{width: "525px", height: "280px"}} src="contact.png" />
                         </div>

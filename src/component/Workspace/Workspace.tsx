@@ -101,6 +101,11 @@ class Workspace extends React.Component<any, any> {
                 this.props.resize(component?.config?.props?.viewId);
             });
         });
+        this.gl.on('stackCreated', (s: any) => {
+            s.on('activeContentItemChanged', (e: any) => {
+                this.props.resize(e?.config?.props?.viewId);
+            })
+        })
     }
 
     componentDidUpdate(prevProps: any) {
