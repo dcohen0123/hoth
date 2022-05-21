@@ -14,6 +14,7 @@ import { Select, DatePicker, Input } from "antd";
 import { EntypoBarGraph } from 'react-entypo';
 import styled from "styled-components";
 import { MaximizeOutlined, MinimizeOutlined, OpenInNewOutlined } from "@mui/icons-material";
+import moment from "moment";
 export interface IDashboardProps {
     viewId: string;   
 }
@@ -67,9 +68,6 @@ const StyledSelect = styled(Select)`
         font-size: 13px;
         height: 22px !important;
     }
-    input::placeholder {
-        color: #000 !important;
-    }
 `
 
 const StyledWidgetSelect = styled(Select)`
@@ -101,21 +99,17 @@ const StyledInput = styled(Input)`
     width: 100px;
     font-size: 12px;
     padding:0;
+    padding-right: 3px;
     padding-left: 5px;
     border: 1px solid #c2c2c2 !important;
-    ::placeholder {
-        color: #000 !important;
-    }
 `
 
 const StyledRangePicker = styled(RangePicker)`
     margin: 0;
-    color: #000 !important;
     border: 1px solid #c2c2c2 !important;
     border-radius: 3px;
     height: 22px !important;
     input::placeholder {
-        color: #000 !important;
         font-size: 13px;
         height: 22px !important;
     }
@@ -138,11 +132,12 @@ const Dashboard = ({viewId}: IDashboardProps) => {
     const divRef = useRef<any>();
     const [width, setWidth] = useState(0);
     const [height, setHeight] = useState(0);
-    const [value, setValue] = useState(null);
+    const [value, setValue] = useState("nyu");
     const [max, setMax] = useState<any>(null);
     const [interval1, setInterval1] = useState<string>("week")
     const [interval2, setInterval2] = useState<string>("week")
     const [legend, setLegend] = useState<boolean>(false)
+    const [range, setRange] = useState<any>([moment({year: 2022, month: 0, day: 1}), moment()])
     useEffect(() => {
         const rect: any = divRef.current.getBoundingClientRect();
         setWidth(rect?.width);
@@ -179,8 +174,9 @@ const Dashboard = ({viewId}: IDashboardProps) => {
         <div style={{width: "100%", background: "#fff",  padding: "2px 3px 2px 2px", borderBottom: "1px solid #ccc", borderTop: "1px solid #ccc", display: "flex", justifyContent: "space-between", flex: 0}}>
         <StyledSelect
             showSearch
-            placeholder={<span style={{color: "#000"}}>Institution</span>}
+            placeholder={<span>Institution</span>}
             size={"small"}
+            allowClear
             optionFilterProp="children"
             value={value}
             onChange={(value: any) => setValue(value)}
@@ -192,7 +188,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
             <Option value="nyu">NYU Langone</Option>
             <Option value="harvard">Harvard Medical School</Option>
         </StyledSelect>
-        <StyledRangePicker size="small" />
+        <StyledRangePicker size="small" value={range} onChange={(v) => setRange(v)} />
         </div>
         <div style={{flex: 1, position: "relative"}}>
             <Split onResize={handleResize} direction={"horizontal"} initSplit={.66}>
@@ -201,7 +197,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                         <div style={{width: "100%", height: "100%", background: "#fff", position: max === "numSubjects" ? "absolute" : "static", zIndex: max === "numSubjects" ? 1 : 0, display: "flex", flexDirection: "column"}} ref={divRef}>
                             <div style={{display: "flex", justifyContent: "space-between", flex: 0, height: 22}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong># Subjects Cumulative in Institution</strong></h5><div>
                             <StyledWidgetSelect
-                                placeholder={<span style={{color: "#000"}}>Interval</span>}
+                                placeholder={<span>Interval</span>}
                                 size={"small"}
                                 optionFilterProp="children"
                                 value={interval1}
@@ -236,7 +232,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                     </Split>
                     <Split onResize={handleResize} direction={"horizontal"}>
                         <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", left: 0, top: 0, flexDirection: "column", position: max === "completeness" ? "absolute" : "static", zIndex: max === "completeness" ? 1 : 0}}>
-                            <div style={{display: "flex", justifyContent: "space-between", flex: 0, height: 22}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Completeness</strong></h5><div><StyledInput placeholder="Subject" />{max === "completeness" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("completeness")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined style={{width: 20, height: 20}} /></div></div>
+                            <div style={{display: "flex", justifyContent: "space-between", flex: 0, height: 22}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Completeness</strong></h5><div><StyledInput allowClear placeholder="Subject" />{max === "completeness" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("completeness")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined style={{width: 20, height: 20}} /></div></div>
                             <div style={{flex: 1}}>
                                 <div className="ag-theme-balham" style={{height: "100%", width: "100%"}}>
                                     <AgGridReact 
