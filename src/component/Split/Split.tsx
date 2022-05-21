@@ -15,6 +15,7 @@ const StyledSplit = styled.div`
     width: 100%;
     height: 100%;
     user-select: none;
+    overflow: hidden;
 `;
 
 const StyledSplitter = styled.div<{direction: "vertical" | "horizontal"}>`

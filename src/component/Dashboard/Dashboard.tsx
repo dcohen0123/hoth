@@ -12,6 +12,7 @@ import { AgGridReact } from "ag-grid-react";
 import { Select, DatePicker } from "antd";
 
 import styled from "styled-components";
+import { MaximizeOutlined, MinimizeOutlined } from "@mui/icons-material";
 export interface IDashboardProps {
     viewId: string;   
 }
@@ -49,7 +50,7 @@ const ProgressBar = (props: any) => {
 
 const StyledSelect = styled(Select)`
     margin: 0;
-    width: 200px;
+    width: 180px;
     border-radius: 5px !important;
     color: #000 !important;
     .ant-select-selector {
@@ -78,6 +79,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
     const [width, setWidth] = useState(0);
     const [height, setHeight] = useState(0);
     const [value, setValue] = useState(null);
+    const [max, setMax] = useState<any>(null)
     useEffect(() => {
         const rect: any = divRef.current.getBoundingClientRect();
         setWidth(rect?.width);
@@ -86,20 +88,31 @@ const Dashboard = ({viewId}: IDashboardProps) => {
     useEffect(() => {
         if (event?.type === EventType.WidgetResize) {
             if (!event?.meta?.viewId || event?.meta?.viewId === viewId) {
-                const rect: any = divRef.current.getBoundingClientRect();
-                setWidth(rect.width);
-                setHeight(rect.height - 6);
+                setTimeout(() => {
+                    const rect: any = divRef.current.getBoundingClientRect();
+                    setWidth(rect.width);
+                    setHeight(rect.height - 25);
+                }, 0)
             }
         }
     }, [event])
+    useEffect(() => {
+        dispatch({type: AddEvent, payload: {type: EventType.WidgetResize, meta: {viewId}}})
+    }, [max])
     const handleChart = (c: Chart) => {
         chart.current = c;
     }
     const handleResize = (split: number) => {
         dispatch({type: AddEvent, payload: {type: EventType.WidgetResize, meta: {viewId}}})
     }
+    const handleMax = (comp: string) => {
+        return () => {
+            setMax(comp)
+        }
+    }
+    const handleMin = () => setMax(null)
     return <div style={{display: "flex", flexDirection: "column", width: "100%", height: "100%"}}>
-        <div style={{width: "100%", background: "#fff",  padding: "2px 3px 2px 2px", borderBottom: "1px solid #ccc", borderTop: "1px solid #ccc", display: "flex", justifyContent: "space-between"}}>
+        <div style={{width: "100%", background: "#fff",  padding: "2px 3px 2px 2px", borderBottom: "1px solid #ccc", borderTop: "1px solid #ccc", display: "flex", justifyContent: "space-between", flex: 0}}>
         <StyledSelect
             showSearch
             placeholder={<span style={{color: "#000"}}>Institution</span>}
@@ -117,13 +130,13 @@ const Dashboard = ({viewId}: IDashboardProps) => {
         </StyledSelect>
         <StyledRangePicker size="small" />
         </div>
-        <div style={{flex: 1}}>
+        <div style={{flex: 1, position: "relative"}}>
             <Split onResize={handleResize} direction={"horizontal"} initSplit={.66}>
                 <Split onResize={handleResize} direction={"horizontal"}>
                     <Split onResize={handleResize} direction={"vertical"} initSplit={.9}>
-                        <div style={{width: "100%", height: "100%", background: "#fff"}} ref={divRef}>
-                            <h5 style={{marginLeft: "3px", marginBottom: 0}}><strong># Subjects Cumulative in Institution</strong></h5>
-                            <div>
+                        <div style={{width: "100%", height: "100%", background: "#fff", position: max === "numSubjects" ? "absolute" : "static", zIndex: max === "numSubjects" ? 1 : 0, display: "flex", flexDirection: "column"}} ref={divRef}>
+                            <div style={{display: "flex", justifyContent: "space-between", flex: 0}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong># Subjects Cumulative in Institution</strong></h5>{max  === "numSubjects" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("numSubjects")} style={{width: 20, height: 20}}/>}</div>
+                            <div style={{overflow: "hidden", width, height}}>
                                 <HighchartsReact highcharts={Highcharts} options={{...options, chart: {width, height}}} callback={handleChart}/>
                             </div>
                         </div>
@@ -142,8 +155,8 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                         </div>
                     </Split>
                     <Split onResize={handleResize} direction={"horizontal"}>
-                        <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", flexDirection: "column"}}>
-                            <h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Completeness</strong></h5>
+                        <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", left: 0, top: 0, flexDirection: "column", position: max === "completeness" ? "absolute" : "static", zIndex: max === "completeness" ? 1 : 0}}>
+                            <div style={{display: "flex", justifyContent: "space-between", flex: 0}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Completeness</strong></h5>{max === "completeness" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("completeness")} style={{width: 20, height: 20}}/>}</div>
                             <div style={{flex: 1}}>
                                 <div className="ag-theme-balham" style={{height: "100%", width: "100%"}}>
                                     <AgGridReact 
