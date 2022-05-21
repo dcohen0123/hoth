@@ -240,7 +240,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                             <div style={{flex: 1}}>
                                 <div className="ag-theme-balham" style={{height: "100%", width: "100%"}}>
                                     <AgGridReact 
-                                        defaultColDef={{resizable: true, sortable: true}}
+                                        defaultColDef={{resizable: true, sortable: true, filter: "agTextColumnFilter"}}
                                         columnDefs={[{field: "Subject"}, {field: "Completeness", width: 400, cellRenderer: ProgressBar}, {field: "Percent"}, {field: "Go To Subject"}]} 
                                         pinnedTopRowData={[{"Subject": "Total", "Percent": "84%", "Go To Subject": "<Link To Subject>"}]}
                                         getRowStyle={(params) => {
@@ -281,7 +281,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                         <div style={{flex: 1}}>
                             <div className="ag-theme-balham" style={{height: "100%", width: "100%"}}>
                                 <AgGridReact 
-                                    defaultColDef={{resizable: true, sortable: true}}
+                                    defaultColDef={{resizable: true, sortable: true, filter: "agTextColumnFilter"}}
                                     columnDefs={[{field: "Date"}, {field: "# Subjects"}]} 
                                     pinnedTopRowData={[{"Date": "Total", "# Subjects": "210"}]}
                                     getRowStyle={(params) => {
