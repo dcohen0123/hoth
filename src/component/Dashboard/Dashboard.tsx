@@ -221,13 +221,13 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                                 <Option value="year">By Year</Option>
                                 <Option value="day">By Day</Option>
                             </StyledWidgetSelect>
-                                <StyledIcon onClick={handleLegend}><EntypoBarGraph /></ StyledIcon>{max  === "numSubjects" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("numSubjects")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined style={{width: 20, height: 20}} /></div></div>
+                                <StyledIcon onClick={handleLegend}><EntypoBarGraph /></ StyledIcon>{max  === "numSubjects" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("numSubjects")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined onClick={() => alert("Popout!")} style={{width: 20, height: 20}} /></div></div>
                             <div style={{overflow: "hidden", width, height}}>
                                 <HighchartsReact highcharts={Highcharts} options={{...options, legend: {enabled: legend}, chart: {...options.chart, width, height}}} callback={handleChart}/>
                             </div>
                         </div>
                         <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", left: 0, top: 0, flexDirection: "column", position: max === "Stats" ? "absolute" : "static", zIndex: max === "Stats" ? 1 : 0}}>
-                            <div style={{display: "flex", justifyContent: "space-between", flex: 0, height: 22}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Stats</strong></h5><div>{max  === "Stats" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("Stats")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined style={{width: 20, height: 20}} /></div></div>
+                            <div style={{display: "flex", justifyContent: "space-between", flex: 0, height: 22}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Stats</strong></h5><div>{max  === "Stats" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("Stats")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined onClick={() => alert("Popout!")} style={{width: 20, height: 20}} /></div></div>
                             <div style={{flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
                                 <div>
                                     <h3><strong>This Week</strong></h3>
@@ -242,7 +242,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                     </Split>
                     <Split onResize={handleResize} direction={"vertical"}>
                         <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", left: 0, top: 0, flexDirection: "column", position: max === "completeness" ? "absolute" : "static", zIndex: max === "completeness" ? 1 : 0}}>
-                            <div style={{display: "flex", justifyContent: "space-between", flex: 0, height: 22}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Completeness</strong></h5><div><StyledInput allowClear placeholder="Subject" />{max === "completeness" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("completeness")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined style={{width: 20, height: 20}} /></div></div>
+                            <div style={{display: "flex", justifyContent: "space-between", flex: 0, height: 22}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Completeness</strong></h5><div><StyledInput allowClear placeholder="Subject" />{max === "completeness" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("completeness")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined onClick={() => alert("Popout!")} style={{width: 20, height: 20}} /></div></div>
                             <div style={{flex: 1}}>
                                 <div className="ag-theme-balham" style={{height: "100%", width: "100%"}}>
                                     <AgGridReact 
@@ -279,7 +279,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                                     <Option value="year">By Year</Option>
                                     <Option value="day">By Day</Option>
                                 </StyledWidgetSelect>
-                            {max === "#Subjects" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("#Subjects")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined style={{width: 20, height: 20}} /></div></div>
+                            {max === "#Subjects" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("#Subjects")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined onClick={() => alert("Popout!")} style={{width: 20, height: 20}} /></div></div>
                             <div style={{flex: 1}}>
                                 <div className="ag-theme-balham" style={{height: "100%", width: "100%"}}>
                                     <AgGridReact 
@@ -303,13 +303,13 @@ const Dashboard = ({viewId}: IDashboardProps) => {
                 </Split>
                 <Split onResize={handleResize} direction={"vertical"}>
                     <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", left: 0, top: 0, flexDirection: "column", position: max === "Contact" ? "absolute" : "static", zIndex: max === "Contact" ? 1 : 0}}>
-                        <div style={{display: "flex", justifyContent: "space-between", flex: 0}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Your Hoth Contact</strong></h5><div>{max === "Contact" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("Contact")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined style={{width: 20, height: 20}} /></div></div>
+                        <div style={{display: "flex", justifyContent: "space-between", flex: 0}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Your Hoth Contact</strong></h5><div>{max === "Contact" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("Contact")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined onClick={() => alert("Popout!")} style={{width: 20, height: 20}} /></div></div>
                         <div style={{display: "flex", flex: 1, justifyContent: "center", alignItems: "center"}}>
                             <img style={{width: "525px", height: "280px"}} src="contact.png" />
                         </div>
                     </div>
                     <div style={{width: "100%", height: "100%", background: "#fff", display: "flex", left: 0, top: 0, flexDirection: "column", position: max === "Contact" ? "absolute" : "static", zIndex: max === "Contact" ? 1 : 0}}>
-                        <div style={{display: "flex", justifyContent: "space-between", flex: 0}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Your Institution Contact</strong></h5><div>{max === "Contact" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("Contact")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined style={{width: 20, height: 20}} /></div></div>
+                        <div style={{display: "flex", justifyContent: "space-between", flex: 0}}><h5 style={{marginLeft: "3px", marginBottom: 0}}><strong>Your Institution Contact</strong></h5><div>{max === "Contact" ? <MinimizeOutlined style={{width: 20, height: 20}} onClick={handleMin} /> : <MaximizeOutlined onClick={handleMax("Contact")} style={{width: 20, height: 20}}/>}<OpenInNewOutlined onClick={() => alert("Popout!")} style={{width: 20, height: 20}} /></div></div>
                         <div style={{display: "flex", flex: 1, justifyContent: "center", alignItems: "center"}}>
                             <img style={{width: "525px", height: "280px"}} src="contact.png" />
                         </div>
