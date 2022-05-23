@@ -9,28 +9,34 @@ const navManager: INavManager = {
         index: 0,
         align: Align.Top
     }, {
+        id: "upload",
+        type: NavItemType.Upload,
+        name: "Upload",
+        index: 1,
+        align: Align.Top
+    }, {
         id: "export",
         type: NavItemType.Export,
         name: "Export",
-        index: 1,
+        index: 2,
         align: Align.Top
     }, {
         id: "browse",
         type: NavItemType.Browse,
         name: "Browse",
-        index: 2,
+        index: 3,
         align: Align.Top
     }, {
         id: "learn",
         type: NavItemType.Learn,
         name: "Learn",
-        index: 3,
+        index: 4,
         align: Align.Top
     }, {
         id: "more",
         type: NavItemType.More,
         name: "More",
-        index: 4,
+        index: 5,
         align: Align.Top
     }, {
         id: "user",

@@ -1,5 +1,6 @@
 export enum ViewType {
-    Dashboard="dashboard"
+    Dashboard="dashboard",
+    Upload="upload"
 }
 
 export interface IView {
