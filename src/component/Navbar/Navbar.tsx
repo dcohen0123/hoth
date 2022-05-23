@@ -18,7 +18,7 @@ const StyledNavbar = styled.div`
 `
 
 const StyledImg = styled.img`
-    width: 26px;
+    width: 28px;
     margin: 10px 5px 2px 5px;
 `
 
