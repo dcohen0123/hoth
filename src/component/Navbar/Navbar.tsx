@@ -19,7 +19,7 @@ const StyledNavbar = styled.div`
 
 const StyledImg = styled.img`
     width: 26px;
-    margin: 10px 5px 0px 5px;
+    margin: 10px 5px 2px 5px;
 `
 
 const StyledIcon = styled.div<{selected?: boolean, indicator?: boolean}>`
