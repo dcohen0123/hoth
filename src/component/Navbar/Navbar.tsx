@@ -18,14 +18,14 @@ const StyledNavbar = styled.div`
 `
 
 const StyledImg = styled.img`
-    width: 29px;
+    width: 28px;
     margin: 10px 5px 2px 5px;
 `
 
 const StyledIcon = styled.div<{selected?: boolean, indicator?: boolean}>`
     color: #fff;
     position: relative;
-    padding: 8px 0px;
+    padding: 8.5px 0px;
     svg {
         width: 18px !important;
         height: 18px !important;
