@@ -35,9 +35,9 @@ const StyledIcon = styled.div<{selected?: boolean, indicator?: boolean}>`
         position: absolute;
         background: #fff;
         width: 2px;
-        height: 30px;
+        height: 32px;
         left: 0;
-        top: calc(50% - 15px);
+        top: calc(50% - 16px);
     }`}
 `
 
