@@ -1,6 +1,7 @@
 {
   "name": "hoth",
   "version": "0.1.0",
+  "homepage": "https://dcohen0123.github.io/hoth",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.9.0",
