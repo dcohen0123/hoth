@@ -19,6 +19,7 @@
     "ag-grid-react": "^27.2.1",
     "antd": "^4.20.4",
     "flexlayout-react": "^0.7.3",
+    "gh-pages": "^4.0.0",
     "golden-layout": "^1.5.8",
     "highcharts": "^10.1.0",
     "highcharts-react-official": "^3.1.0",
@@ -41,7 +42,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
