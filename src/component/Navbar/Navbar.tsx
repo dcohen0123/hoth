@@ -6,7 +6,6 @@ import { IState } from '../../interface/IState';
 import { Tooltip } from 'antd';
 import { NavItemSelected } from '../../redux/Nav/NavActions';
 import { Align, INavItem, NavItemType } from '../../interface/INavItem';
-import { Upload, UploadOutlined } from '@mui/icons-material';
 
 const StyledNavbar = styled.div`
     display: inline-flex;
@@ -51,7 +50,7 @@ export const iconMap: Map<NavItemType, JSX.Element> = new Map<NavItemType, JSX.E
     [NavItemType.User, <EntypoUser />],
     [NavItemType.Help, <EntypoHelp />],
     [NavItemType.Settings, <EntypoCog />],
-    [NavItemType.Upload, <Upload />]
+    [NavItemType.Upload, <EntypoUpload />]
 ])
 
 const Navbar = () => {
