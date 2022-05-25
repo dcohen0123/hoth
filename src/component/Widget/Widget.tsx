@@ -5,6 +5,8 @@ import WidgetHead from "../WidgetHead/WidgetHead";
 const StyledWidget = styled.div`
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 `;
 
 export interface IWidgetProps {

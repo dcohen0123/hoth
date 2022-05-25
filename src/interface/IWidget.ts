@@ -7,6 +7,7 @@ import { ISize } from "./ISize";
 
 export interface IWidget {
     id: string;
+    fn: string;
     name: string;
     drill: IDrill[];
     inputs: IInput[];

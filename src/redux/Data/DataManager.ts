@@ -5,17 +5,62 @@ const dataManager: IDataManager = {
         id: "d1",
         name: "Dashboard 1",
         inputs: [],
-        widgets: []
-    }, {
-        id: "d2",
-        name: "Dashboard 2",
-        inputs: [],
-        widgets: []
-    }, {
-        id: "d3",
-        name: "Dashboard 3",
-        inputs: [],
-        widgets: []
+        widgets: [
+            {
+                id: "1",
+                pos: {
+                    pctX: 0,
+                    pctY: 0,
+                    pctWidth: 50,
+                    pctHeight: 50
+                }
+            } as any,
+            {
+                id: "2",
+                pos: {
+                    pctX: 50,
+                    pctY: 0,
+                    pctWidth: 50,
+                    pctHeight: 50
+                }
+            } as any,
+            {
+                id: "3",
+                pos: {
+                    pctX: 0,
+                    pctY: 33,
+                    pctWidth: 50,
+                    pctHeight: 50
+                }
+            } as any,
+            {
+                id: "4",
+                pos: {
+                    pctX: 50,
+                    pctY: 33,
+                    pctWidth: 50,
+                    pctHeight: 50
+                }
+            } as any,
+            {
+                id: "6",
+                pos: {
+                    pctX: 0,
+                    pctY: 66,
+                    pctWidth: 50,
+                    pctHeight: 50
+                }
+            } as any,
+            {
+                id: "7",
+                pos: {
+                    pctX: 50,
+                    pctY: 66,
+                    pctWidth: 50,
+                    pctHeight: 50
+                }
+            } as any,
+        ]
     }],
     learn: []
 }

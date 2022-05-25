@@ -1,14 +1,11 @@
 import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { EventType } from "../../interface/IEvent";
-import { AddEvent } from "../../redux/Event/EventAction";
 
 export interface ISplitProps {
-    initSplit?: number;
+    initSplit?: number[];
     direction: "horizontal" | "vertical";
     children: JSX.Element[];
-    onResize?: (split: number) => void;
+    onResize?: (split: number[]) => void;
 }
 
 const StyledSplit = styled.div`
@@ -27,20 +24,25 @@ const StyledSplitter = styled.div<{direction: "vertical" | "horizontal"}>`
     vertical-align: top;
 `;
 
-const StyledDiv = styled.div<{direction: "vertical" | "horizontal", fullSize?: boolean, split: number}>`
+const StyledDiv = styled.div<{direction: "vertical" | "horizontal", size: number, split: number[]}>`
     display: ${props => props.direction === "vertical" ? "inline-block" : "block"};
-    width: ${props => props.direction === "vertical" &&  !props.fullSize ? "min(calc(" + (props.split * 100) + "% - 1px), calc(100% - 2px))" : "100%"};
-    height: ${props => props.direction === "horizontal" && !props.fullSize ? "min(calc(" + (props.split * 100) + "% - 1px), calc(100% - 2px))" : "100%"};
+    width: ${props => props.direction === "vertical"  ? "calc(" + (props.size * 100) + "% - " + props.split.length + "px)" : "100%"};
+    height: ${props => props.direction === "horizontal" ? "calc(" + (props.size * 100) + "% - " + props.split.length + "px)" : "100%"};
     overflow: hidden;
     vertical-align: top;
 `
 
 const Split = ({direction="horizontal", children, initSplit, onResize}: ISplitProps) => {
-    const [split, setSplit] = useState(initSplit ?? .5);
+    const filteredChildren = children.filter(x => x)
+    const [split, setSplit] = useState(initSplit ?? Array(filteredChildren.length - 1).fill(null).map((x, i) => (i + 1) / filteredChildren.length));
     const isMouseDown = useRef<boolean>(false);
+    const splitIndex = useRef<number>(0);
     const box = useRef<any>();
-    const handleMouseDown = () => {
-        isMouseDown.current = true;
+    const handleMouseDown = (i: number) => {
+        return () => {
+            isMouseDown.current = true;
+            splitIndex.current = i;
+        }
     }
     const handleMouseUp = () => {
         onResize && onResize(split);
@@ -48,6 +50,7 @@ const Split = ({direction="horizontal", children, initSplit, onResize}: ISplitPr
     }
     const handleMouseMove = (e: any) => {
         if (isMouseDown.current) {
+            const newSplit = [...split]
             let value: number = 1;
             const rect = box.current.getBoundingClientRect();
             if (direction === "vertical") {
@@ -55,14 +58,14 @@ const Split = ({direction="horizontal", children, initSplit, onResize}: ISplitPr
             } else if (direction === "horizontal") {
                 value = (e.clientY - rect.top) / rect.height;
             }
-            setSplit(value)
+            newSplit[splitIndex.current] = Math.max(Math.min(value, newSplit[splitIndex.current + 1] ?? 1), newSplit[splitIndex.current - 1] ?? 0)
+            setSplit(newSplit)
         }
     }
-    return <StyledSplit ref={box} onMouseUp={handleMouseUp} onMouseMove={handleMouseMove}>
-        {children[0] && <StyledDiv direction={direction} fullSize={!children[1]} split={split}>{children[0]}</StyledDiv>}
-        {children[0] && children[1] && <StyledSplitter direction={direction} onMouseDown={handleMouseDown} />}
-        {children[0] && children[1] && <StyledDiv direction={direction} split={1 - split}>{children[1]}</StyledDiv>}
-    </StyledSplit>
+    return <StyledSplit ref={box} onMouseUp={handleMouseUp} onMouseMove={handleMouseMove}>{filteredChildren.map((x, i) => <>
+        <StyledDiv split={split} direction={direction} size={(split[i] ?? 1) - (split[i - 1] ?? 0)}>{filteredChildren[i]}</StyledDiv>
+        {filteredChildren[i + 1] && <StyledSplitter direction={direction} onMouseDown={handleMouseDown(i)} />}
+    </>)}</StyledSplit>
 }
 
 export default Split;
