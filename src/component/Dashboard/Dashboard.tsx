@@ -84,7 +84,7 @@ const getResult = (tree: any[]) => {
         } else {
             items.push(val);
         }
-        return tree[0].parent?.children?.length !== 1 && tree[0].children.length === 1 ? <Split direction="vertical">{items}</Split> :items
+        return tree[0].parent?.children.length !== 1 ? <Split direction="vertical">{items}</Split> :items
 
     }
     if (tree.length > 1) {
