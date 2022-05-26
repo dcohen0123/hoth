@@ -30,15 +30,15 @@ const getGroups = (widgets: IWidget[]) => {
         const anchor = widgets[i];
         const node: any = {anchor, group: []}
         for (let j: number = 0; j < widgets.length; j++) {
-            if (widgets[j]?.id === anchor?.id) continue;
-            if (widgets[j]?.pos?.pctY >= anchor?.pos?.pctY && widgets[j]?.pos?.pctY + widgets[j]?.pos?.pctHeight <= anchor?.pos?.pctY + anchor?.pos?.pctHeight) {
-                if (widgets[j]?.pos?.pctX >= anchor?.pos?.pctX) {
+            if (widgets[j]?.id !== anchor?.id) {
+                if (widgets[j]?.pos?.pctY >= anchor?.pos?.pctY && widgets[j]?.pos?.pctY + widgets[j]?.pos?.pctHeight <= anchor?.pos?.pctY + anchor?.pos?.pctHeight) {
                     node.group.push(widgets[j]);
                 }
             }
         }
         groups.push(node)
     }
+    groups.sort((a, b) => b.group.length - a.group.length)
     return groups;
 }
 
@@ -76,14 +76,18 @@ const getResult = (tree: any[]) => {
     }
     if (tree.length === 1) {
         const items: any[] = [];
-        items.push(<div>{tree[0].value.anchor.id}</div>)
         const val = getResult(tree[0].children);
         if (Array.isArray(val)) {
             items.push(...val);
         } else {
             items.push(val);
         }
-        return tree[0].parent?.children.length !== 1 ? <Split direction="vertical" initSplit={tree[0].children.map((x: any) => x?.value?.anchor?.pos?.pctX / 100)}>{items}</Split> :items
+        if (tree[0].value.anchor.pos.pctX > tree[0].children?.[0]?.value?.anchor?.pos?.pctX) {
+            items.push(<div>{tree[0].value.anchor.id}</div>)
+        } else {
+            items.unshift(<div>{tree[0].value.anchor.id}</div>)
+        }
+        return tree[0].parent?.children.length !== 1 ? <Split direction="vertical" >{items}</Split> :items
 
     }
     if (tree.length > 1) {
@@ -91,7 +95,7 @@ const getResult = (tree: any[]) => {
         for (let i: number = 0; i < tree.length; i++) {
             items.push(getResult([tree[i]]));
         }
-        return <Split direction="horizontal" initSplit={tree.map((x: any) => x?.value?.anchor?.pos?.pctY / 100).splice(1)}>{items}</Split>
+        return <Split direction="horizontal" >{items}</Split>
     }
 }
 
@@ -101,6 +105,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
     const groups: any[] = getGroups(widgets); // TODO: convert widgets into groups.
     const tree: any[] = getTree(groups) // TODO: convert groups into tree
     const result: any = getResult(tree)
+    console.log(tree);
     return result;
 }
 
