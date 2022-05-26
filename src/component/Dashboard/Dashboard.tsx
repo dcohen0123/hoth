@@ -38,7 +38,15 @@ const getGroups = (widgets: IWidget[]) => {
         }
         groups.push(node)
     }
-    groups.sort((a, b) => b.group.length - a.group.length)
+    groups.sort((a, b) => {
+        if (a.anchor.pos.pctY < b.anchor.pos.pctY) {
+            return -1;
+        } else if (a.anchor.pos.pctY < b.anchor.pos.pctY) {
+            return 1;
+        } else {
+            return b.group.length - a.group.length;
+        }
+    })
     return groups;
 }
 
@@ -77,17 +85,25 @@ const getResult = (tree: any[]) => {
     if (tree.length === 1) {
         const items: any[] = [];
         const val = getResult(tree[0].children);
-        if (Array.isArray(val)) {
-            items.push(...val);
-        } else {
-            items.push(val);
+        if (val) {
+            if (Array.isArray(val)) {
+                items.push(...val);
+            } else {
+                items.push(val);
+            }
         }
         if (tree[0].value.anchor.pos.pctX > tree[0].children?.[0]?.value?.anchor?.pos?.pctX) {
-            items.push(<div>{tree[0].value.anchor.id}</div>)
+            items.push(<div data-pos={tree[0].value.anchor.pos}>{tree[0].value.anchor.id}</div>)
         } else {
-            items.unshift(<div>{tree[0].value.anchor.id}</div>)
+            items.unshift(<div data-pos={tree[0].value.anchor.pos}>{tree[0].value.anchor.id}</div>)
         }
-        return tree[0].parent?.children.length !== 1 ? <Split direction="vertical" >{items}</Split> :items
+        items.sort((a, b) => a.props["data-pos"].pctX - b.props["data-pos"].pctX)
+        const pctHeight: any = items.map(x => x.props["data-pos"].pctHeight)
+        const pctY: any = items.map(x => x.props["data-pos"].pctY)
+        const pctX: any = items.map(x => x.props["data-pos"].pctX)
+        const totalWidth: any = items.map(x => x.props["data-pos"].pctWidth).reduce((acc, curr) => acc + curr)
+        const initSplit=items.map(x => (x.props["data-pos"].pctX - pctX[0]) / totalWidth).slice(1)
+        return tree[0].parent?.children.length !== 1 ? <Split data-pos={{pctX: pctX[0], pctWidth: totalWidth, pctY: pctY[0], pctHeight: pctHeight[0]}} direction="vertical" initSplit={initSplit}>{items}</Split> :items
 
     }
     if (tree.length > 1) {
@@ -95,17 +111,22 @@ const getResult = (tree: any[]) => {
         for (let i: number = 0; i < tree.length; i++) {
             items.push(getResult([tree[i]]));
         }
-        return <Split direction="horizontal" >{items}</Split>
+        items.sort((a, b) => a.props["data-pos"].pctY - b.props["data-pos"].pctY)
+        const pctX: any = items.map(x => x.props["data-pos"].pctX)
+        const pctY: any = items.map(x => x.props["data-pos"].pctY)
+        const pctWidth: any = items.map(x => x.props["data-pos"].pctWidth)
+        const totalHeight: any = items.map(x => x.props["data-pos"].pctHeight).reduce((acc, curr) => acc + curr)
+        const initSplit=items.map(x => (x.props["data-pos"].pctY - pctY[0]) / totalHeight).slice(1)
+        return <Split data-pos={{pctX: pctX[0], pctY: pctY[0], pctWidth: pctWidth[0], pctHeight: totalHeight}} direction="horizontal" initSplit={initSplit}>{items}</Split>
     }
 }
 
 const Dashboard = ({viewId}: IDashboardProps) => {
     const dashboard: IDashboard = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x.id === viewId))?.meta
     const widgets: IWidget[] = [...dashboard?.widgets].sort(sortWidgets)
-    const groups: any[] = getGroups(widgets); // TODO: convert widgets into groups.
-    const tree: any[] = getTree(groups) // TODO: convert groups into tree
+    const groups: any[] = getGroups(widgets);
+    const tree: any[] = getTree(groups)
     const result: any = getResult(tree)
-    console.log(tree);
     return result;
 }
 
