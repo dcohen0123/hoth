@@ -63,9 +63,9 @@ const getTree = (groups: any[]) => {
     for (let i: number = 0; i < groups.length; i++) {
         const node = findNode(tree, groups[i]);
         if (node) {
-            node.children.push({value: groups[i], children: []})
+            node.children.push({value: groups[i], children: [], parent: node})
         } else {
-            tree.push({value: groups[i], children: []});
+            tree.push({value: groups[i], children: [], parent: null});
         }
     }
     return tree;
@@ -78,8 +78,13 @@ const getResult = (tree: any[]) => {
     if (tree.length === 1) {
         const items: any[] = [];
         items.push(<div>{tree[0].value.anchor.id}</div>)
-        items.push(getResult(tree[0].children));
-        return <Split direction="vertical">{items}</Split>
+        const val = getResult(tree[0].children);
+        if (Array.isArray(val)) {
+            items.push(...val);
+        } else {
+            items.push(val);
+        }
+        return tree[0].parent?.children?.length !== 1 && tree[0].children.length === 1 ? <Split direction="vertical">{items}</Split> :items
 
     }
     if (tree.length > 1) {
