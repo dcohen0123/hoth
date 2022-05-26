@@ -11,16 +11,16 @@ const dataManager: IDataManager = {
                 pos: {
                     pctX: 0,
                     pctY: 0,
-                    pctWidth: 50,
+                    pctWidth: 80,
                     pctHeight: 33
                 }
             } as any,
             {
                 id: "2",
                 pos: {
-                    pctX: 50,
+                    pctX: 80,
                     pctY: 0,
-                    pctWidth: 50,
+                    pctWidth: 20,
                     pctHeight: 33
                 }
             } as any,
@@ -36,7 +36,7 @@ const dataManager: IDataManager = {
             {
                 id: "4",
                 pos: {
-                    pctX: 0,
+                    pctX: 50,    
                     pctY: 33,
                     pctWidth: 50,
                     pctHeight: 33

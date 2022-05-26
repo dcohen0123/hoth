@@ -83,7 +83,7 @@ const getResult = (tree: any[]) => {
         } else {
             items.push(val);
         }
-        return tree[0].parent?.children.length !== 1 ? <Split direction="vertical">{items}</Split> :items
+        return tree[0].parent?.children.length !== 1 ? <Split direction="vertical" initSplit={tree[0].children.map((x: any) => x?.value?.anchor?.pos?.pctX / 100)}>{items}</Split> :items
 
     }
     if (tree.length > 1) {
@@ -91,7 +91,7 @@ const getResult = (tree: any[]) => {
         for (let i: number = 0; i < tree.length; i++) {
             items.push(getResult([tree[i]]));
         }
-        return <Split direction="horizontal">{items}</Split>
+        return <Split direction="horizontal" initSplit={tree.map((x: any) => x?.value?.anchor?.pos?.pctY / 100).splice(1)}>{items}</Split>
     }
 }
 
