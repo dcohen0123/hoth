@@ -1,3 +1,3 @@
 export interface IChart {
-    config: any
+    series: any[]
 }

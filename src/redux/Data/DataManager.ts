@@ -12,7 +12,14 @@ const dataManager: IDataManager = {
                 id: "numSubjectsCumulativeInstitution",
                 name: "# Subjects Cumulative in Institution",
                 main: {
-                    type: MainType.Chart
+                    type: MainType.Chart,
+                    meta: {
+                        series: [{
+                            name: "# Subjects Cumulative",
+                            type: 'column',
+                            data: [10, 20, 30, 50, 80, 100, 120, 140, 160, 200, 210, 220, 230, 240, 250, 260, 280, 310, 350, 400]
+                        }]
+                    }
                 },
                 pos: {
                     pctX: 0,
