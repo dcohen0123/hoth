@@ -7,6 +7,7 @@ export enum InputType {
     Popout="popout",
     Popin="popin",
     Close="close",
+    DateRange="daterange"
 }
 
 export type Align = "left" | "right";
@@ -15,8 +16,7 @@ export interface IInput {
     id: string;
     name: string;
     type: InputType;
-    value: any;
-    align: Align;
-    index: number;
+    value?: any;
+    align?: Align;
     meta?: any;
 }

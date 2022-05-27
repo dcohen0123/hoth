@@ -6,7 +6,30 @@ const dataManager: IDataManager = {
     dashboards: [{
         id: "d1",
         name: "Dashboard 1",
-        inputs: [],
+        inputs: [{
+            id: "institution",
+            name: "Insitution",
+            type: InputType.Select,
+            align: "left",
+            meta: {
+                placeholder: "Institution",
+                data: [{
+                    key: "Harvard Medical School",
+                    value: "harvard"
+                }, {
+                    key: "NYU Langone",
+                    value: "nyu"
+                }, {
+                    key: "Mayo",
+                    value: "mayo"
+                }]
+            }
+        }, {
+            id: "date",
+            name: "Date",
+            type: InputType.DateRange,
+            align: "right"
+        }],
         widgets: [
             {
                 id: "numSubjectsCumulativeInstitution",
