@@ -1,6 +1,8 @@
 export enum MainType {
     Chart="chart",
-    Grid="grid"
+    Grid="grid",
+    Stats="stats",
+    Contact="contact"
 }
 
 export interface IMain {

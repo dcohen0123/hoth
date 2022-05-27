@@ -1,9 +1,16 @@
 import { useSelector } from "react-redux"
+import styled from "styled-components"
 import { IDashboard } from "../../interface/IDashboard"
 import { IState } from "../../interface/IState"
 import { IWidget } from "../../interface/IWidget"
 import Split from "../Split/Split"
 import Widget from "../Widget/Widget"
+
+const StyledDashboard = styled.div`
+    position: relative;
+    width: 100%;
+    height: 100%;
+`
 
 const sortWidgets = (a: IWidget, b: IWidget) => {
     if (a?.pos?.pctX < b?.pos?.pctX) {
@@ -124,7 +131,7 @@ const Dashboard = ({viewId}: IDashboardProps) => {
     const groups: any[] = getGroups(widgets);
     const tree: any[] = getTree(groups)
     const result: any = getResult(tree, viewId)
-    return result;
+    return <StyledDashboard>{result}</StyledDashboard>
 }
 
 export default Dashboard;

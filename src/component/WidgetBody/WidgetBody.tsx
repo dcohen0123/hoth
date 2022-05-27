@@ -4,10 +4,13 @@ import { MainType } from "../../interface/IMain";
 import { IState } from "../../interface/IState";
 import { IWidget } from "../../interface/IWidget";
 import { Chart } from "../Chart/Chart";
+import Contact from "../Contact/Contact";
 import DataGrid from "../DataGrid/DataGrid";
+import { Stats } from "../Stats/Stats";
 
 const StyledWidgetBody = styled.div`
     background: #fff;
+    flex: 1;
 `;
 
 export interface IWidgetBodyProps {
@@ -17,7 +20,9 @@ export interface IWidgetBodyProps {
 
 export const bodyMap: Map<MainType, any> = new Map<MainType, any>([
     [MainType.Grid, DataGrid],
-    [MainType.Chart, Chart]
+    [MainType.Chart, Chart],
+    [MainType.Stats, Stats],
+    [MainType.Contact, Contact]
 ])
 
 const WidgetBody = ({viewId, widgetId}: IWidgetBodyProps) => {

@@ -24,7 +24,7 @@ const dataManager: IDataManager = {
                 pos: {
                     pctX: 0,
                     pctY: 0,
-                    pctWidth: 85,
+                    pctWidth: 90,
                     pctHeight: 33
                 },
                 inputs: [{
@@ -61,10 +61,13 @@ const dataManager: IDataManager = {
             {
                 id: "stats",
                 name: "Stats",
+                main: {
+                    type: MainType.Stats
+                },
                 pos: {
-                    pctX: 85,
+                    pctX: 90,
                     pctY: 0,
-                    pctWidth: 15,
+                    pctWidth: 10,
                     pctHeight: 33
                 },
                 inputs: [{
@@ -83,9 +86,20 @@ const dataManager: IDataManager = {
                     pctY: 33,
                     pctWidth: 50,
                     pctHeight: 33
-                }, 
-                inputs: [
-                {
+                },
+                main: {
+                    type: MainType.Grid,
+                    meta: {
+                        colDefs: [{field: "Subject"}, {field: "Completeness", width: 400, cellRenderer: "ProgressBar"}, {field: "Percent"}, {field: "Go To Subject"}]
+                    }
+                },
+                data: [{"Subject": "Total", "Percent": "84%", "Go To Subject": "<Link To Subject>"},
+                    {"Subject": 88, "Percent": "84%", "Go To Subject": "<Link To Subject>"},
+                    {"Subject": 87, "Percent": "84%", "Go To Subject": "<Link To Subject>"},
+                    {"Subject": 86, "Percent": "30%", "Go To Subject": "<Link To Subject>"},
+                    {"Subject": 85, "Percent": "81%", "Go To Subject": "<Link To Subject>"}
+                ],
+                inputs: [{
                     id: "filterSubject",
                     type: InputType.Search,
                     meta: {
@@ -108,6 +122,19 @@ const dataManager: IDataManager = {
                     pctWidth: 50,
                     pctHeight: 33
                 },
+                main: {
+                    type: MainType.Grid,
+                    meta: {
+                        colDefs: [{field: "Date"}, {field: "# Subjects"}]
+                    }
+                },
+                data: [
+                    {"Date": "Total", "# Subjects": "210"},
+                    {"Date": "1/8/2022", "# Subjects": 14},
+                    {"Date": "1/15/2022", "# Subjects": 15},
+                    {"Date": "1/23/2022", "# Subjects": 12},
+                    {"Date": "1/31/2022", "# Subjects": 16}
+                ],
                 inputs: [{
                     id: "interval",
                     type: InputType.Select,
@@ -143,6 +170,9 @@ const dataManager: IDataManager = {
                     pctY: 66,
                     pctWidth: 50,
                     pctHeight: 33
+                },
+                main: {
+                    type: MainType.Contact
                 },      
                 inputs: [{
                     id: "maximize",
@@ -155,6 +185,9 @@ const dataManager: IDataManager = {
             {
                 id: "institutionContact",
                 name: "Your Institution Contact",
+                main: {
+                    type: MainType.Contact
+                },
                 pos: {
                     pctX: 50,
                     pctY: 66,

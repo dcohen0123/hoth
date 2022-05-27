@@ -20,5 +20,4 @@ export interface INavItem {
     type: NavItemType;
     name: string;
     align: Align;
-    index: number;
 }

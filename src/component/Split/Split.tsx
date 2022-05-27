@@ -49,8 +49,10 @@ const Split = ({viewId, direction="horizontal", children, initSplit}: ISplitProp
         }
     }
     const handleMouseUp = () => {
+        if (isMouseDown.current) {
+            dispatch({type: AddEvent, payload: {type: EventType.Resize, meta: {viewId}}});
+        }
         isMouseDown.current = false;
-        dispatch({type: AddEvent, payload: {type: EventType.Resize, meta: {viewId}}});
     }
     const handleMouseMove = (e: any) => {
         if (isMouseDown.current) {

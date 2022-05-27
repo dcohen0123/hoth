@@ -1,12 +1,15 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 //@ts-ignore
 import { EntypoBarGraph } from "react-entypo";
-import { Maximize, OpenInNewOutlined } from "@mui/icons-material"
+import { Maximize, Minimize, OpenInNewOutlined } from "@mui/icons-material"
 import { Input, Select } from "antd";
 import { IInput, InputType } from "../interface/IInput";
 import { IState } from "../interface/IState";
 import { IWidget } from "../interface/IWidget";
+import { ToggleLegend, ToggleMaximize } from "../redux/Workspace/WorkspaceActions";
+import { AddEvent } from "../redux/Event/EventAction";
+import { EventType } from "../interface/IEvent";
 
 const StyledInputs = styled.div``;
 
@@ -35,6 +38,7 @@ export const StyledInput = styled.div`
     display: inline-block;
     margin-right: 1px;
     vertical-align: top;
+    height: 0;
 `
 
 export interface IWidgetInputsProps {
@@ -47,7 +51,7 @@ const StyledWidgetSelect = styled(Select)`
     padding: 0;
     position: relative;
     width: 100px;
-    top: 2px;
+    top: 1px;
     right: 2px;
     .ant-select-selector {
         border: 1px solid #c2c2c2 !important;
@@ -77,6 +81,7 @@ const StyledInputText = styled(Input)`
 `
 
 const WidgetInputs = ({viewId, widgetId}: IWidgetInputsProps) => {
+    const dispatch = useDispatch();
     const widget: IWidget = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.widgets?.find((x: IWidget) => x?.id === widgetId));
     const getInput = (x: IInput) => {
         let result: JSX.Element | null = null;
@@ -126,10 +131,15 @@ const WidgetInputs = ({viewId, widgetId}: IWidgetInputsProps) => {
         return <StyledInputText allowClear placeholder={x?.meta?.placeholder} />
     }
     const getLegend = (x: IInput) => {
-        return <StyledEntypoIcon><EntypoBarGraph /></StyledEntypoIcon>
+        const handleClick = () => dispatch({type: ToggleLegend, payload: {viewId, widgetId, inputId: x.id}})
+        return <StyledEntypoIcon onClick={handleClick}><EntypoBarGraph /></StyledEntypoIcon>
     }
     const getMaximize = (x: IInput) => {
-        return <StyledMuiIcon><Maximize /></StyledMuiIcon>;
+        const handleClick = () => {
+            dispatch({type: ToggleMaximize, payload: {viewId, widgetId, inputId: x.id}});
+            dispatch({type: AddEvent, payload: {type: EventType.Resize, meta: {viewId, widgetId}}});
+        }
+        return <StyledMuiIcon onClick={handleClick}>{x?.value ? <Minimize /> : <Maximize />}</StyledMuiIcon>;
     }
     return <StyledInputs>{widget?.inputs?.map(x => getInput(x))}</StyledInputs>
 }
