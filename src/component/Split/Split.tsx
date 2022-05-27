@@ -1,11 +1,14 @@
 import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { EventType } from "../../interface/IEvent";
+import { AddEvent } from "../../redux/Event/EventAction";
 
 export interface ISplitProps {
+    viewId: string;
     initSplit?: number[];
     direction: "horizontal" | "vertical";
     children: JSX.Element[];
-    onResize?: (split: number[]) => void;
 }
 
 const StyledSplit = styled.div`
@@ -32,7 +35,8 @@ const StyledDiv = styled.div<{direction: "vertical" | "horizontal", size: number
     vertical-align: top;
 `
 
-const Split = ({direction="horizontal", children, initSplit, onResize}: ISplitProps) => {
+const Split = ({viewId, direction="horizontal", children, initSplit}: ISplitProps) => {
+    const dispatch = useDispatch()
     const filteredChildren = children.filter(x => x)
     const [split, setSplit] = useState(initSplit ?? Array(filteredChildren.length - 1).fill(null).map((x, i) => (i + 1) / filteredChildren.length));
     const isMouseDown = useRef<boolean>(false);
@@ -45,8 +49,8 @@ const Split = ({direction="horizontal", children, initSplit, onResize}: ISplitPr
         }
     }
     const handleMouseUp = () => {
-        onResize && onResize(split);
         isMouseDown.current = false;
+        dispatch({type: AddEvent, payload: {type: EventType.Resize, meta: {viewId}}});
     }
     const handleMouseMove = (e: any) => {
         if (isMouseDown.current) {

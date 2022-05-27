@@ -1,4 +1,6 @@
 import { IDataManager } from "../../interface/IDataManager";
+import { InputType } from "../../interface/IInput";
+import { MainType } from "../../interface/IMain";
 
 const dataManager: IDataManager = {
     dashboards: [{
@@ -7,58 +9,158 @@ const dataManager: IDataManager = {
         inputs: [],
         widgets: [
             {
-                id: "1",
+                id: "numSubjectsCumulativeInstitution",
+                name: "# Subjects Cumulative in Institution",
+                main: {
+                    type: MainType.Chart
+                },
                 pos: {
                     pctX: 0,
                     pctY: 0,
-                    pctWidth: 80,
+                    pctWidth: 85,
                     pctHeight: 33
-                }
+                },
+                inputs: [{
+                    id: "interval",
+                    type: InputType.Select,
+                    meta: {
+                        default: "week",
+                        data: [{
+                            key: "By Day",
+                            value: "day"
+                        }, {
+                            key: "By Week",
+                            value: "week"
+                        }, {
+                            key: "By Month",
+                            value: "month"
+                        }, {
+                            key: "By Year",
+                            value: "year"
+                        }]
+                    }
+                },
+                {
+                    id: "legend",
+                    type: InputType.Legend
+                }, {
+                    id: "maximize",
+                    type: InputType.Maximize
+                }, {
+                    id: "popout",
+                    type: InputType.Popout
+                }]
             } as any,
             {
-                id: "2",
+                id: "stats",
+                name: "Stats",
                 pos: {
-                    pctX: 80,
+                    pctX: 85,
                     pctY: 0,
-                    pctWidth: 20,
+                    pctWidth: 15,
                     pctHeight: 33
-                }
+                },
+                inputs: [{
+                    id: "maximize",
+                    type: InputType.Maximize
+                }, {
+                    id: "popout",
+                    type: InputType.Popout
+                }]
             } as any,
-            {
-                id: "3",
+            {   
+                id: "completenessIndicator",
+                name: "Completeness Indicator",
                 pos: {
                     pctX: 0,
                     pctY: 33,
                     pctWidth: 50,
                     pctHeight: 33
-                }
+                }, 
+                inputs: [
+                {
+                    id: "filterSubject",
+                    type: InputType.Search,
+                    meta: {
+                        placeholder: "Subject",
+                    }
+                }, {
+                    id: "maximize",
+                    type: InputType.Maximize
+                }, {
+                    id: "popout",
+                    type: InputType.Popout
+                }]
             } as any,
             {
-                id: "4",
+                id: "numSubjects",
+                name: "# Subjects",
                 pos: {
                     pctX: 50,    
                     pctY: 33,
                     pctWidth: 50,
                     pctHeight: 33
-                }
+                },
+                inputs: [{
+                    id: "interval",
+                    type: InputType.Select,
+                    meta: {
+                        default: "week",
+                        data: [{
+                            key: "By Day",
+                            value: "day"
+                        }, {
+                            key: "By Week",
+                            value: "week"
+                        }, {
+                            key: "By Month",
+                            value: "month"
+                        }, {
+                            key: "By Year",
+                            value: "year"
+                        }]
+                    }
+                }, {
+                    id: "maximize",
+                    type: InputType.Maximize
+                }, {
+                    id: "popout",
+                    type: InputType.Popout
+                }]
             } as any,
             {
-                id: "5",
+                id: "hothContact",
+                name: "Your Hoth Contact",
                 pos: {
                     pctX: 0,
                     pctY: 66,
                     pctWidth: 50,
                     pctHeight: 33
-                }
+                },      
+                inputs: [{
+                    id: "maximize",
+                    type: InputType.Maximize
+                }, {
+                    id: "popout",
+                    type: InputType.Popout
+                }]
             } as any,
             {
-                id: "6",
+                id: "institutionContact",
+                name: "Your Institution Contact",
                 pos: {
                     pctX: 50,
                     pctY: 66,
                     pctWidth: 50,
                     pctHeight: 33
-                }
+                }, 
+                inputs: [{
+                    id: "maximize",
+                    type: InputType.Maximize
+                }, {
+                    id: "popout",
+                    type: InputType.Popout
+                }]
             } as any,
         ]
     }],

@@ -4,7 +4,6 @@ import {Provider} from 'react-redux';
 import store from '../../redux/ReduxMain';
 import View from '../View/View';
 import styled from 'styled-components';
-import { EventType } from '../../interface/IEvent';
 import ReactDOM from 'react-dom';
 import { Align } from '../../interface/INavItem';
 
@@ -63,7 +62,6 @@ window.ReactDOM = ReactDOM;
 window.React = React;
 
 class Workspace extends React.Component<any, any> {
-    // }, [event])
     private _isMounted: boolean = false;
     private gl: any = null;
     private layoutRef: any = React.createRef();

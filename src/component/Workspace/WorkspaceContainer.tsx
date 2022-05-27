@@ -12,7 +12,7 @@ function mapStateToProps(state: IState) {
 
 const mapDispatchToProps = (dispatch: any) => ({
     resize: (viewId: string) => {
-        return dispatch({type: AddEvent, payload: {type: EventType.WidgetResize, payload: {viewId}}})
+        return dispatch({type: AddEvent, payload: {type: EventType.Resize, meta: {viewId}}})
     }
 })
 

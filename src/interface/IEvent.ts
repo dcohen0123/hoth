@@ -1,6 +1,6 @@
 export enum EventType {
     WidgetDrill="WIDGET_DRILL",
-    WidgetResize="WIDGET_RESIZE"
+    Resize="RESIZE"
 }
 
 export interface IEvent {
