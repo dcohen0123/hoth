@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { INavListItem } from "../../interface/INavListItem";
-import { IState } from "../../interface/IState";
 import { ViewType } from "../../interface/IView";
 import { AddView } from "../../redux/Workspace/WorkspaceActions";
 import NavHead from "../NavHead/NavHead";

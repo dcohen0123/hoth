@@ -3,13 +3,15 @@ import styled from "styled-components";
 import { IState } from "../../interface/IState";
 import { ViewType } from "../../interface/IView";
 import Dashboard from "../Dashboard/Dashboard";
+import Upload from "../Upload/Upload";
 
 export interface IViewProps {
     viewId: string;
 }
 
-export const viewMap: Map<ViewType, JSX.Element> = new Map<ViewType, JSX.Element>([
-    [ViewType.Dashboard, <Dashboard viewId={""} />],
+export const viewMap: Map<ViewType, any> = new Map<ViewType, any>([
+    [ViewType.Dashboard, Dashboard],
+    [ViewType.Upload, Upload]
 ])
 
 const StyledView = styled.div`
@@ -20,9 +22,8 @@ const StyledView = styled.div`
 const View = ({viewId}: IViewProps) => {
     const workspace = useSelector((state: IState) => state.workspaceManager?.selected);
     const view = workspace?.views?.find(x => x?.id === viewId);
-    const Elmt: any = view?.type ? viewMap?.get(view?.type) : null;
-    // return <Elmt viewId={viewId} />;
-    return <StyledView><Dashboard viewId={viewId} /></StyledView>;
+    const Elmt: any = viewMap?.has(view?.type as ViewType) ? viewMap?.get(view?.type as ViewType) : null;
+    return <StyledView><Elmt viewId={viewId} /></StyledView>;
 }
 
 
