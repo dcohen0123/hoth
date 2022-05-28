@@ -8,7 +8,7 @@ const StyledAddPatient = styled.div`
 `;
 
 const StyledInput = styled(Input)`
-    width: 250px;
+    width: 180px;
     ::placeholder {
         color: #000;
     }
