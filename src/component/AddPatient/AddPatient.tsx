@@ -9,6 +9,15 @@ const StyledAddPatient = styled.div`
 
 const StyledInput = styled(Input)`
     width: 180px;
+    padding 0 5px;
+    ::placeholder {
+        color: #000;
+    }
+`
+
+const StyledFileInput = styled(Input)`
+    width: 250px;
+    padding 0 5px;
     ::placeholder {
         color: #000;
     }
@@ -41,7 +50,7 @@ const AddPatient = () => {
             </StyledDiv>
             <StyledDiv>
                 <StyledLabel><strong>Upload CT Scan</strong></StyledLabel>
-                <StyledInput type={"file"} multiple title="Upload CT Scan" />
+                <StyledFileInput type={"file"} multiple title="Upload CT Scan" />
             </StyledDiv>
             <StyledDiv>
                 <StyledLabel><strong>Confidence (1 = none, 5 = most confident)</strong></StyledLabel>
