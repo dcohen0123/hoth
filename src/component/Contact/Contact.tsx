@@ -11,7 +11,7 @@ const StyledContact = styled.div`
 
 const Contact = () => {
     return  <StyledContact>
-        <img style={{width: "525px", height: "280px"}} src="hoth/contact.png" />
+        <img style={{width: "525px", height: "280px"}} src="contact.png" />
     </StyledContact>
 }
 
