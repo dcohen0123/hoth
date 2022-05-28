@@ -7,7 +7,7 @@ import { Input, Select } from "antd";
 import { IInput, InputType } from "../interface/IInput";
 import { IState } from "../interface/IState";
 import { IWidget } from "../interface/IWidget";
-import { ToggleLegend, ToggleMaximize } from "../redux/Workspace/WorkspaceActions";
+import { UpdateWidgetInput } from "../redux/Workspace/WorkspaceActions";
 import { AddEvent } from "../redux/Event/EventAction";
 import { EventType } from "../interface/IEvent";
 
@@ -131,12 +131,12 @@ const WidgetInputs = ({viewId, widgetId}: IWidgetInputsProps) => {
         return <StyledInputText allowClear placeholder={x?.meta?.placeholder} />
     }
     const getLegend = (x: IInput) => {
-        const handleClick = () => dispatch({type: ToggleLegend, payload: {viewId, widgetId, inputId: x.id}})
+        const handleClick = () => dispatch({type: UpdateWidgetInput, payload: {viewId, widgetId, inputId: x.id, value: !x?.value}})
         return <StyledEntypoIcon onClick={handleClick}><EntypoBarGraph /></StyledEntypoIcon>
     }
     const getMaximize = (x: IInput) => {
         const handleClick = () => {
-            dispatch({type: ToggleMaximize, payload: {viewId, widgetId, inputId: x.id}});
+            dispatch({type: UpdateWidgetInput, payload: {viewId, widgetId, inputId: x.id, value: !x?.value}})
             dispatch({type: AddEvent, payload: {type: EventType.Resize, meta: {viewId, widgetId}}});
         }
         return <StyledMuiIcon onClick={handleClick}>{x?.value ? <Minimize /> : <Maximize />}</StyledMuiIcon>;

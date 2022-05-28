@@ -2,7 +2,7 @@ import { IInput } from "../../interface/IInput";
 import { IView } from "../../interface/IView";
 import { IWidget } from "../../interface/IWidget";
 import State from "../State";
-import { AddView, ToggleLegend, ToggleMaximize, UpdateWidgetDimensions } from "./WorkspaceActions";
+import { AddView, UpdateDashboardInput, UpdateWidgetDimensions, UpdateWidgetInput } from "./WorkspaceActions";
 
 export default function workspaceReducer(state = State.workspaceManager, action: { type: string, payload?: any }) {
     switch (action.type) {
@@ -34,25 +34,22 @@ export default function workspaceReducer(state = State.workspaceManager, action:
           selected
         }
       }
-      case ToggleLegend: {
+      case UpdateDashboardInput: {
         const selected: any = {...state.selected};
         selected.views = [...selected.views];
         const viewIdx: number = selected.views.findIndex((x: IView) => x.id === action.payload.viewId)
         selected.views[viewIdx] = {...selected.views[viewIdx]};
         selected.views[viewIdx].meta = {...selected.views[viewIdx].meta}
-        selected.views[viewIdx].meta.widgets = [...selected.views[viewIdx].meta.widgets];
-        const widgetIdx: number = selected.views[viewIdx].meta.widgets.findIndex((x: IWidget) => x.id === action.payload.widgetId);
-        selected.views[viewIdx].meta.widgets[widgetIdx] = {...selected.views[viewIdx].meta.widgets[widgetIdx]};
-        selected.views[viewIdx].meta.widgets[widgetIdx].inputs = [...selected.views[viewIdx].meta.widgets[widgetIdx].inputs];
-        const inputIdx: number =  selected.views[viewIdx].meta.widgets[widgetIdx].inputs.findIndex((x: IInput) => x.id === action.payload.inputId);
-        selected.views[viewIdx].meta.widgets[widgetIdx].inputs[inputIdx] = {...selected.views[viewIdx].meta.widgets[widgetIdx].inputs[inputIdx]};
-        selected.views[viewIdx].meta.widgets[widgetIdx].inputs[inputIdx].value = !selected.views[viewIdx].meta.widgets[widgetIdx].inputs[inputIdx].value
+        selected.views[viewIdx].meta.inptues = [...selected.views[viewIdx].meta.inputs];
+        const inputIdx: number =  selected.views[viewIdx].meta.inputs.findIndex((x: IInput) => x.id === action.payload.inputId);
+        selected.views[viewIdx].meta.inputs[inputIdx] = {...selected.views[viewIdx].meta.inputs[inputIdx]};
+        selected.views[viewIdx].meta.inputs[inputIdx].value = action.payload.value;
         return {
           ...state,
           selected
         }
       }
-      case ToggleMaximize: {
+      case UpdateWidgetInput: {
         const selected: any = {...state.selected};
         selected.views = [...selected.views];
         const viewIdx: number = selected.views.findIndex((x: IView) => x.id === action.payload.viewId)
@@ -64,7 +61,7 @@ export default function workspaceReducer(state = State.workspaceManager, action:
         selected.views[viewIdx].meta.widgets[widgetIdx].inputs = [...selected.views[viewIdx].meta.widgets[widgetIdx].inputs];
         const inputIdx: number =  selected.views[viewIdx].meta.widgets[widgetIdx].inputs.findIndex((x: IInput) => x.id === action.payload.inputId);
         selected.views[viewIdx].meta.widgets[widgetIdx].inputs[inputIdx] = {...selected.views[viewIdx].meta.widgets[widgetIdx].inputs[inputIdx]};
-        selected.views[viewIdx].meta.widgets[widgetIdx].inputs[inputIdx].value = !selected.views[viewIdx].meta.widgets[widgetIdx].inputs[inputIdx].value
+        selected.views[viewIdx].meta.widgets[widgetIdx].inputs[inputIdx].value = action.payload.value;
         return {
           ...state,
           selected

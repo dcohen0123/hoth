@@ -5,8 +5,10 @@ import { DatePicker, Input, Select } from "antd";
 import { IDashboard } from "../../interface/IDashboard";
 import { IInput, InputType } from "../../interface/IInput";
 import { IState } from "../../interface/IState";
+import { UpdateDashboardInput } from "../../redux/Workspace/WorkspaceActions";
 
 const StyledInputs = styled.div`
+    flex: 0;
     background: #fff;
     padding: 2px 1px;
     border-bottom: 1px solid #ccc;
@@ -91,12 +93,17 @@ const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
         return <StyledInput key={x?.id}>{result}</StyledInput>;
     }
     const getDateRange = (x: IInput) => {
-        return <StyledRangePicker size="small" value={x?.value} onChange={(v) => console.log(v)} />
+        const handleChange = (dates: any) => {
+            dispatch({type: UpdateDashboardInput, payload: {viewId, inputId: x.id, value: dates}});
+        }
+        return <StyledRangePicker size="small" value={x?.value} onChange={handleChange} />
     }
     const getSelect = (x: IInput) => {
+        const handleChange = (value: any) => dispatch({type: UpdateDashboardInput, payload: {viewId, inputId: x.id, value}})
         return <StyledWidgetSelect
             placeholder={<span>{x?.meta?.placeholder}</span>}
             size={"small"}
+            onChange={handleChange}
             optionFilterProp="children"
             value={x?.value ?? x?.meta?.default}
             filterOption={(input: any, option: any) =>
