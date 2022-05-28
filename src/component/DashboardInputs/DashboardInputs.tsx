@@ -42,7 +42,7 @@ const StyledRangePicker = styled(RangePicker)`
     }
 `
 
-const StyledWidgetSelect = styled(Select)`
+const StyledSelect = styled(Select)`
     margin: 0;
     width: 180px;
     border-radius: 5px !important;
@@ -100,17 +100,18 @@ const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
     }
     const getSelect = (x: IInput) => {
         const handleChange = (value: any) => dispatch({type: UpdateDashboardInput, payload: {viewId, inputId: x.id, value}})
-        return <StyledWidgetSelect
+        return <StyledSelect
             placeholder={<span>{x?.meta?.placeholder}</span>}
             size={"small"}
             onChange={handleChange}
             optionFilterProp="children"
+            showSearch={true}
             value={x?.value ?? x?.meta?.default}
             filterOption={(input: any, option: any) =>
             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
             }
         > {x?.meta?.data?.map((y: any) => (<Option key={y.value} value={y.value}>{y.key}</Option>))}
-        </StyledWidgetSelect>
+        </StyledSelect>
     }
     const getSearch = (x: IInput) => {
         return <StyledInputText allowClear placeholder={x?.meta?.placeholder} />
