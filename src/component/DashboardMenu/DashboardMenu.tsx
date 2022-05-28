@@ -13,7 +13,7 @@ const DashboardMenu = () => {
     const items = dashboards?.map(x => ({id: x?.id, name: x?.name}));
     const handleSelect = (item: INavListItem) => {
         const dashboard = dashboards?.find(x => x.id === item.id);
-        dispatch({type: AddView, payload: {id: uuidv4(), name: dashboard?.name, type: ViewType.Dashboard, meta: dashboard}});
+        dispatch({type: AddView, payload: {id: uuidv4(), name: dashboard?.name, type: ViewType.Dashboard, meta: JSON.parse(JSON.stringify(dashboard))}});
     }
     return <>
         <NavHead />
