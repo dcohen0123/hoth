@@ -46,7 +46,7 @@ export enum UploadTab {
 
 export const tabs = [{
     id: UploadTab.AddPatient,
-    name: "Add Patient",
+    name: "New Patient",
 }, {
     id: UploadTab.EditPatient,
     name: "Edit Patient",
