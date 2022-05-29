@@ -39,6 +39,7 @@ const StyledRangePicker = styled(RangePicker)`
     input::placeholder {
         font-size: 13px;
         height: 22px !important;
+        color: #6f6f6f;
     }
 `
 
@@ -101,7 +102,7 @@ const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
     const getSelect = (x: IInput) => {
         const handleChange = (value: any) => dispatch({type: UpdateDashboardInput, payload: {viewId, inputId: x.id, value}})
         return <StyledSelect
-            placeholder={<span>{x?.meta?.placeholder}</span>}
+            placeholder={<span style={{color: "#6f6f6f"}}>{x?.meta?.placeholder}</span>}
             size={"small"}
             onChange={handleChange}
             optionFilterProp="children"

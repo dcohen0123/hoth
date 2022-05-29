@@ -10,21 +10,26 @@ const StyledAddPatient = styled.div`
 const StyledInput = styled(Input)`
     width: 180px;
     padding 0 5px;
+    border: 1px solid #c2c2c2;
     ::placeholder {
-        color: #000;
+        color: #6f6f6f;
     }
 `
 
 const StyledFileInput = styled(Input)`
     width: 250px;
     padding 0 5px;
-    ::placeholder {
-        color: #000;
+    border: 1px solid #c2c2c2;
+    input::placeholder {
+        color: #6f6f6f;
     }
 `
 
 const StyledDiv = styled.div`
     margin-bottom: 8px;
+    .ant-radio-inner {
+        border: 1px solid #c2c2c2 !important;
+    }
 `;
 
 const StyledLabel = styled.label`

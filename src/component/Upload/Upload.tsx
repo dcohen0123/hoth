@@ -30,9 +30,9 @@ const StyledTab = styled.li<{selected?: boolean}>`
     user-select: none;
     margin-right: 5px;
     :hover {
-        background: ${props => props.selected ? "#eee" : "#f2f2f2"};
+        background: ${props => props.selected ? "#e9e9e9" : "#f5f5f5"};
     }
-    background: ${props => props.selected ? "#eee" : "#fff"}
+    background: ${props => props.selected ? "#e9e9e9" : "none"}
 `;
 
 const StyledContent = styled.div`

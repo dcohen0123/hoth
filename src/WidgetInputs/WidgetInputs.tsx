@@ -78,6 +78,9 @@ const StyledInputText = styled(Input)`
     padding-right: 3px;
     padding-left: 5px;
     border: 1px solid #c2c2c2 !important;
+    input::placeholder {
+        color: #6f6f6f;
+    }
 `
 
 const WidgetInputs = ({viewId, widgetId}: IWidgetInputsProps) => {
