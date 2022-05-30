@@ -8,7 +8,7 @@ const StyledAddPatient = styled.div`
 `;
 
 const StyledInput = styled(Input)`
-    width: 180px;
+    width: 100%;
     padding 0 5px;
     border: 1px solid #c2c2c2;
     ::placeholder {
@@ -18,7 +18,7 @@ const StyledInput = styled(Input)`
 
 const StyledSelect = styled(Select)`
     margin: 0;
-    width: 180px;
+    width: 100%;
     border-radius: 5px !important;
     color: #000 !important;
     .ant-select-selector {
@@ -28,7 +28,7 @@ const StyledSelect = styled(Select)`
 `
 
 const StyledFileInput = styled(Input)`
-    width: 250px;
+    width: 100%;
     padding 0 5px;
     border: 1px solid #c2c2c2;
     input::placeholder {
@@ -38,6 +38,7 @@ const StyledFileInput = styled(Input)`
 
 const StyledDiv = styled.div`
     margin-bottom: 8px;
+    width: 100%;
     .ant-radio-inner {
         border: 1px solid #c2c2c2 !important;
     }
@@ -46,6 +47,11 @@ const StyledDiv = styled.div`
 const StyledLabel = styled.label`
     margin-bottom: 5px;
     display: block;
+`
+
+const StyledButtonWrapper = styled.div`
+    text-align: center;
+    width: 100%;
 `
 
 const StyledButton = styled(Button)`
@@ -73,7 +79,7 @@ const AddPatient = () => {
             </StyledDiv>
             <StyledDiv>
                 <StyledLabel><strong>Confidence (1 = none, 5 = most confident)</strong></StyledLabel>
-                <Radio.Group>
+                <Radio.Group style={{display: "flex", justifyContent: "center"}}>
                     <Radio value={1}>1</Radio>
                     <Radio value={2}>2</Radio>
                     <Radio value={3}>3</Radio>
@@ -82,7 +88,9 @@ const AddPatient = () => {
                 </Radio.Group>
             </StyledDiv>
             <StyledDiv>
-                <StyledButton type="primary">Submit</StyledButton>
+                <StyledButtonWrapper>
+                    <StyledButton type="primary">Submit</StyledButton>
+                </StyledButtonWrapper>
             </StyledDiv>
         </div>
         <div>

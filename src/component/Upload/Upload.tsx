@@ -12,7 +12,10 @@ const StyledUpload = styled.div`
     width: 100%;
     height: 100%;
     background: #fff;
-    padding: 8px;
+    padding: 11px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 `
 
 const StyledTabs = styled.ul`
@@ -36,7 +39,7 @@ const StyledTab = styled.li<{selected?: boolean}>`
 `;
 
 const StyledContent = styled.div`
-    padding-top: 15px;
+    margin-top: 11px;
 `;
 
 export enum UploadTab {
