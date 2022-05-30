@@ -20,7 +20,7 @@ const StyledUpload = styled.div`
 const StyledTabs = styled.ul`
     margin: 0;
     padding: 0;
-    margin-top: 18px;
+    margin-top: 15px;
 `;
 
 const StyledTab = styled.li<{selected?: boolean}>`
@@ -39,7 +39,7 @@ const StyledTab = styled.li<{selected?: boolean}>`
 `;
 
 const StyledContent = styled.div`
-    margin-top: 18px;
+    margin-top: 15px;
 `;
 
 export enum UploadTab {
