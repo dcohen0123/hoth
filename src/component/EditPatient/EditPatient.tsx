@@ -23,7 +23,7 @@ const StyledSelect = styled(Select)`
     color: #000 !important;
     .ant-select-selector {
         border: 1px solid #c2c2c2 !important;
-        height: 25px !important;
+        height: 32px !important;
     }
 `
 
@@ -37,7 +37,7 @@ const StyledFileInput = styled(Input)`
 `
 
 const StyledDiv = styled.div`
-    margin-bottom: 8px;
+    margin-bottom: 9px;
     width: 100%;
     .ant-radio-inner {
         border: 1px solid #c2c2c2 !important;
@@ -62,24 +62,24 @@ const AddPatient = () => {
     return <StyledAddPatient>
         <div>
             <StyledDiv>
-                <StyledSelect placeholder={<span style={{padding: 0, color: "#6f6f6f", position: "relative", bottom: 3}}>{"Select Patient"}</span>}/ >
+                <StyledSelect size="large" placeholder={<span style={{padding: 0, color: "#6f6f6f", position: "relative", bottom: 3}}>{"Select Patient"}</span>}/ >
             </StyledDiv>
             <StyledDiv>
-                <StyledInput placeholder={"Patient ID"}/>
+                <StyledInput size="large" placeholder={"Patient ID"}/>
             </StyledDiv>
             <StyledDiv>
-                <StyledInput type={"number"} placeholder={"# Insertions"}/>
+                <StyledInput size="large" type={"number"} placeholder={"# Insertions"}/>
             </StyledDiv>
             <StyledDiv>
-                <StyledInput type={"number"} placeholder={"# Correct Insertions"}/>
+                <StyledInput size="large" type={"number"} placeholder={"# Correct Insertions"}/>
             </StyledDiv>
             <StyledDiv>
                 <StyledLabel><strong>Upload CT Scan</strong></StyledLabel>
-                <StyledFileInput type={"file"} multiple title="Upload CT Scan" />
+                <StyledFileInput size="large" type={"file"} multiple title="Upload CT Scan" />
             </StyledDiv>
             <StyledDiv>
                 <StyledLabel><strong>Confidence (1 = none, 5 = most confident)</strong></StyledLabel>
-                <Radio.Group style={{display: "flex", justifyContent: "center"}}>
+                <Radio.Group size="large" style={{display: "flex", justifyContent: "center"}}>
                     <Radio value={1}>1</Radio>
                     <Radio value={2}>2</Radio>
                     <Radio value={3}>3</Radio>
