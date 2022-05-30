@@ -32,6 +32,7 @@ const StyledTab = styled.li<{selected?: boolean}>`
     border-radius: 3px;
     user-select: none;
     margin-right: 5px;
+    font-size: 15px;
     :hover {
         background: ${props => props.selected ? "#e9e9e9" : "#f5f5f5"};
     }
