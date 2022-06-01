@@ -53,8 +53,8 @@ const dataManager: IDataManager = {
                 inputs: [{
                     id: "interval",
                     type: InputType.Select,
+                    value: "week",
                     meta: {
-                        default: "week",
                         data: [{
                             key: "By Day",
                             value: "day"
@@ -161,8 +161,8 @@ const dataManager: IDataManager = {
                 inputs: [{
                     id: "interval",
                     type: InputType.Select,
+                    value: "week",
                     meta: {
-                        default: "week",
                         data: [{
                             key: "By Day",
                             value: "day"
