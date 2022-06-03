@@ -6,8 +6,8 @@ import { IState } from "../../interface/IState";
 import { NavItemSelected } from "../../redux/Nav/NavActions";
 
 const StyledDiv = styled.div`
-    padding: 7px 4px 7px 7px;
-    background: #696969ff;
+    padding: 6.5px 4px 6.5px 7px;
+    background: #5a5a5a;
     color: #fff;
     font-size: 13px;
     display: flex;
