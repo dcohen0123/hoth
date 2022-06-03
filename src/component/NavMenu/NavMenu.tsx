@@ -10,11 +10,11 @@ import MoreMenu from '../MoreMenu/MoreMenu';
 import UserMenu from '../User/User';
 import HelpMenu from '../Help/Help';
 import SettingsMenu from '../Settings/Settings';
-import UploadMenu from '../UploadMenu/UploadMenu';
+import CreateMenu from '../CreateMenu/CreateMenu';
 
 export const menuMap: Map<NavItemType, JSX.Element> = new Map<NavItemType, JSX.Element>([
     [NavItemType.DashBoard, <DashboardMenu />],
-    [NavItemType.Upload, <UploadMenu />],
+    [NavItemType.Create, <CreateMenu />],
     [NavItemType.Export, <ExportMenu />],
     [NavItemType.Browse, <BrowseMenu />],
     [NavItemType.Learn, <LearnMenu />],

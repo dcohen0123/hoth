@@ -8,9 +8,9 @@ const navManager: INavManager = {
         name: "Dashboard",
         align: Align.Top
     }, {
-        id: "upload",
-        type: NavItemType.Upload,
-        name: "Upload",
+        id: "create",
+        type: NavItemType.Create,
+        name: "Create",
         align: Align.Top
     }, {
         id: "export",
