@@ -69,7 +69,7 @@ const EditPatient = () => {
         <StyledHeader><strong>Edit Patient</strong></StyledHeader>
         <StyledWrapper>
             <StyledDiv>
-                <StyledSelect  size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Instition"}</span>}/ >
+                <StyledSelect  size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
             </StyledDiv>
             <StyledDiv>
                 <StyledSelect  size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Patient"}</span>}/ >
