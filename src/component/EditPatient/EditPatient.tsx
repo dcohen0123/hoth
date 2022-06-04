@@ -100,7 +100,7 @@ const EditPatient = () => {
             </StyledDiv>
         </StyledWrapper>
         <StyledDiv>
-            <StyledButton size="small" type="primary">Submit</StyledButton>
+            <StyledButton size="small" type="primary">Update</StyledButton>
         </StyledDiv>
     </StyledEditPatient>
 }
