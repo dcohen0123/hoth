@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { IState } from "../../interface/IState";
 import { IWidget } from "../../interface/IWidget";
-import WidgetInputs from "../../WidgetInputs/WidgetInputs";
+import WidgetInputs from "../WidgetInputs/WidgetInputs";
 
 const StyledWidgetHead = styled.div`
     background: #fff;

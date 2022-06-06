@@ -3,6 +3,16 @@ import { InputType } from "../../interface/IInput";
 import { MainType } from "../../interface/IMain";
 
 const dataManager: IDataManager = {
+    institutions: [{
+        id: 1,
+        name: "Harvard Medical School"
+    }, {
+        id: 2,
+        name: "Stanford Medical Center"
+    }, {
+        id: 3,
+        name: "NYU Langone"
+    }],
     dashboards: [{
         id: "d1",
         name: "Dashboard 1",

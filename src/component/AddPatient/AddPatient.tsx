@@ -1,5 +1,13 @@
 import { Button, Input, Radio, Select } from "antd";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { IState } from "../../interface/IState";
+import { AddNewPatient } from "../../redux/AddPatient/AddPatientActions";
+
+export interface IAddPatientProps {
+    viewId: string;
+}
 
 const StyledAddPatient = styled.div`
     width: 100%;
@@ -64,23 +72,64 @@ const StyledHeader = styled.h2`
     margin-bottom: 5px;
 `;
 
-const AddPatient = () => {
+const AddPatient = ({viewId}: IAddPatientProps) => {
+    const institutions = useSelector((state: IState) => state?.dataManager?.institutions);
+    const dispatch = useDispatch();
+    const [institution, setInstitution] = useState<string>();
+    const [patientID, setPatientID] = useState<string>();
+    const [numInsertions, setNumInsertions] = useState<number>();
+    const [numCorrectInsertions, setNumCorrectInsertions] = useState<number>();
+    const [ctScan, setCtScan] = useState<any>();
+    const [confidence, setConfidence] = useState<number>();
+    const addPatient = () => {
+        dispatch({type: AddNewPatient, payload: {
+            viewId,
+            patient: {
+                institution, 
+                patientID, 
+                numInsertions, 
+                numCorrectInsertions, 
+                confidence
+            }
+        }})
+    }
+    const isValid = () => {
+        return institution?.trim() && patientID?.trim() && 
+        numInsertions && numInsertions >= 0 && 
+        numCorrectInsertions && numCorrectInsertions >= 0 && 
+        confidence
+    }
+    const handleInstitution = (value: any) => {
+        setInstitution(value);
+    }
+    const handlePatient = (e: any) => {
+        setPatientID(e?.target?.value)
+    }
+    const handleInsertsions = (e: any) => {
+        setNumInsertions(parseInt(e?.target?.value));
+    }
+    const handleCorrectInsertsions = (e: any) => {
+        setNumCorrectInsertions(parseInt(e?.target?.value));
+    }
+    const handleConfidence = (e: any) => {
+        setConfidence(e?.target?.value)
+    }
     return <StyledAddPatient>
         <StyledHeader><strong>New Patient</strong></StyledHeader>
         <StyledWrapper>
             <StyledDiv>
-                <StyledSelect  size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
+                <StyledSelect options={institutions.map(x => ({label: x?.name, value: x?.name}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
             </StyledDiv>
             <StyledDiv>
-                <StyledInput placeholder={"Patient ID"}/>
+                <StyledInput value={patientID} onChange={handlePatient} placeholder={"Patient ID"}/>
             </StyledDiv>
         </StyledWrapper>
         <StyledWrapper>
             <StyledDiv>
-                <StyledInput  type={"number"} placeholder={"# Insertions"}/>
+                <StyledInput value={numInsertions} onChange={handleInsertsions} type={"number"} placeholder={"# Insertions"}/>
             </StyledDiv>
             <StyledDiv>
-                <StyledInput  type={"number"} placeholder={"# Correct Insertions"}/>
+                <StyledInput value={numCorrectInsertions} onChange={handleCorrectInsertsions} type={"number"} placeholder={"# Correct Insertions"}/>
             </StyledDiv>
         </StyledWrapper>
         <StyledWrapper>
@@ -90,7 +139,7 @@ const AddPatient = () => {
             </StyledDiv>
             <StyledDiv>
                 <StyledLabel>Confidence (1 = none, 5 = most confident)</StyledLabel>
-                <Radio.Group>
+                <Radio.Group value={confidence} onChange={handleConfidence}>
                     <Radio value={1}>1</Radio>
                     <Radio value={2}>2</Radio>
                     <Radio value={3}>3</Radio>
@@ -100,7 +149,7 @@ const AddPatient = () => {
             </StyledDiv>
         </StyledWrapper>
         <StyledDiv>
-            <StyledButton size="small" type="primary">Submit</StyledButton>
+            <StyledButton size="small" type="primary" disabled={!isValid()} onClick={addPatient}>Submit</StyledButton>
         </StyledDiv>
     </StyledAddPatient>
 }
