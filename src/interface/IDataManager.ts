@@ -1,7 +1,8 @@
 import { IDashboard } from "./IDashboard";
+import { IInstitution } from "./IInstitution";
 
 export interface IDataManager {
-    institutions: {id: number, name: string}[];
+    institutions: IInstitution[];
     dashboards: IDashboard[];
     learn: any[];
 }

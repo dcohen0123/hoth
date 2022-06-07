@@ -6,6 +6,7 @@ import { IDashboard } from "../../interface/IDashboard";
 import { IInput, InputType } from "../../interface/IInput";
 import { IState } from "../../interface/IState";
 import { UpdateDashboardInput } from "../../redux/Workspace/WorkspaceActions";
+import { IInstitution } from "../../interface/IInstitution";
 
 const StyledInputs = styled.div`
     flex: 0;
@@ -71,9 +72,12 @@ const StyledInputText = styled(Input)`
 
 const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
     const dispatch = useDispatch();
+    const institutions: IInstitution[] = useSelector((state: IState) => state?.dataManager?.institutions);
+    console.log(institutions);
     const dashboard: IDashboard | undefined = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x.id === viewId)?.meta);
     const getInput = (x: IInput) => {
         let result: JSX.Element | null = null;
+
         switch(x.type) {
             case InputType.Select: {
                 result = getSelect(x);
@@ -85,6 +89,10 @@ const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
             }
             case InputType.DateRange: {
                 result = getDateRange(x);
+                break;
+            }
+            case InputType.Institution: {
+                result = getInstitution(x);
                 break;
             }
             default: {
@@ -111,7 +119,24 @@ const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
             filterOption={(input: any, option: any) =>
             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
             }
-        > {x?.meta?.data?.map((y: any) => (<Option key={y.value} value={y.value}>{y.key}</Option>))}
+        >
+            {(x?.meta?.data)?.map((y: any) => (<Option key={y.value} value={y.value}>{y.key}</Option>))}
+        </StyledSelect>
+    }
+    const getInstitution = (x: IInput) => {
+        const handleChange = (value: any) => dispatch({type: UpdateDashboardInput, payload: {viewId, inputId: x.id, value}})
+        return <StyledSelect
+            placeholder={<span style={{color: "#6f6f6f"}}>Institution</span>}
+            size={"small"}
+            onChange={handleChange}
+            optionFilterProp="children"
+            showSearch={true}
+            value={x?.value}
+            filterOption={(input: any, option: any) =>
+            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+        >
+            {institutions?.map((y: any) => (<Option key={y.name} value={y.name}>{y.name}</Option>))}
         </StyledSelect>
     }
     const getSearch = (x: IInput) => {

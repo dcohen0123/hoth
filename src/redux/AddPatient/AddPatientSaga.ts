@@ -4,7 +4,7 @@ import { AddNewPatient, AddNewPatientComplete } from "./AddPatientActions";
 
 export function* addNewPatientHandler(action: any) {
     try {
-        const response: Promise<any> = yield call(fetchPost, "http://localhost:5000/patient", action.payload.patient);
+        const response: Promise<any> = yield call(fetchPost, "http://localhost:5000/patients", action.payload.patient);
         const data: {isSuccess: boolean} = yield response;
         yield put({type: AddNewPatientComplete, payload: {viewId: action.payload.viewId, data}});
     } catch (e) {

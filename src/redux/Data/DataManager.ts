@@ -3,37 +3,15 @@ import { InputType } from "../../interface/IInput";
 import { MainType } from "../../interface/IMain";
 
 const dataManager: IDataManager = {
-    institutions: [{
-        id: 1,
-        name: "Harvard Medical School"
-    }, {
-        id: 2,
-        name: "Stanford Medical Center"
-    }, {
-        id: 3,
-        name: "NYU Langone"
-    }],
+    institutions: [],
     dashboards: [{
         id: "d1",
         name: "Dashboard 1",
         inputs: [{
             id: "institution",
             name: "Insitution",
-            type: InputType.Select,
+            type: InputType.Institution,
             align: "left",
-            meta: {
-                placeholder: "Institution",
-                data: [{
-                    key: "Harvard Medical School",
-                    value: "harvard"
-                }, {
-                    key: "NYU Langone",
-                    value: "nyu"
-                }, {
-                    key: "Mayo",
-                    value: "mayo"
-                }]
-            }
         }, {
             id: "date",
             name: "Date",
