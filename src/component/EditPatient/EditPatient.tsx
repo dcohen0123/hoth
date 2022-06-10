@@ -106,14 +106,20 @@ const EditPatient = ({viewId}: IEditPatientProps) => {
             viewId,
             patient: {
                 patient_id: patient,
-                institution_id: institution, 
                 firstName,
-                lastName, 
-                numInsertions, 
-                numCorrectInsertions, 
-                confidence
+                lastName
             }
         }})
+        // dispatch({type: EditInsertionStats, payload: {
+        //     viewId,
+        //     patient: {
+        //         patient_id: patient,
+        //         institution_id: institution, 
+        //         numInsertions, 
+        //         numCorrectInsertions, 
+        //         confidence
+        //     }
+        // }})
     }
     const isValid = () => {
         return firstName?.trim() && lastName?.trim() &&

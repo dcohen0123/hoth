@@ -53,9 +53,14 @@ const StyledDiv = styled.div`
     }
 `;
 
-const StyledLabel = styled.label`
+const StyledSubheader = styled.h5`
     font-size: 14px;
-    margin-bottom: 5px;
+    margin: 0;
+    font-weight: 500;
+`
+
+const StyledLabel = styled.label`
+    font-size: 12px;
     display: block;
 `
 
@@ -70,7 +75,7 @@ const StyledWrapper = styled.div`
 `
 
 const StyledHeader = styled.h2`
-    margin-bottom: 5px;
+    margin-bottom: 4px;
 `;
 
 const AddPatient = ({viewId}: IAddPatientProps) => {
@@ -87,14 +92,21 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
         dispatch({type: AddNewPatient, payload: {
             viewId,
             patient: {
-                institution, 
+                institution_id: institution, 
                 firstName,
                 lastName, 
-                numInsertions, 
-                numCorrectInsertions, 
-                confidence
             }
         }})
+         // dispatch({type: AddInsertionStats, payload: {
+        //     viewId,
+        //     patient: {
+        //         patient_id: patient,
+        //         institution_id: institution, 
+        //         numInsertions, 
+        //         numCorrectInsertions, 
+        //         confidence
+        //     }
+        // }})
     }
     const isValid = () => {
         return institution?.trim() &&
@@ -123,7 +135,7 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
     }
     return <StyledAddPatient>
         <StyledHeader><strong>New Patient</strong></StyledHeader>
-        <StyledLabel>Patient Info</StyledLabel>
+        <StyledSubheader>Patient Info</StyledSubheader>
         <StyledWrapper>
             <StyledDiv>
                 <StyledInput value={firstName} onChange={handleFirstName} placeholder={"First Name"}/>
@@ -135,7 +147,7 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
         <StyledWrapper>
             <StyledSelect options={institutions.map(x => ({label: x?.name, value: x?.name}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
         </StyledWrapper>
-        <StyledLabel>Inserstion Stats</StyledLabel>
+        <StyledSubheader>Inserstion Stats</StyledSubheader>
         <StyledWrapper>
             <StyledDiv>
                 <StyledInput value={numInsertions} onChange={handleInsertsions} type={"number"} placeholder={"# Insertions"}/>
