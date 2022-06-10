@@ -45,7 +45,6 @@ const StyledFileInput = styled(Input)`
 `
 
 const StyledDiv = styled.div`
-    margin-bottom: 5px;
     width: calc(50% - 2.5px);
     vertical-align: top;
     display: inline-block;
@@ -55,6 +54,7 @@ const StyledDiv = styled.div`
 `;
 
 const StyledLabel = styled.label`
+    font-size: 14px;
     margin-bottom: 5px;
     display: block;
 `
@@ -66,6 +66,7 @@ const StyledButton = styled(Button)`
 const StyledWrapper = styled.div`
     display: flex;
     justify-content: space-between;
+    margin-bottom: 5px;
 `
 
 const StyledHeader = styled.h2`
@@ -76,7 +77,8 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
     const institutions = useSelector((state: IState) => state?.dataManager?.institutions);
     const dispatch = useDispatch();
     const [institution, setInstitution] = useState<string>();
-    const [patientID, setPatientID] = useState<string>();
+    const [firstName, setFirstName] = useState<string>();
+    const [lastName, setLastName] = useState<string>();
     const [numInsertions, setNumInsertions] = useState<number>();
     const [numCorrectInsertions, setNumCorrectInsertions] = useState<number>();
     const [ctScan, setCtScan] = useState<any>();
@@ -86,7 +88,8 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
             viewId,
             patient: {
                 institution, 
-                patientID, 
+                firstName,
+                lastName, 
                 numInsertions, 
                 numCorrectInsertions, 
                 confidence
@@ -94,7 +97,8 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
         }})
     }
     const isValid = () => {
-        return institution?.trim() && patientID?.trim() && 
+        return institution?.trim() &&
+        firstName?.trim() && lastName?.trim() &&
         numInsertions && numInsertions >= 0 && 
         numCorrectInsertions && numCorrectInsertions >= 0 && 
         confidence
@@ -102,8 +106,11 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
     const handleInstitution = (value: any) => {
         setInstitution(value);
     }
-    const handlePatient = (e: any) => {
-        setPatientID(e?.target?.value)
+    const handleFirstName = (e: any) => {
+        setFirstName(e?.target?.value)
+    }
+    const handleLastName = (e: any) => {
+        setLastName(e?.target?.value)
     }
     const handleInsertsions = (e: any) => {
         setNumInsertions(parseInt(e?.target?.value));
@@ -116,14 +123,19 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
     }
     return <StyledAddPatient>
         <StyledHeader><strong>New Patient</strong></StyledHeader>
+        <StyledLabel>Patient Info</StyledLabel>
         <StyledWrapper>
             <StyledDiv>
-                <StyledSelect options={institutions.map(x => ({label: x?.name, value: x?.name}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
+                <StyledInput value={firstName} onChange={handleFirstName} placeholder={"First Name"}/>
             </StyledDiv>
             <StyledDiv>
-                <StyledInput value={patientID} onChange={handlePatient} placeholder={"Patient ID"}/>
+                <StyledInput value={lastName} onChange={handleLastName} placeholder={"Last Name"}/>
             </StyledDiv>
         </StyledWrapper>
+        <StyledWrapper>
+            <StyledSelect options={institutions.map(x => ({label: x?.name, value: x?.name}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
+        </StyledWrapper>
+        <StyledLabel>Inserstion Stats</StyledLabel>
         <StyledWrapper>
             <StyledDiv>
                 <StyledInput value={numInsertions} onChange={handleInsertsions} type={"number"} placeholder={"# Insertions"}/>

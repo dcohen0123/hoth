@@ -1,5 +1,14 @@
 import { Button, Input, Radio, Select } from "antd";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { IPatient } from "../../interface/IPatient";
+import { IState } from "../../interface/IState";
+import { GetPatients } from "../../redux/EditPatient/EditPatientActions";
+
+export interface IEditPatientProps {
+    viewId: string;
+}
 
 const StyledEditPatient = styled.div`
     width: 100%;
@@ -37,7 +46,6 @@ const StyledFileInput = styled(Input)`
 `
 
 const StyledDiv = styled.div`
-    margin-bottom: 5px;
     width: calc(50% - 2.5px);
     vertical-align: top;
     display: inline-block;
@@ -58,29 +66,108 @@ const StyledButton = styled(Button)`
 const StyledWrapper = styled.div`
     display: flex;
     justify-content: space-between;
+    margin-bottom: 5px;
+`
+
+const StyledDivWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
 `
 
 const StyledHeader = styled.h2`
     margin-bottom: 5px;
 `;
 
-const EditPatient = () => {
+const EditPatient = ({viewId}: IEditPatientProps) => {
+    const institutions = useSelector((state: IState) => state?.dataManager?.institutions);
+    const patients: IPatient[] = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.patients)
+    const insertion_stats: any = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.insertion_stats)
+    const dispatch = useDispatch();
+    const [institution, setInstitution] = useState<number>();
+    const [firstName, setFirstName] = useState<string>();
+    const [lastName, setLastName] = useState<string>();
+    const [numInsertions, setNumInsertions] = useState<number>();
+    const [numCorrectInsertions, setNumCorrectInsertions] = useState<number>();
+    const [ctScan, setCtScan] = useState<any>();
+    const [confidence, setConfidence] = useState<number>();
+    const [patient, setPatient] = useState<number>();
+    useEffect(() => {
+        const p = patients.find(x => x?.id === patient);
+        setFirstName(p?.firstName);
+        setLastName(p?.lastName);
+    }, [patient])
+    useEffect(() => {
+        setNumInsertions(insertion_stats?.num_insertions);
+        setNumCorrectInsertions(insertion_stats?.num_correct_insertions);
+        setConfidence(insertion_stats?.confidence)
+    }, [insertion_stats])
+    const editPatient = () => {
+        dispatch({type: EditPatient, payload: {
+            viewId,
+            patient: {
+                patient_id: patient,
+                institution_id: institution, 
+                firstName,
+                lastName, 
+                numInsertions, 
+                numCorrectInsertions, 
+                confidence
+            }
+        }})
+    }
+    const isValid = () => {
+        return firstName?.trim() && lastName?.trim() &&
+        numInsertions && numInsertions >= 0 && 
+        numCorrectInsertions && numCorrectInsertions >= 0 && 
+        confidence
+    }
+    const handleInstitution = (value: any) => {
+        dispatch({type: GetPatients, payload: {institution_id: value}})
+        setInstitution(value);
+    }
+    const handlePatient = (value: any) => {
+        // dispatch({type: GetInsertionStats, payload: {patient_id: value, institution_id: institution}})
+        setPatient(value);
+    }
+    const handleFirstName = (e: any) => {
+        setFirstName(e?.target?.value)
+    }
+    const handleLastName = (e: any) => {
+        setLastName(e?.target?.value)
+    }
+    const handleInsertsions = (e: any) => {
+        setNumInsertions(parseInt(e?.target?.value));
+    }
+    const handleCorrectInsertsions = (e: any) => {
+        setNumCorrectInsertions(parseInt(e?.target?.value));
+    }
+    const handleConfidence = (e: any) => {
+        setConfidence(e?.target?.value)
+    }
     return <StyledEditPatient>
         <StyledHeader><strong>Edit Patient</strong></StyledHeader>
         <StyledWrapper>
             <StyledDiv>
-                <StyledSelect  size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
+                <StyledSelect options={institutions?.map(x => ({label: x?.name, value: x?.id}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
             </StyledDiv>
             <StyledDiv>
-                <StyledSelect  size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Patient"}</span>}/ >
+                <StyledSelect options={patients?.map(x => ({label: `${x?.firstName} ${x?.lastName}`, value: x?.id}))} showSearch allowClear value={patient} onChange={handlePatient} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Patient"}</span>}/ >
             </StyledDiv>
         </StyledWrapper>
         <StyledWrapper>
             <StyledDiv>
-                <StyledInput  type={"number"} placeholder={"# Insertions"}/>
+                <StyledInput value={firstName} onChange={handleFirstName} placeholder={"First Name"}/>
             </StyledDiv>
             <StyledDiv>
-                <StyledInput  type={"number"} placeholder={"# Correct Insertions"}/>
+                <StyledInput value={lastName} onChange={handleLastName} placeholder={"Last Name"}/>
+            </StyledDiv>
+        </StyledWrapper>
+        <StyledWrapper>
+            <StyledDiv>
+                <StyledInput value={numInsertions} onChange={handleInsertsions} type={"number"} placeholder={"# Insertions"}/>
+            </StyledDiv>
+            <StyledDiv>
+                <StyledInput value={numCorrectInsertions} onChange={handleCorrectInsertsions} type={"number"} placeholder={"# Correct Insertions"}/>
             </StyledDiv>
         </StyledWrapper>
         <StyledWrapper>
@@ -90,7 +177,7 @@ const EditPatient = () => {
             </StyledDiv>
             <StyledDiv>
                 <StyledLabel>Confidence (1 = none, 5 = most confident)</StyledLabel>
-                <Radio.Group>
+                <Radio.Group value={confidence} onChange={handleConfidence}>
                     <Radio value={1}>1</Radio>
                     <Radio value={2}>2</Radio>
                     <Radio value={3}>3</Radio>
@@ -100,7 +187,7 @@ const EditPatient = () => {
             </StyledDiv>
         </StyledWrapper>
         <StyledDiv>
-            <StyledButton size="small" type="primary">Update</StyledButton>
+            <StyledButton size="small" type="primary" disabled={!isValid()} onClick={editPatient}>Update</StyledButton>
         </StyledDiv>
     </StyledEditPatient>
 }
