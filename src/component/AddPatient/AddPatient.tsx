@@ -1,4 +1,4 @@
-import { Button, Input, Radio, Select } from "antd";
+import { Button, Input, notification, Radio, Select } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -82,7 +82,7 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
     const view = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId))
     const institutions = useSelector((state: IState) => state?.dataManager?.institutions);
     const dispatch = useDispatch();
-    const [institution, setInstitution] = useState<string>();
+    const [institution, setInstitution] = useState<number>();
     const [firstName, setFirstName] = useState<string>();
     const [lastName, setLastName] = useState<string>();
     const [numInsertions, setNumInsertions] = useState<number>();
@@ -102,6 +102,23 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
             }})   
         }
     }, [view?.meta?.patient_id])
+    useEffect(() => {
+        if (view?.meta?.data?.isSuccess === true) {
+            notification.open({
+                type: "success",
+                message: 'Added Patient',
+                description: "Succesfully added new patient."
+            });
+            clearInputs()
+        }
+        if (view?.meta?.data?.isSuccess === false) {
+            notification.open({
+                type: "error",
+                message: 'Add Patient Failed',
+                description: "Failled to add new patient."
+            });
+        }
+    }, [view?.meta?.data])
     const addPatient = () => {
         dispatch({type: AddNewPatient, payload: {
             viewId,
@@ -118,6 +135,14 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
         numInsertions && numInsertions >= 0 && 
         numCorrectInsertions && numCorrectInsertions >= 0 && 
         confidence
+    }
+    const clearInputs = () => {
+        setInstitution(undefined);
+        setFirstName(undefined);
+        setLastName(undefined);
+        setNumInsertions(undefined);
+        setNumCorrectInsertions(undefined);
+        setConfidence(undefined);
     }
     const handleInstitution = (value: any) => {
         setInstitution(value);

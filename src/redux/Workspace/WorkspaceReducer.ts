@@ -123,7 +123,7 @@ export default function workspaceReducer(state = State.workspaceManager, action:
         const viewIdx: number = selected.views.findIndex((x: IView) => x.id === action.payload.viewId)
         selected.views[viewIdx] = {...selected.views[viewIdx]};
         selected.views[viewIdx].meta = {...selected.views[viewIdx].meta}
-        selected.views[viewIdx].meta.data = action.payload?.data;
+        selected.views[viewIdx].meta.data = {...(selected.views[viewIdx].meta.data ?? {}), editPatient: action.payload?.data};
         return {
           ...state,
           selected
@@ -135,7 +135,7 @@ export default function workspaceReducer(state = State.workspaceManager, action:
         const viewIdx: number = selected.views.findIndex((x: IView) => x.id === action.payload.viewId)
         selected.views[viewIdx] = {...selected.views[viewIdx]};
         selected.views[viewIdx].meta = {...selected.views[viewIdx].meta}
-        selected.views[viewIdx].meta.data = action.payload.data;
+        selected.views[viewIdx].meta.data = {...(selected.views[viewIdx].meta.data ?? {}), editOperation: action.payload?.data};
         return {
           ...state,
           selected

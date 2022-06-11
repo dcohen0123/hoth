@@ -1,4 +1,4 @@
-import { Button, Input, Radio, Select } from "antd";
+import { Button, Input, notification, Radio, Select } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -85,6 +85,7 @@ const StyledHeader = styled.h2`
 `;
 
 const EditPatientComp = ({viewId}: IEditPatientProps) => {
+    const view = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId))
     const institutions = useSelector((state: IState) => state?.dataManager?.institutions);
     const patients: IPatient[] = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.patients)
     const operation: any = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.operation)
@@ -107,7 +108,42 @@ const EditPatientComp = ({viewId}: IEditPatientProps) => {
         setNumCorrectInsertions(operation?.numCorrectInsertions);
         setConfidence(operation?.confidence)
     }, [operation])
-    const editPatient = () => {
+    useEffect(() => {
+        if (view?.meta?.data?.editPatient?.isSuccess === true) {
+            dispatch({type: EditOperation, payload: {
+                viewId,
+                operation: {
+                    operation_id: operation?.id,
+                    numInsertions, 
+                    numCorrectInsertions, 
+                    confidence
+                }
+            }})
+        } else if (view?.meta?.data?.editPatient?.isSuccess === false) {
+            notification.open({
+                type: "error",
+                message: 'Edit Patient Failed',
+                description: "Failed to edit patient."
+            });
+        }
+    }, [view?.meta?.data?.editPatient])
+    useEffect(() => {
+        if (view?.meta?.data?.editOperation?.isSuccess === true) {
+            notification.open({
+                type: "success",
+                message: 'Edited Patient',
+                description: "Successfully edited patient."
+            });
+            clearInputs()
+        } else if (view?.meta?.data?.editOperation?.isSuccess === false) {
+            notification.open({
+                type: "error",
+                message: 'Edit Patient Failed',
+                description: "Failed to edit patient."
+            });
+        }
+    }, [view?.meta?.data?.editOperation])
+    const editPatient = () => { 
         dispatch({type: EditPatient, payload: {
             viewId,
             patient: {
@@ -116,15 +152,15 @@ const EditPatientComp = ({viewId}: IEditPatientProps) => {
                 lastName
             }
         }})
-        dispatch({type: EditOperation, payload: {
-            viewId,
-            operation: {
-                operation_id: operation?.id,
-                numInsertions, 
-                numCorrectInsertions, 
-                confidence
-            }
-        }})
+    }
+    const clearInputs = () => {
+        setPatient(undefined)
+        setInstitution(undefined);
+        setFirstName(undefined);
+        setLastName(undefined);
+        setNumInsertions(undefined);
+        setNumCorrectInsertions(undefined);
+        setConfidence(undefined);
     }
     const isValid = () => {
         return firstName?.trim() && lastName?.trim() &&
@@ -155,7 +191,6 @@ const EditPatientComp = ({viewId}: IEditPatientProps) => {
     const handleConfidence = (e: any) => {
         setConfidence(e?.target?.value)
     }
-    console.log(patients);
     return <StyledEditPatient>
         <StyledHeader><strong>Edit Patient</strong></StyledHeader>
         <StyledSubheader>Patient Info</StyledSubheader>
