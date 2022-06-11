@@ -1,9 +1,9 @@
 import { Button, Input, Radio, Select } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { IState } from "../../interface/IState";
-import { AddNewPatient } from "../../redux/AddPatient/AddPatientActions";
+import { AddNewPatient, AddOperation } from "../../redux/AddPatient/AddPatientActions";
 
 export interface IAddPatientProps {
     viewId: string;
@@ -60,7 +60,7 @@ const StyledSubheader = styled.h5`
 `
 
 const StyledLabel = styled.label`
-    font-size: 12px;
+    font-size: 13px;
     display: block;
 `
 
@@ -79,6 +79,7 @@ const StyledHeader = styled.h2`
 `;
 
 const AddPatient = ({viewId}: IAddPatientProps) => {
+    const view = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId))
     const institutions = useSelector((state: IState) => state?.dataManager?.institutions);
     const dispatch = useDispatch();
     const [institution, setInstitution] = useState<string>();
@@ -88,6 +89,19 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
     const [numCorrectInsertions, setNumCorrectInsertions] = useState<number>();
     const [ctScan, setCtScan] = useState<any>();
     const [confidence, setConfidence] = useState<number>();
+    useEffect(() => {
+        if (view?.meta?.data?.patient_id) {
+            dispatch({type: AddOperation, payload: {
+                viewId,
+                operation: {
+                    patient_id: view?.meta?.data?.patient_id,
+                    numInsertions, 
+                    numCorrectInsertions, 
+                    confidence
+                }
+            }})   
+        }
+    }, [view?.meta?.data?.patient_id])
     const addPatient = () => {
         dispatch({type: AddNewPatient, payload: {
             viewId,
@@ -97,16 +111,6 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
                 lastName, 
             }
         }})
-         // dispatch({type: AddInsertionStats, payload: {
-        //     viewId,
-        //     patient: {
-        //         patient_id: patient,
-        //         institution_id: institution, 
-        //         numInsertions, 
-        //         numCorrectInsertions, 
-        //         confidence
-        //     }
-        // }})
     }
     const isValid = () => {
         return institution?.trim() &&

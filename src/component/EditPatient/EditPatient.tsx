@@ -26,6 +26,12 @@ const StyledInput = styled(Input)`
     }
 `
 
+const StyledSubheader = styled.h5`
+    font-size: 14px;
+    margin: 0;
+    font-weight: 500;
+`
+
 const StyledSelect = styled(Select)`
     margin: 0;
     width: 100%;
@@ -80,8 +86,8 @@ const StyledHeader = styled.h2`
 
 const EditPatient = ({viewId}: IEditPatientProps) => {
     const institutions = useSelector((state: IState) => state?.dataManager?.institutions);
-    const patients: IPatient[] = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.patients)
-    const insertion_stats: any = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.insertion_stats)
+    const patients: IPatient[] = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.data?.patients)
+    const operation: any = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.data?.insertion_stats)
     const dispatch = useDispatch();
     const [institution, setInstitution] = useState<number>();
     const [firstName, setFirstName] = useState<string>();
@@ -97,10 +103,10 @@ const EditPatient = ({viewId}: IEditPatientProps) => {
         setLastName(p?.lastName);
     }, [patient])
     useEffect(() => {
-        setNumInsertions(insertion_stats?.num_insertions);
-        setNumCorrectInsertions(insertion_stats?.num_correct_insertions);
-        setConfidence(insertion_stats?.confidence)
-    }, [insertion_stats])
+        setNumInsertions(operation?.num_insertions);
+        setNumCorrectInsertions(operation?.num_correct_insertions);
+        setConfidence(operation?.confidence)
+    }, [operation])
     const editPatient = () => {
         dispatch({type: EditPatient, payload: {
             viewId,
@@ -132,7 +138,7 @@ const EditPatient = ({viewId}: IEditPatientProps) => {
         setInstitution(value);
     }
     const handlePatient = (value: any) => {
-        // dispatch({type: GetInsertionStats, payload: {patient_id: value, institution_id: institution}})
+        dispatch({type: GetOperation, payload: {patient_id: value}})
         setPatient(value);
     }
     const handleFirstName = (e: any) => {
@@ -151,7 +157,8 @@ const EditPatient = ({viewId}: IEditPatientProps) => {
         setConfidence(e?.target?.value)
     }
     return <StyledEditPatient>
-        <StyledHeader><strong>Edit Patient</strong></StyledHeader>
+        <StyledHeader><strong>New Patient</strong></StyledHeader>
+        <StyledSubheader>Patient Info</StyledSubheader>
         <StyledWrapper>
             <StyledDiv>
                 <StyledSelect options={institutions?.map(x => ({label: x?.name, value: x?.id}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
@@ -168,6 +175,10 @@ const EditPatient = ({viewId}: IEditPatientProps) => {
                 <StyledInput value={lastName} onChange={handleLastName} placeholder={"Last Name"}/>
             </StyledDiv>
         </StyledWrapper>
+        <StyledWrapper>
+            <StyledSelect options={institutions.map(x => ({label: x?.name, value: x?.name}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
+        </StyledWrapper>
+        <StyledSubheader>Inserstion Stats</StyledSubheader>
         <StyledWrapper>
             <StyledDiv>
                 <StyledInput value={numInsertions} onChange={handleInsertsions} type={"number"} placeholder={"# Insertions"}/>

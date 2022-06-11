@@ -1,7 +1,8 @@
 import { IInput } from "../../interface/IInput";
 import { IView } from "../../interface/IView";
 import { IWidget } from "../../interface/IWidget";
-import { AddNewPatientComplete } from "../AddPatient/AddPatientActions";
+import { AddNewPatientComplete, AddOperationComplete } from "../AddPatient/AddPatientActions";
+import { GetPatientsComplete } from "../EditPatient/EditPatientActions";
 import State from "../State";
 import { AddView, UpdateDashboardInput, UpdateWidgetDimensions, UpdateWidgetInput } from "./WorkspaceActions";
 
@@ -75,6 +76,30 @@ export default function workspaceReducer(state = State.workspaceManager, action:
         selected.views[viewIdx] = {...selected.views[viewIdx]};
         selected.views[viewIdx].meta = {...selected.views[viewIdx].meta}
         selected.views[viewIdx].meta.data = action.payload.data;
+        return {
+          ...state,
+          selected
+        }
+      }
+      case AddOperationComplete: {
+        const selected: any = {...state.selected};
+        selected.views = [...selected.views];
+        const viewIdx: number = selected.views.findIndex((x: IView) => x.id === action.payload.viewId)
+        selected.views[viewIdx] = {...selected.views[viewIdx]};
+        selected.views[viewIdx].meta = {...selected.views[viewIdx].meta}
+        selected.views[viewIdx].meta.data = action.payload.data;
+        return {
+          ...state,
+          selected
+        }
+      }
+      case GetPatientsComplete: {
+        const selected: any = {...state.selected};
+        selected.views = [...selected.views];
+        const viewIdx: number = selected.views.findIndex((x: IView) => x.id === action.payload.viewId)
+        selected.views[viewIdx] = {...selected.views[viewIdx]};
+        selected.views[viewIdx].meta = {...selected.views[viewIdx].meta}
+        selected.views[viewIdx].meta.patients = action.payload?.data?.patients;
         return {
           ...state,
           selected
