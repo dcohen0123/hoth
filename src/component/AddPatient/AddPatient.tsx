@@ -90,18 +90,18 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
     const [ctScan, setCtScan] = useState<any>();
     const [confidence, setConfidence] = useState<number>();
     useEffect(() => {
-        if (view?.meta?.data?.patient_id) {
+        if (view?.meta?.patient_id) {
             dispatch({type: AddOperation, payload: {
                 viewId,
                 operation: {
-                    patient_id: view?.meta?.data?.patient_id,
+                    patient_id: view?.meta?.patient_id,
                     numInsertions, 
                     numCorrectInsertions, 
                     confidence
                 }
             }})   
         }
-    }, [view?.meta?.data?.patient_id])
+    }, [view?.meta?.patient_id])
     const addPatient = () => {
         dispatch({type: AddNewPatient, payload: {
             viewId,
@@ -113,7 +113,7 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
         }})
     }
     const isValid = () => {
-        return institution?.trim() &&
+        return institution &&
         firstName?.trim() && lastName?.trim() &&
         numInsertions && numInsertions >= 0 && 
         numCorrectInsertions && numCorrectInsertions >= 0 && 
@@ -149,7 +149,7 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
             </StyledDiv>
         </StyledWrapper>
         <StyledWrapper>
-            <StyledSelect options={institutions.map(x => ({label: x?.name, value: x?.name}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
+            <StyledSelect filterOption={(input: any, option: any) => option?.label?.toLowerCase()?.includes(input?.trim()?.toLowerCase())} options={institutions.map(x => ({label: x?.name, value: x?.id}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
         </StyledWrapper>
         <StyledSubheader>Inserstion Stats</StyledSubheader>
         <StyledWrapper>

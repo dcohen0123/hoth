@@ -12,6 +12,20 @@ export const fetchPost = (url: string, payload: any): Promise<any> => {
     })
 }
 
+export const fetchPut = (url: string, payload: any): Promise<any> => {
+    return fetch(url, {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    }).then((response) => {
+        return response.json()
+    }).catch((e) => {
+        console.error(e)
+    })
+}
+
 export const fetchGet = (url: string): Promise<any> => {
     return fetch(url)
         .then((response) => {

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { IPatient } from "../../interface/IPatient";
 import { IState } from "../../interface/IState";
-import { GetPatients } from "../../redux/EditPatient/EditPatientActions";
+import { EditOperation, EditPatient, GetOperation, GetPatients } from "../../redux/EditPatient/EditPatientActions";
 
 export interface IEditPatientProps {
     viewId: string;
@@ -84,10 +84,10 @@ const StyledHeader = styled.h2`
     margin-bottom: 5px;
 `;
 
-const EditPatient = ({viewId}: IEditPatientProps) => {
+const EditPatientComp = ({viewId}: IEditPatientProps) => {
     const institutions = useSelector((state: IState) => state?.dataManager?.institutions);
-    const patients: IPatient[] = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.data?.patients)
-    const operation: any = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.data?.insertion_stats)
+    const patients: IPatient[] = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.patients)
+    const operation: any = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.operation)
     const dispatch = useDispatch();
     const [institution, setInstitution] = useState<number>();
     const [firstName, setFirstName] = useState<string>();
@@ -98,13 +98,13 @@ const EditPatient = ({viewId}: IEditPatientProps) => {
     const [confidence, setConfidence] = useState<number>();
     const [patient, setPatient] = useState<number>();
     useEffect(() => {
-        const p = patients.find(x => x?.id === patient);
+        const p = patients?.find(x => x?.id === patient);
         setFirstName(p?.firstName);
         setLastName(p?.lastName);
     }, [patient])
     useEffect(() => {
-        setNumInsertions(operation?.num_insertions);
-        setNumCorrectInsertions(operation?.num_correct_insertions);
+        setNumInsertions(operation?.numInsertions);
+        setNumCorrectInsertions(operation?.numCorrectInsertions);
         setConfidence(operation?.confidence)
     }, [operation])
     const editPatient = () => {
@@ -116,29 +116,28 @@ const EditPatient = ({viewId}: IEditPatientProps) => {
                 lastName
             }
         }})
-        // dispatch({type: EditInsertionStats, payload: {
-        //     viewId,
-        //     patient: {
-        //         patient_id: patient,
-        //         institution_id: institution, 
-        //         numInsertions, 
-        //         numCorrectInsertions, 
-        //         confidence
-        //     }
-        // }})
+        dispatch({type: EditOperation, payload: {
+            viewId,
+            operation: {
+                operation_id: operation?.id,
+                numInsertions, 
+                numCorrectInsertions, 
+                confidence
+            }
+        }})
     }
     const isValid = () => {
         return firstName?.trim() && lastName?.trim() &&
         numInsertions && numInsertions >= 0 && 
         numCorrectInsertions && numCorrectInsertions >= 0 && 
-        confidence
+        patient && institution && confidence
     }
     const handleInstitution = (value: any) => {
-        dispatch({type: GetPatients, payload: {institution_id: value}})
+        dispatch({type: GetPatients, payload: {viewId: viewId, institution_id: value}})
         setInstitution(value);
     }
     const handlePatient = (value: any) => {
-        dispatch({type: GetOperation, payload: {patient_id: value}})
+        dispatch({type: GetOperation, payload: {viewId: viewId, patient_id: value}})
         setPatient(value);
     }
     const handleFirstName = (e: any) => {
@@ -156,15 +155,16 @@ const EditPatient = ({viewId}: IEditPatientProps) => {
     const handleConfidence = (e: any) => {
         setConfidence(e?.target?.value)
     }
+    console.log(patients);
     return <StyledEditPatient>
-        <StyledHeader><strong>New Patient</strong></StyledHeader>
+        <StyledHeader><strong>Edit Patient</strong></StyledHeader>
         <StyledSubheader>Patient Info</StyledSubheader>
         <StyledWrapper>
             <StyledDiv>
-                <StyledSelect options={institutions?.map(x => ({label: x?.name, value: x?.id}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
+                <StyledSelect filterOption={(input: any, option: any) => option?.label?.toLowerCase()?.includes(input?.trim()?.toLowerCase())} options={institutions?.map(x => ({label: x?.name, value: x?.id}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
             </StyledDiv>
             <StyledDiv>
-                <StyledSelect options={patients?.map(x => ({label: `${x?.firstName} ${x?.lastName}`, value: x?.id}))} showSearch allowClear value={patient} onChange={handlePatient} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Patient"}</span>}/ >
+                <StyledSelect filterOption={(input: any, option: any) => option?.label?.toLowerCase()?.includes(input?.trim()?.toLowerCase())} options={patients?.map(x => ({label: `${x?.firstName} ${x?.lastName}`, value: x?.id}))} showSearch allowClear value={patient} onChange={handlePatient} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Patient"}</span>}/ >
             </StyledDiv>
         </StyledWrapper>
         <StyledWrapper>
@@ -174,9 +174,6 @@ const EditPatient = ({viewId}: IEditPatientProps) => {
             <StyledDiv>
                 <StyledInput value={lastName} onChange={handleLastName} placeholder={"Last Name"}/>
             </StyledDiv>
-        </StyledWrapper>
-        <StyledWrapper>
-            <StyledSelect options={institutions.map(x => ({label: x?.name, value: x?.name}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
         </StyledWrapper>
         <StyledSubheader>Inserstion Stats</StyledSubheader>
         <StyledWrapper>
@@ -209,4 +206,4 @@ const EditPatient = ({viewId}: IEditPatientProps) => {
     </StyledEditPatient>
 }
 
-export default EditPatient;
+export default EditPatientComp;

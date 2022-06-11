@@ -73,7 +73,6 @@ const StyledInputText = styled(Input)`
 const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
     const dispatch = useDispatch();
     const institutions: IInstitution[] = useSelector((state: IState) => state?.dataManager?.institutions);
-    console.log(institutions);
     const dashboard: IDashboard | undefined = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x.id === viewId)?.meta);
     const getInput = (x: IInput) => {
         let result: JSX.Element | null = null;
