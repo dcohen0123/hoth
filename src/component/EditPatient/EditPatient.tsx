@@ -81,7 +81,8 @@ const StyledDivWrapper = styled.div`
 `
 
 const StyledHeader = styled.h2`
-    margin-bottom: 5px;
+    margin-bottom: 3px;
+    font-size: 20px;
 `;
 
 const EditPatientComp = ({viewId}: IEditPatientProps) => {

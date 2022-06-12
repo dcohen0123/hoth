@@ -75,7 +75,8 @@ const StyledWrapper = styled.div`
 `
 
 const StyledHeader = styled.h2`
-    margin-bottom: 4px;
+    margin-bottom: 3px;
+    font-size: 20px;
 `;
 
 const AddPatient = ({viewId}: IAddPatientProps) => {
