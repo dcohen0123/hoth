@@ -119,11 +119,13 @@ const WidgetInputs = ({viewId, widgetId}: IWidgetInputsProps) => {
         return <StyledMuiIcon><OpenInNewOutlined /></StyledMuiIcon>
     }
     const getSelect = (x: IInput) => {
+        const handleSelect = (value: any) => dispatch({type: UpdateWidgetInput, payload: {viewId, widgetId, inputId: x.id, value}})
         return <StyledWidgetSelect
             placeholder={<span>{x?.meta?.placeholder}</span>}
             size={"small"}
             optionFilterProp="children"
-            value={x?.value ?? x?.meta?.default}
+            value={x?.value}
+            onChange={handleSelect}
             filterOption={(input: any, option: any) =>
             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
             }
