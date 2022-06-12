@@ -13,7 +13,7 @@ const StyledAddPatient = styled.div`
     width: 100%;
     height: 100%;
     background: #fff;
-    padding: 5px;
+    padding: 2px 5px;
 `;
 
 const StyledInput = styled(Input)`
@@ -75,7 +75,8 @@ const StyledWrapper = styled.div`
 `
 
 const StyledHeader = styled.h2`
-    margin-bottom: 4px;
+    margin-bottom: 2px;
+    font-size: 19px;
 `;
 
 const AddPatient = ({viewId}: IAddPatientProps) => {
@@ -164,7 +165,10 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
     }
     return <StyledAddPatient>
         <StyledHeader><strong>New Patient</strong></StyledHeader>
-        <StyledSubheader>Patient Info</StyledSubheader>
+        <StyledSubheader>Patient</StyledSubheader>
+        <StyledWrapper>
+            <StyledSelect filterOption={(input: any, option: any) => option?.label?.toLowerCase()?.includes(input?.trim()?.toLowerCase())} options={institutions.map(x => ({label: x?.name, value: x?.id}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Institution"}</span>}/ >
+        </StyledWrapper>
         <StyledWrapper>
             <StyledDiv>
                 <StyledInput value={firstName} onChange={handleFirstName} placeholder={"First Name"}/>
@@ -173,10 +177,7 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
                 <StyledInput value={lastName} onChange={handleLastName} placeholder={"Last Name"}/>
             </StyledDiv>
         </StyledWrapper>
-        <StyledWrapper>
-            <StyledSelect filterOption={(input: any, option: any) => option?.label?.toLowerCase()?.includes(input?.trim()?.toLowerCase())} options={institutions.map(x => ({label: x?.name, value: x?.id}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
-        </StyledWrapper>
-        <StyledSubheader>Inserstion Stats</StyledSubheader>
+        <StyledSubheader>Operation</StyledSubheader>
         <StyledWrapper>
             <StyledDiv>
                 <StyledInput value={numInsertions} onChange={handleInsertsions} type={"number"} placeholder={"# Insertions"}/>

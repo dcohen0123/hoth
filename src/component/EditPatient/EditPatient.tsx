@@ -14,7 +14,7 @@ const StyledEditPatient = styled.div`
     width: 100%;
     height: 100%;
     background: #fff;
-    padding: 5px;
+    padding: 2px 5px;
 `;
 
 const StyledInput = styled(Input)`
@@ -81,7 +81,8 @@ const StyledDivWrapper = styled.div`
 `
 
 const StyledHeader = styled.h2`
-    margin-bottom: 5px;
+    margin-bottom: 2px;
+    font-size: 19px;
 `;
 
 const EditPatientComp = ({viewId}: IEditPatientProps) => {
@@ -193,13 +194,13 @@ const EditPatientComp = ({viewId}: IEditPatientProps) => {
     }
     return <StyledEditPatient>
         <StyledHeader><strong>Edit Patient</strong></StyledHeader>
-        <StyledSubheader>Patient Info</StyledSubheader>
+        <StyledSubheader>Patient</StyledSubheader>
         <StyledWrapper>
             <StyledDiv>
-                <StyledSelect filterOption={(input: any, option: any) => option?.label?.toLowerCase()?.includes(input?.trim()?.toLowerCase())} options={institutions?.map(x => ({label: x?.name, value: x?.id}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Institution"}</span>}/ >
+                <StyledSelect filterOption={(input: any, option: any) => option?.label?.toLowerCase()?.includes(input?.trim()?.toLowerCase())} options={institutions?.map(x => ({label: x?.name, value: x?.id}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Institution"}</span>}/ >
             </StyledDiv>
             <StyledDiv>
-                <StyledSelect filterOption={(input: any, option: any) => option?.label?.toLowerCase()?.includes(input?.trim()?.toLowerCase())} options={patients?.map(x => ({label: `${x?.firstName} ${x?.lastName}`, value: x?.id}))} showSearch allowClear value={patient} onChange={handlePatient} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Select Patient"}</span>}/ >
+                <StyledSelect filterOption={(input: any, option: any) => option?.label?.toLowerCase()?.includes(input?.trim()?.toLowerCase())} options={patients?.map(x => ({label: `${x?.firstName} ${x?.lastName}`, value: x?.id}))} showSearch allowClear value={patient} onChange={handlePatient} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Patient"}</span>}/ >
             </StyledDiv>
         </StyledWrapper>
         <StyledWrapper>
@@ -210,7 +211,7 @@ const EditPatientComp = ({viewId}: IEditPatientProps) => {
                 <StyledInput value={lastName} onChange={handleLastName} placeholder={"Last Name"}/>
             </StyledDiv>
         </StyledWrapper>
-        <StyledSubheader>Inserstion Stats</StyledSubheader>
+        <StyledSubheader>Operation</StyledSubheader>
         <StyledWrapper>
             <StyledDiv>
                 <StyledInput value={numInsertions} onChange={handleInsertsions} type={"number"} placeholder={"# Insertions"}/>
