@@ -7,7 +7,7 @@ import { NavItemSelected } from "../../redux/Nav/NavActions";
 
 const StyledDiv = styled.div`
     padding: 6.5px 4px 6.5px 7px;
-    background: #5a5a5a;
+    background: #636363;
     color: #fff;
     font-size: 13px;
     display: flex;
