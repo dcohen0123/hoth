@@ -11,7 +11,7 @@ const StyledDiv = styled.div`
     color: #fff;
     font-size: 13px;
     display: flex;
-    justify-content: space-between;;
+    justify-content: space-between;
 `;
 
 const StyledIcon = styled.div`
