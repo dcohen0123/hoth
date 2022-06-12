@@ -1,5 +1,6 @@
 import { AgGridReact } from "ag-grid-react";
 import { useSelector } from "react-redux";
+import styled from "styled-components";
 import { IDataGrid } from "../../interface/IDataGrid";
 import { IState } from "../../interface/IState";
 import { IWidget } from "../../interface/IWidget";
@@ -10,6 +11,15 @@ export interface IDataGridProps {
     widgetId: string;
 }
 
+const StyledDataGrid = styled.div`
+    height: 100%;
+    width: 100%;
+    .ag-root-wrapper {
+        border: none;
+        border-top: 1px solid #ccc;
+    }
+`;
+
 const DataGrid = ({viewId, widgetId}: IDataGridProps) => {
     const widget: IWidget = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.widgets?.find((x: IWidget) => x?.id === widgetId));
     const getRowStyle = (params: any) => {
@@ -17,7 +27,7 @@ const DataGrid = ({viewId, widgetId}: IDataGridProps) => {
             return {background: "#efefefff", fontWeight: "bold"}
         }
     }
-    return <div className="ag-theme-balham" style={{height: "100%", width: "100%"}}>
+    return <StyledDataGrid className="ag-theme-balham">
         <AgGridReact 
             components={{"ProgressBar": ProgressBar}}
             defaultColDef={{resizable: true, sortable: true, filter: true}}
@@ -26,7 +36,7 @@ const DataGrid = ({viewId, widgetId}: IDataGridProps) => {
             getRowStyle={getRowStyle}
             rowData={widget?.data?.slice(1)}
         />
-    </div>
+    </StyledDataGrid>
 }
 
 export default DataGrid;
