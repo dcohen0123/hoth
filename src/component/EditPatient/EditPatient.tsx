@@ -14,7 +14,7 @@ const StyledEditPatient = styled.div`
     width: 100%;
     height: 100%;
     background: #fff;
-    padding: 5px;
+    padding: 2px 5px;
 `;
 
 const StyledInput = styled(Input)`
@@ -81,8 +81,8 @@ const StyledDivWrapper = styled.div`
 `
 
 const StyledHeader = styled.h2`
-    margin-bottom: 3px;
-    font-size: 20px;
+    margin-bottom: 2px;
+    font-size: 19px;
 `;
 
 const EditPatientComp = ({viewId}: IEditPatientProps) => {
