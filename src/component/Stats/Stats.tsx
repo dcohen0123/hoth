@@ -11,17 +11,17 @@ const StyledStats = styled.div`
 `;
 
 const StyledH1 = styled.h1`
-    font-size: 40px;
+    font-size: 30px;
 `
 
 export const Stats = () => {
     return  <StyledStats>
         <div>
-            <h3><strong>This Week</strong></h3>
+            <h4><strong>This Week</strong></h4>
             <StyledH1><strong>8</strong></StyledH1>
         </div>
         <div>
-            <h3><strong>Total</strong></h3>
+            <h4><strong>Total</strong></h4>
             <StyledH1><strong>88</strong></StyledH1>
         </div>
     </StyledStats>
