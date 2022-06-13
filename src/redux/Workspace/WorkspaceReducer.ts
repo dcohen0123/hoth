@@ -2,6 +2,7 @@ import { IInput } from "../../interface/IInput";
 import { IView } from "../../interface/IView";
 import { IWidget } from "../../interface/IWidget";
 import { AddNewPatientComplete, AddOperationComplete } from "../AddPatient/AddPatientActions";
+import { RunWidgetComplete, ToggleWidgetLoading } from "../Dashboard/DashboardActions";
 import { EditOperationComplete, EditPatientComplete, GetOperationComplete, GetPatientsComplete } from "../EditPatient/EditPatientActions";
 import State from "../State";
 import { AddView, UpdateDashboardInput, UpdateWidgetDimensions, UpdateWidgetInput } from "./WorkspaceActions";
@@ -136,6 +137,36 @@ export default function workspaceReducer(state = State.workspaceManager, action:
         selected.views[viewIdx] = {...selected.views[viewIdx]};
         selected.views[viewIdx].meta = {...selected.views[viewIdx].meta}
         selected.views[viewIdx].meta.data = {...(selected.views[viewIdx].meta.data ?? {}), editOperation: action.payload?.data};
+        return {
+          ...state,
+          selected
+        }
+      }
+      case RunWidgetComplete: {
+        const selected: any = {...state.selected};
+        selected.views = [...selected.views];
+        const viewIdx: number = selected.views.findIndex((x: IView) => x.id === action.payload.viewId)
+        selected.views[viewIdx] = {...selected.views[viewIdx]};
+        selected.views[viewIdx].meta = {...selected.views[viewIdx].meta}
+        selected.views[viewIdx].meta.widgets = [...selected.views[viewIdx].meta.widgets];
+        const widgetIdx: number = selected.views[viewIdx].meta.widgets.find((x: any) => x.id === action.payload?.widgetId);
+        selected.views[viewIdx].meta.widgets[widgetIdx] = {...selected.views[viewIdx].meta.widgets[widgetIdx]};
+        selected.views[viewIdx].meta.widgets[widgetIdx].data = action.payload?.data;
+        return {
+          ...state,
+          selected
+        }
+      }
+      case ToggleWidgetLoading: {
+        const selected: any = {...state.selected};
+        selected.views = [...selected.views];
+        const viewIdx: number = selected.views.findIndex((x: IView) => x.id === action.payload.viewId)
+        selected.views[viewIdx] = {...selected.views[viewIdx]};
+        selected.views[viewIdx].meta = {...selected.views[viewIdx].meta}
+        selected.views[viewIdx].meta.widgets = [...selected.views[viewIdx].meta.widgets];
+        const widgetIdx: number = selected.views[viewIdx].meta.widgets.find((x: any) => x.id === action.payload?.widgetId);
+        selected.views[viewIdx].meta.widgets[widgetIdx] = {...selected.views[viewIdx].meta.widgets[widgetIdx]};
+        selected.views[viewIdx].meta.widgets[widgetIdx].loading = action.payload?.loading;
         return {
           ...state,
           selected

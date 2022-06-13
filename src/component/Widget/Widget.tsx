@@ -15,7 +15,7 @@ const StyledWidget = styled.div<{maximized: boolean}>`
     display: flex;
     flex-direction: column;
     position: ${props => props.maximized ? "absolute" : "static"};
-    z-index: 1;
+    z-index: 2;
     left: 0;
     top: 0;
 `;
