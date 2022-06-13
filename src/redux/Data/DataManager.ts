@@ -20,13 +20,13 @@ const dataManager: IDataManager = {
         }],
         widgets: [
             {
-                id: "numSubjectsCumulativeInstitution",
-                name: "# Subjects Cumulative in Institution",
+                id: "numPatientsCumulativeInstitution",
+                name: "# Patients Cumulative",
                 main: {
                     type: MainType.Chart,
                     meta: {
                         series: [{
-                            name: "# Subjects Cumulative",
+                            name: "# Patients Cumulative",
                             type: 'line',
                             data: [10, 20, 30, 50, 80, 100, 120, 140, 160, 200, 210, 220, 230, 240, 250, 260, 280, 310, 350, 400]
                         }]
@@ -71,7 +71,7 @@ const dataManager: IDataManager = {
             } as any,
             {
                 id: "stats",
-                name: "Stats",
+                name: "# Patients",
                 main: {
                     type: MainType.Stats
                 },
@@ -91,7 +91,7 @@ const dataManager: IDataManager = {
             } as any,
             {   
                 id: "completenessIndicator",
-                name: "Completeness Indicator",
+                name: "Completeness",
                 pos: {
                     pctX: 0,
                     pctY: 33,
@@ -101,20 +101,20 @@ const dataManager: IDataManager = {
                 main: {
                     type: MainType.Grid,
                     meta: {
-                        colDefs: [{field: "Subject"}, {field: "Completeness", width: 400, cellRenderer: "ProgressBar"}, {field: "Percent"}, {field: "Go To Subject"}]
+                        colDefs: [{field: "Patient", width: 100}, {field: "Completeness", width: 400, cellRenderer: "ProgressBar"}, {field: "Percent", width: 100}, {field: "Go To Patient", width: 120}]
                     }
                 },
-                data: [{"Subject": "Total", "Percent": "84%", "Go To Subject": "<Link To Subject>"},
-                    {"Subject": 88, "Percent": "84%", "Go To Subject": "<Link To Subject>"},
-                    {"Subject": 87, "Percent": "84%", "Go To Subject": "<Link To Subject>"},
-                    {"Subject": 86, "Percent": "30%", "Go To Subject": "<Link To Subject>"},
-                    {"Subject": 85, "Percent": "81%", "Go To Subject": "<Link To Subject>"}
+                data: [{"Patient": "Total", "Percent": "84%", "Go To Patient": "<Link To Patient>"},
+                    {"Patient": 88, "Percent": "84%", "Go To Patient": "<Link To Patient>"},
+                    {"Patient": 87, "Percent": "84%", "Go To Patient": "<Link To Patient>"},
+                    {"Patient": 86, "Percent": "30%", "Go To Patient": "<Link To Patient>"},
+                    {"Patient": 85, "Percent": "81%", "Go To Patient": "<Link To Patient>"}
                 ],
                 inputs: [{
-                    id: "filterSubject",
+                    id: "filterPatient",
                     type: InputType.Search,
                     meta: {
-                        placeholder: "Subject",
+                        placeholder: "Patient",
                     }
                 }, {
                     id: "maximize",
@@ -125,8 +125,8 @@ const dataManager: IDataManager = {
                 }]
             } as any,
             {
-                id: "numSubjects",
-                name: "# Subjects",
+                id: "numPatients",
+                name: "# Patients",
                 pos: {
                     pctX: 50,    
                     pctY: 33,
@@ -136,15 +136,15 @@ const dataManager: IDataManager = {
                 main: {
                     type: MainType.Grid,
                     meta: {
-                        colDefs: [{field: "Date"}, {field: "# Subjects"}]
+                        colDefs: [{field: "Date"}, {field: "# Patients"}]
                     }
                 },
                 data: [
-                    {"Date": "Total", "# Subjects": "210"},
-                    {"Date": "1/8/2022", "# Subjects": 14},
-                    {"Date": "1/15/2022", "# Subjects": 15},
-                    {"Date": "1/23/2022", "# Subjects": 12},
-                    {"Date": "1/31/2022", "# Subjects": 16}
+                    {"Date": "Total", "# Patients": "210"},
+                    {"Date": "1/8/2022", "# Patients": 14},
+                    {"Date": "1/15/2022", "# Patients": 15},
+                    {"Date": "1/23/2022", "# Patients": 12},
+                    {"Date": "1/31/2022", "# Patients": 16}
                 ],
                 inputs: [{
                     id: "interval",
@@ -175,7 +175,7 @@ const dataManager: IDataManager = {
             } as any,
             {
                 id: "hothContact",
-                name: "Your Hoth Contact",
+                name: "Hoth Contact",
                 pos: {
                     pctX: 0,
                     pctY: 66,
@@ -195,7 +195,7 @@ const dataManager: IDataManager = {
             } as any,
             {
                 id: "institutionContact",
-                name: "Your Institution Contact",
+                name: "Institution Contact",
                 main: {
                     type: MainType.Contact
                 },
