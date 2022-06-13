@@ -21,6 +21,7 @@ const dataManager: IDataManager = {
         widgets: [
             {
                 id: "numPatientsCumulativeInstitution",
+                fn: "numPatientsCumulative",
                 name: "# Patients Cumulative",
                 main: {
                     type: MainType.Chart,
@@ -70,8 +71,9 @@ const dataManager: IDataManager = {
                 }]
             } as any,
             {
-                id: "stats",
+                id: "numPatients",
                 name: "# Patients",
+                fn: "numPatients",
                 main: {
                     type: MainType.Stats
                 },
@@ -90,8 +92,9 @@ const dataManager: IDataManager = {
                 }]
             } as any,
             {   
-                id: "completenessIndicator",
+                id: "completeness",
                 name: "Completeness",
+                fn: "completeness",
                 pos: {
                     pctX: 0,
                     pctY: 33,
@@ -125,8 +128,9 @@ const dataManager: IDataManager = {
                 }]
             } as any,
             {
-                id: "numPatients",
+                id: "numPatientsGrid",
                 name: "# Patients",
+                fn: "numPatientsGrid",
                 pos: {
                     pctX: 50,    
                     pctY: 33,
@@ -176,6 +180,7 @@ const dataManager: IDataManager = {
             {
                 id: "hothContact",
                 name: "Hoth Contact",
+                fn: "hothContact",
                 pos: {
                     pctX: 0,
                     pctY: 66,
@@ -196,6 +201,7 @@ const dataManager: IDataManager = {
             {
                 id: "institutionContact",
                 name: "Institution Contact",
+                fn: "institutionContact",
                 main: {
                     type: MainType.Contact
                 },
