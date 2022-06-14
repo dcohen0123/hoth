@@ -1,22 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
 import { INavListItem } from "../../interface/INavListItem";
 import { IState } from "../../interface/IState";
-import { ViewType } from "../../interface/IView";
-import { AddView } from "../../redux/Workspace/WorkspaceActions";
 import NavHead from "../NavHead/NavHead";
 import NavList from "../NavList/NavList";
 import { v4 as uuidv4 } from 'uuid';
-import { RunDashboard } from "../../redux/Dashboard/DashboardActions";
+import { AddDashboard, RunDashboard } from "../../redux/Dashboard/DashboardActions";
 
 const DashboardMenu = () => {
     const dashboards = useSelector((state: IState) => state.dataManager?.dashboards);
     const dispatch = useDispatch(); 
     const items = dashboards?.map(x => ({id: x?.id, name: x?.name}));
     const handleSelect = (item: INavListItem) => {
-        const dashboard = dashboards?.find(x => x.id === item.id);
-        const id: string = uuidv4();
-        dispatch({type: AddView, payload: {id, name: dashboard?.name, type: ViewType.Dashboard, meta: JSON.parse(JSON.stringify(dashboard))}});
-        dispatch({type: RunDashboard, payload: {viewId: id}});
+        const viewId: string = uuidv4();
+        dispatch({type: AddDashboard, payload: {viewId, dashboardId: item?.id}});
+        dispatch({type: RunDashboard, payload: {viewId}});
     }
     return <>
         <NavHead />

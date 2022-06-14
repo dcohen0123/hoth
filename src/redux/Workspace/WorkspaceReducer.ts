@@ -164,7 +164,7 @@ export default function workspaceReducer(state = State.workspaceManager, action:
         selected.views[viewIdx] = {...selected.views[viewIdx]};
         selected.views[viewIdx].meta = {...selected.views[viewIdx].meta}
         selected.views[viewIdx].meta.widgets = [...selected.views[viewIdx].meta.widgets];
-        const widgetIdx: number = selected.views[viewIdx].meta.widgets.find((x: any) => x.id === action.payload?.widgetId);
+        const widgetIdx: number = selected.views[viewIdx].meta.widgets.findIndex((x: any) => x.id === action.payload?.widgetId);
         selected.views[viewIdx].meta.widgets[widgetIdx] = {...selected.views[viewIdx].meta.widgets[widgetIdx]};
         selected.views[viewIdx].meta.widgets[widgetIdx].loading = action.payload?.loading;
         return {

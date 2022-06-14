@@ -1,6 +1,6 @@
 import { all } from 'redux-saga/effects';
 import { addNewPatientListener, addOperationListener } from './AddPatient/AddPatientSaga';
-import { runDashboardListener, runWidgetListener } from './Dashboard/DashboardSaga';
+import { addDashboardListener, runDashboardListener, runWidgetListener } from './Dashboard/DashboardSaga';
 import { fetchDataListener } from './Data/DataSaga';
 import { editOperationListener, editPatientListener, getOperationListener, getPatientsListener } from './EditPatient/EditPatientSaga';
 
@@ -14,6 +14,7 @@ export default function* rootSaga() {
         editPatientListener(),
         editOperationListener(),
         runDashboardListener(),
-        runWidgetListener()
+        runWidgetListener(),
+        addDashboardListener()
     ]);
 }
