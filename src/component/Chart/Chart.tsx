@@ -31,15 +31,13 @@ const options = {
     },
     xAxis: {
         title: "",
+        type: "category",
         labels: {
             style: {
                 color: "#000"
             }
-        },
-        categories: ['1/1/22', '1/8/22', '1/15/22', '1/22/22', '1/29/22', '2/5/22', '2/15/22', 
-        '2/29/22', '3/15/22', '4/20/22', '4/25/22', '5/5/22', '5/10/22', '5/15/22',
-        '5/20/22', '5/25/22', '5/30/22', '6/5/22', '6/10/22', '6/15/22'
-    ]}
+        }
+    }
 }
 
 export interface IChartProps {
@@ -50,5 +48,5 @@ export interface IChartProps {
 export const Chart = ({viewId, widgetId}: IChartProps) => {
     const widget: IWidget = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.widgets?.find((x: IWidget) => x?.id === widgetId));
     const legend: IInput | undefined = widget?.inputs?.find(x => x?.type === InputType.Legend)
-    return <HighchartsReact highcharts={Highcharts} options={{...options, legend: {enabled: legend?.value}, series: widget?.main?.meta?.series, chart: {...options.chart, width: widget?.size?.width, height: widget?.size?.height - 20}}}/>
+    return <HighchartsReact highcharts={Highcharts} options={{...options, legend: {enabled: legend?.value}, series: widget?.data?.series?.map((x: any) => ({name: x?.id, type: x?.type, data: x?.data?.map((d: any) => [d?.x, d?.y])})), chart: {...options.chart, width: widget?.size?.width, height: widget?.size?.height - 20}}}/>
 }

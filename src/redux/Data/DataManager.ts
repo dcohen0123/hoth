@@ -25,13 +25,7 @@ const dataManager: IDataManager = {
                 name: "# Patients Cumulative",
                 main: {
                     type: MainType.Chart,
-                    meta: {
-                        series: [{
-                            name: "# Patients Cumulative",
-                            type: 'line',
-                            data: [10, 20, 30, 50, 80, 100, 120, 140, 160, 200, 210, 220, 230, 240, 250, 260, 280, 310, 350, 400]
-                        }]
-                    }
+                    meta: {}
                 },
                 pos: {
                     pctX: 0,

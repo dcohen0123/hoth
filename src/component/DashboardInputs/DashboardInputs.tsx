@@ -7,6 +7,8 @@ import { IInput, InputType } from "../../interface/IInput";
 import { IState } from "../../interface/IState";
 import { UpdateDashboardInput } from "../../redux/Workspace/WorkspaceActions";
 import { IInstitution } from "../../interface/IInstitution";
+import moment from "moment";
+import { RunDashboard } from "../../redux/Dashboard/DashboardActions";
 
 const StyledInputs = styled.div`
     flex: 0;
@@ -102,12 +104,15 @@ const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
     }
     const getDateRange = (x: IInput) => {
         const handleChange = (dates: any) => {
-            dispatch({type: UpdateDashboardInput, payload: {viewId, inputId: x.id, value: dates}});
+            dispatch({type: UpdateDashboardInput, payload: {viewId, inputId: x.id, value: dates?.map((d: any) => moment(d).format("YYYY-MM-DD"))}});
+            dispatch({type: RunDashboard, payload: {viewId}});
         }
-        return <StyledRangePicker size="small" value={x?.value} onChange={handleChange} />
+        return <StyledRangePicker size="small" value={x?.value?.map((d: any) => moment(d, "YYYY-MM-DD"))} onChange={handleChange} />
     }
     const getSelect = (x: IInput) => {
-        const handleChange = (value: any) => dispatch({type: UpdateDashboardInput, payload: {viewId, inputId: x.id, value}})
+        const handleChange = (value: any) => {
+            dispatch({type: UpdateDashboardInput, payload: {viewId, inputId: x.id, value}});
+        }
         return <StyledSelect
             placeholder={<span style={{color: "#6f6f6f"}}>{x?.meta?.placeholder}</span>}
             size={"small"}
@@ -123,7 +128,10 @@ const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
         </StyledSelect>
     }
     const getInstitution = (x: IInput) => {
-        const handleChange = (value: any) => dispatch({type: UpdateDashboardInput, payload: {viewId, inputId: x.id, value}})
+        const handleChange = (value: any) => {
+            dispatch({type: UpdateDashboardInput, payload: {viewId, inputId: x.id, value}});
+            dispatch({type: RunDashboard, payload: {viewId}});
+        }
         return <StyledSelect
             placeholder={<span style={{color: "#6f6f6f"}}>Institution</span>}
             size={"small"}
@@ -135,7 +143,7 @@ const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
             }
         >
-            {institutions?.map((y: any) => (<Option key={y.name} value={y.name}>{y.name}</Option>))}
+            {institutions?.map((y: any) => (<Option key={y.name} value={y.id}>{y.name}</Option>))}
         </StyledSelect>
     }
     const getSearch = (x: IInput) => {

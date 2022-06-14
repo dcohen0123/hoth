@@ -32,7 +32,7 @@ const DataGrid = ({viewId, widgetId}: IDataGridProps) => {
             components={{"ProgressBar": ProgressBar}}
             defaultColDef={{resizable: true, sortable: true, filter: true}}
             columnDefs={widget?.main?.meta?.colDefs}
-            pinnedTopRowData={[widget?.data[0]]}
+            pinnedTopRowData={[widget?.data?.[0]]}
             getRowStyle={getRowStyle}
             rowData={widget?.data?.slice(1)}
         />
