@@ -1,3 +1,4 @@
+import { useMemo } from "react"
 import { useSelector } from "react-redux"
 import styled from "styled-components"
 import { IDashboard } from "../../interface/IDashboard"
@@ -132,10 +133,13 @@ const getResult = (tree: any[], viewId: string) => {
 
 const DashboardWidgets = ({viewId}: IDashboardWidgetsProps) => {
     const dashboard: IDashboard = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x.id === viewId))?.meta
-    const widgets: IWidget[] = [...dashboard?.widgets].sort(sortWidgets)
-    const groups: any[] = getGroups(widgets);
-    const tree: any[] = getTree(groups)
-    const result: any = getResult(tree, viewId)
+    const result = useMemo(() => {
+        const widgets: IWidget[] = [...dashboard?.widgets].sort(sortWidgets)
+        const groups: any[] = getGroups(widgets);
+        const tree: any[] = getTree(groups)
+        const result: any = getResult(tree, viewId)
+        return result;
+    }, [])
     return <StyledDashboardWidgets>{result}</StyledDashboardWidgets>
 }
 
