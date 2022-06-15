@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { FetchData } from './redux/Data/DataActions';
 
-function App() {
+const App = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch({type: FetchData})

@@ -10,6 +10,7 @@ import { IWidget } from "../../interface/IWidget";
 import { UpdateWidgetInput } from "../../redux/Workspace/WorkspaceActions";
 import { AddEvent } from "../../redux/Event/EventAction";
 import { EventType } from "../../interface/IEvent";
+import { RunWidget } from "../../redux/Dashboard/DashboardActions";
 
 const StyledInputs = styled.div``;
 
@@ -119,7 +120,10 @@ const WidgetInputs = ({viewId, widgetId}: IWidgetInputsProps) => {
         return <StyledMuiIcon><OpenInNewOutlined /></StyledMuiIcon>
     }
     const getSelect = (x: IInput) => {
-        const handleSelect = (value: any) => dispatch({type: UpdateWidgetInput, payload: {viewId, widgetId, inputId: x.id, value}})
+        const handleSelect = (value: any) => {
+            dispatch({type: UpdateWidgetInput, payload: {viewId, widgetId, inputId: x.id, value}});
+            dispatch({type: RunWidget, payload: {viewId, widgetId}});
+        }
         return <StyledWidgetSelect
             placeholder={<span>{x?.meta?.placeholder}</span>}
             size={"small"}
