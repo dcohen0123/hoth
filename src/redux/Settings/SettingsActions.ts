@@ -1,0 +1,1 @@
+export const InitSettings = "INIT_SETTINGS";

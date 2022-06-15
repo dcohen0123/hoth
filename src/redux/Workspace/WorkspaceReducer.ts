@@ -5,10 +5,16 @@ import { AddNewPatientComplete, AddOperationComplete } from "../AddPatient/AddPa
 import { RunWidgetComplete, ToggleWidgetLoading } from "../Dashboard/DashboardActions";
 import { EditOperationComplete, EditPatientComplete, GetOperationComplete, GetPatientsComplete } from "../EditPatient/EditPatientActions";
 import State from "../State";
-import { AddView, UpdateDashboardInput, UpdateWidgetDimensions, UpdateWidgetInput } from "./WorkspaceActions";
+import { AddView, SelectWorkspace, UpdateDashboardInput, UpdateWidgetDimensions, UpdateWidgetInput } from "./WorkspaceActions";
 
 export default function workspaceReducer(state = State.workspaceManager, action: { type: string, payload?: any }) {
     switch (action.type) {
+      case SelectWorkspace: {
+        return {
+          ...state, 
+          selected: action.payload
+        }
+      }
       case AddView: {
         const selected: any = {...state.selected};
         selected.views = [

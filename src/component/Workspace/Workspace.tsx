@@ -107,7 +107,7 @@ class Workspace extends React.Component<any, any> {
     }
 
     componentDidUpdate(prevProps: any) {
-        if (this.props?.views?.length > prevProps?.views?.length) {
+        if (this.props?.views && !prevProps?.views || this.props?.views?.length > prevProps?.views?.length) {
             const view = this.props?.views?.[this.props?.views?.length - 1];
             setTimeout(() => {
                 if (this.gl?.root?.contentItems?.length === 0) {

@@ -1,2 +1,2 @@
 export const GetInstitutions = "GET_INSTITUTIONS";
-export const FetchData = "FETCH_DATA";
+export const InitData = "INIT_DATA";

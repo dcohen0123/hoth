@@ -1,0 +1,1 @@
+export const InitUser = "INIT_USER";
