@@ -5,7 +5,7 @@ import { InitUser } from "./UserActions";
 
 export function* initUserHandler(action: any) {
     try {
-        //TODO - Fetch User Entitlements;
+        //TODO - Fetch User Info.
         yield put({type: InitSettings})
     } catch(e) {
 

@@ -5,7 +5,7 @@ import { InitSettings } from "./SettingsActions";
 
 export function* initSettingsHandler(action: any) {
     try {
-        // TODO - Fetch Settings;
+        // TODO - Fetch Settings Info.
         yield put({type: InitData})
     } catch(e) {
 

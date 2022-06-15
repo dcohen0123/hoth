@@ -10,7 +10,7 @@ export function* initDataHandler(action: any) {
         const institutionResponse: Promise<any> = yield call(fetchGet, "http://localhost:5000/institutions") 
         const data: {institutions: IInstitution[]} = yield institutionResponse;
         yield put({type: GetInstitutions, payload: data?.institutions});
-        // TODO - Fetch dashboards JSON and populate here.
+        // TODO - Fetch dashboards / reports JSON and populate here.
         yield put({type: InitWorkspace});
     } catch (e) {
         console.error(e);
