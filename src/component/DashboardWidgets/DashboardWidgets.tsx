@@ -106,14 +106,14 @@ const getResult = (tree: any[], viewId: string) => {
                 items.push(val);
             }
         }
-        items.push(<Widget data-pos={tree[0].value.anchor.pos} viewId={viewId} widgetId={tree[0].value.anchor.id} />)
+        items.push(<Widget key={tree[0].value.anchor.id} data-pos={tree[0].value.anchor.pos} viewId={viewId} widgetId={tree[0].value.anchor.id} />)
         items.sort((a, b) => a.props["data-pos"].pctX - b.props["data-pos"].pctX)
         const pctHeight: any = items.map(x => x.props["data-pos"].pctHeight)
         const pctY: any = items.map(x => x.props["data-pos"].pctY)
         const pctX: any = items.map(x => x.props["data-pos"].pctX)
         const totalWidth: any = items.map(x => x.props["data-pos"].pctWidth).reduce((acc, curr) => acc + curr)
         const initSplit=items.map(x => (x.props["data-pos"].pctX - pctX[0]) / totalWidth).slice(1)
-        return tree[0].parent?.children.length !== 1 ? <Split viewId={viewId} data-pos={{pctX: pctX[0], pctWidth: totalWidth, pctY: pctY[0], pctHeight: pctHeight[0]}} direction="vertical" initSplit={initSplit}>{items}</Split> :items
+        return tree[0].parent?.children.length !== 1 ? <Split key={tree[0].value.anchor.id} viewId={viewId} data-pos={{pctX: pctX[0], pctWidth: totalWidth, pctY: pctY[0], pctHeight: pctHeight[0]}} direction="vertical" initSplit={initSplit}>{items}</Split> :items
 
     }
     if (tree.length > 1) {
