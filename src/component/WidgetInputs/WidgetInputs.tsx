@@ -137,7 +137,10 @@ const WidgetInputs = ({viewId, widgetId}: IWidgetInputsProps) => {
         </StyledWidgetSelect>
     }
     const getSearch = (x: IInput) => {
-        return <StyledInputText allowClear placeholder={x?.meta?.placeholder} />
+        const handleSearch =  (e: any) => {
+            dispatch({type: UpdateWidgetInput, payload: {viewId, widgetId, inputId: x.id, value: e?.target?.value}});
+        }
+        return <StyledInputText allowClear placeholder={x?.meta?.placeholder} onChange={handleSearch} value={x?.value} />
     }
     const getLegend = (x: IInput) => {
         const handleClick = () => dispatch({type: UpdateWidgetInput, payload: {viewId, widgetId, inputId: x.id, value: !x?.value}})

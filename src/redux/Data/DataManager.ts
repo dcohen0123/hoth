@@ -103,8 +103,8 @@ const dataManager: IDataManager = {
                             {field: "id", headerName: "Patient ID", width: 100},
                             {field: "first_name", headerName: "First Name", width: 120},
                             {field: "last_name", headerName: "Last Name", width: 120},
-                            {field: "completenessBar", headerName: "Completeness", width: 400, cellRenderer: "ProgressBar"},
-                            {field: "completeness", headerName: "Percent", valueFormatter: params => "hey", width: 100}
+                            {colId: "completenessBar", field: "completeness", headerName: "Completeness", width: 400, cellRenderer: "ProgressBar"},
+                            {colId: "completeness", field: "completeness", headerName: "Percent", type: "percent", width: 100}
                         ] as ColDef[]
                     }
                 },
@@ -135,16 +135,12 @@ const dataManager: IDataManager = {
                 main: {
                     type: MainType.Grid,
                     meta: {
-                        colDefs: [{field: "Date"}, {field: "# Patients"}]
+                        colDefs: [
+                            {field: "date", headerName: "Date"},
+                            {field: "numPatients", headerName: "# Patients"}
+                        ]
                     }
                 },
-                data: [
-                    {"Date": "Total", "# Patients": "210"},
-                    {"Date": "1/8/2022", "# Patients": 14},
-                    {"Date": "1/15/2022", "# Patients": 15},
-                    {"Date": "1/23/2022", "# Patients": 12},
-                    {"Date": "1/31/2022", "# Patients": 16}
-                ],
                 inputs: [{
                     id: "interval",
                     type: InputType.Select,

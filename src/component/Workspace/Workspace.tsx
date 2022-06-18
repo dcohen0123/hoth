@@ -59,10 +59,14 @@ const StyledWorkspace = styled.div`
     }
 `;
 
+const map = new Map<any, any>();
+
 window.ReactDOM = {...ReactDOM, render: (a: any, b: any) => {
-    ReactDOMClient.createRoot(b).render(a) as any
+    const root = ReactDOMClient.createRoot(b)
+    map?.set(b, root);
+    root?.render(a)
     return a;
-}}
+}, unmountComponentAtNode: (b) => map?.get(b)?.unmount()}
 window.React = React;
 
 class Workspace extends React.Component<any, any> {
