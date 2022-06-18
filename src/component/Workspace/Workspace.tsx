@@ -5,6 +5,7 @@ import store from '../../redux/ReduxMain';
 import View from '../View/View';
 import styled from 'styled-components';
 import ReactDOM from 'react-dom';
+import ReactDOMClient from 'react-dom/client'
 import { Align } from '../../interface/INavItem';
 
 const config: any = {
@@ -58,7 +59,10 @@ const StyledWorkspace = styled.div`
     }
 `;
 
-window.ReactDOM = ReactDOM;
+window.ReactDOM = {...ReactDOM, render: (a: any, b: any) => {
+    ReactDOMClient.createRoot(b).render(a) as any
+    return a;
+}}
 window.React = React;
 
 class Workspace extends React.Component<any, any> {

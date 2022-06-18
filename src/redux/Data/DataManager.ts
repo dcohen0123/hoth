@@ -1,3 +1,4 @@
+import { ColDef, ValueFormatterParams } from "ag-grid-community";
 import { IDataManager } from "../../interface/IDataManager";
 import { InputType } from "../../interface/IInput";
 import { MainType } from "../../interface/IMain";
@@ -98,15 +99,15 @@ const dataManager: IDataManager = {
                 main: {
                     type: MainType.Grid,
                     meta: {
-                        colDefs: [{field: "Patient", width: 100}, {field: "Completeness", width: 400, cellRenderer: "ProgressBar"}, {field: "Percent", width: 100}, {field: "Go To Patient", width: 120}]
+                        colDefs: [
+                            {field: "id", headerName: "Patient ID", width: 100},
+                            {field: "first_name", headerName: "First Name", width: 120},
+                            {field: "last_name", headerName: "Last Name", width: 120},
+                            {field: "completenessBar", headerName: "Completeness", width: 400, cellRenderer: "ProgressBar"},
+                            {field: "completeness", headerName: "Percent", valueFormatter: params => "hey", width: 100}
+                        ] as ColDef[]
                     }
                 },
-                data: [{"Patient": "Total", "Percent": "84%", "Go To Patient": "<Link To Patient>"},
-                    {"Patient": 88, "Percent": "84%", "Go To Patient": "<Link To Patient>"},
-                    {"Patient": 87, "Percent": "84%", "Go To Patient": "<Link To Patient>"},
-                    {"Patient": 86, "Percent": "30%", "Go To Patient": "<Link To Patient>"},
-                    {"Patient": 85, "Percent": "81%", "Go To Patient": "<Link To Patient>"}
-                ],
                 inputs: [{
                     id: "filterPatient",
                     type: InputType.Search,

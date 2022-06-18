@@ -1,7 +1,6 @@
 import { AgGridReact } from "ag-grid-react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { IDataGrid } from "../../interface/IDataGrid";
 import { IState } from "../../interface/IState";
 import { IWidget } from "../../interface/IWidget";
 import ProgressBar from "../ProgressBar/ProgressBar";
@@ -32,9 +31,9 @@ const DataGrid = ({viewId, widgetId}: IDataGridProps) => {
             components={{"ProgressBar": ProgressBar}}
             defaultColDef={{resizable: true, sortable: true, filter: true}}
             columnDefs={widget?.main?.meta?.colDefs}
-            pinnedTopRowData={[widget?.data?.[0]]}
+            pinnedTopRowData={widget?.data?.total}
             getRowStyle={getRowStyle}
-            rowData={widget?.data?.slice(1)}
+            rowData={widget?.data?.rows}
         />
     </StyledDataGrid>
 }
