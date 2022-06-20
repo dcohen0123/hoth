@@ -51,9 +51,10 @@ const WidgetBody = ({viewId, widgetId}: IWidgetBodyProps) => {
     const widget: IWidget = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.widgets?.find((x: IWidget) => x?.id === widgetId));
     const Elmt: any = bodyMap.get(widget?.main?.type);
     return <StyledWidgetBody>
-        {!widget?.data ? <StyledDiv><StyledSpan>No Data</StyledSpan></StyledDiv> : null}
         {widget?.loading ? <StyledDiv><StyledSpan>Loading</StyledSpan><Spin indicator={<LoadingOutlined style={{ fontSize: 22 }} spin />} /></StyledDiv> : null}
-        {widget?.data && Elmt ? <Elmt viewId={viewId} widgetId={widgetId} /> : null}
+        {widget?.data?.error ? <StyledDiv><StyledSpan>Error</StyledSpan></StyledDiv> : null}
+        {!widget?.data ? <StyledDiv><StyledSpan>No Data</StyledSpan></StyledDiv> : null}
+        {widget?.data && !widget?.data?.error && Elmt ? <Elmt viewId={viewId} widgetId={widgetId} /> : null}
     </StyledWidgetBody>
 }
 
