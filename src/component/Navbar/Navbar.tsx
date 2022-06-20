@@ -69,7 +69,7 @@ const Navbar = () => {
     }
     return <StyledNavbar>
         <div>
-            <StyledImg src='/hoth/logo.webp' />
+            <StyledImg src='/logo.webp' />
             {items?.filter(x => x.align === Align.Top)?.map(x => getIcon(x))}
         </div>
         <div>
