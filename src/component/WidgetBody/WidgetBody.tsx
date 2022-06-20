@@ -52,9 +52,9 @@ const WidgetBody = ({viewId, widgetId}: IWidgetBodyProps) => {
     const Elmt: any = bodyMap.get(widget?.main?.type);
     return <StyledWidgetBody>
         {widget?.loading ? <StyledDiv><StyledSpan>Loading</StyledSpan><Spin indicator={<LoadingOutlined style={{ fontSize: 22 }} spin />} /></StyledDiv> : null}
-        {widget?.data?.error ? <StyledDiv><StyledSpan>Error</StyledSpan></StyledDiv> : null}
-        {!widget?.data ? <StyledDiv><StyledSpan>No Data</StyledSpan></StyledDiv> : null}
-        {widget?.data && !widget?.data?.error && Elmt ? <Elmt viewId={viewId} widgetId={widgetId} /> : null}
+        {widget?.data?.error && !widget?.loading ? <StyledDiv><StyledSpan>Error</StyledSpan></StyledDiv> : null}
+        {!widget?.data && !widget?.loading ? <StyledDiv><StyledSpan>No Data</StyledSpan></StyledDiv> : null}
+        {widget?.data && !widget?.data?.error && !widget?.loading && Elmt ? <Elmt viewId={viewId} widgetId={widgetId} /> : null}
     </StyledWidgetBody>
 }
 
