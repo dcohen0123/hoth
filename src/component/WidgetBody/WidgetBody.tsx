@@ -4,7 +4,7 @@ import { MainType } from "../../interface/IMain";
 import { IState } from "../../interface/IState";
 import { IWidget } from "../../interface/IWidget";
 import { Chart } from "../Chart/Chart";
-import Contact from "../Contact/Contact";
+import Contact from "../HothContact/HothContact";
 import DataGrid from "../DataGrid/DataGrid";
 import { Stats } from "../Stats/Stats";
 import { LoadingOutlined } from '@ant-design/icons';

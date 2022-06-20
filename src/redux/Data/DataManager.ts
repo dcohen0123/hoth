@@ -31,7 +31,7 @@ const dataManager: IDataManager = {
                 pos: {
                     pctX: 0,
                     pctY: 0,
-                    pctWidth: 90,
+                    pctWidth: 85,
                     pctHeight: 33
                 },
                 inputs: [{
@@ -73,9 +73,9 @@ const dataManager: IDataManager = {
                     type: MainType.Stats
                 },
                 pos: {
-                    pctX: 90,
+                    pctX: 85,
                     pctY: 0,
-                    pctWidth: 10,
+                    pctWidth: 15,
                     pctHeight: 33
                 },
                 inputs: [{
@@ -93,7 +93,7 @@ const dataManager: IDataManager = {
                 pos: {
                     pctX: 0,
                     pctY: 33,
-                    pctWidth: 50,
+                    pctWidth: 70,
                     pctHeight: 33
                 },
                 main: {
@@ -127,9 +127,9 @@ const dataManager: IDataManager = {
                 name: "# Patients",
                 fn: "numPatientsGrid",
                 pos: {
-                    pctX: 50,    
+                    pctX: 70,    
                     pctY: 33,
-                    pctWidth: 50,
+                    pctWidth: 30,
                     pctHeight: 33
                 },
                 main: {
