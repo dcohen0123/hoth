@@ -167,7 +167,7 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
         <StyledHeader><strong>New Patient</strong></StyledHeader>
         <StyledSubheader>Patient</StyledSubheader>
         <StyledWrapper>
-            <StyledSelect filterOption={(input: any, option: any) => option?.label?.toLowerCase()?.includes(input?.trim()?.toLowerCase())} options={institutions.map(x => ({label: x?.name, value: x?.id}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Institution"}</span>}/ >
+            <StyledSelect filterOption={(input: any, option: any) => option?.label?.toLowerCase()?.includes(input?.trim()?.toLowerCase())} options={institutions?.map(x => ({label: x?.name, value: x?.id}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Institution"}</span>}/ >
         </StyledWrapper>
         <StyledWrapper>
             <StyledDiv>
