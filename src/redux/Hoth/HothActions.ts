@@ -1,1 +1,0 @@
-export const InitHoth = "INIT_HOTH";

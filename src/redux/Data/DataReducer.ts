@@ -1,5 +1,5 @@
 import State from "../State";
-import { GetInstitutions } from "./DataActions";
+import { GetDashboards, GetInstitutions } from "./DataActions";
 
 export default function dataReducer(state = State.dataManager, action: { type: string, payload?: any }) {
     switch (action.type) {
@@ -7,6 +7,12 @@ export default function dataReducer(state = State.dataManager, action: { type: s
         return {
           ...state,
           institutions: action.payload
+        };
+      }
+      case GetDashboards: {
+        return {
+          ...state,
+          dashboards: action.payload
         };
       }
       default:
