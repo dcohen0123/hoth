@@ -43,7 +43,7 @@ const HothContact = ({viewId, widgetId}: IHothContact) => {
     const widget: IWidget = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.widgets?.find((x: IWidget) => x?.id === widgetId));
     return  <StyledHothContact>
         <StyledDiv>
-            <div><img src="/hoth/contact.png" width="85px" height="85px" /></div>
+            <div><img src="/contact.png" width="85px" height="85px" /></div>
             <div><h3>{widget?.data?.contact?.first_name + " " + widget?.data?.contact?.last_name}</h3></div>
             <div>{widget?.data?.contact?.title}</div>
         </StyledDiv>
