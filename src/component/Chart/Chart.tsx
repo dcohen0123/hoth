@@ -48,5 +48,15 @@ export interface IChartProps {
 export const Chart = ({viewId, widgetId}: IChartProps) => {
     const widget: IWidget = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.widgets?.find((x: IWidget) => x?.id === widgetId));
     const legend: IInput | undefined = widget?.inputs?.find(x => x?.type === InputType.Legend)
-    return <HighchartsReact highcharts={Highcharts} options={{...options, legend: {enabled: legend?.value}, series: widget?.data?.series?.map((x: any) => ({name: x?.id, type: x?.type, data: x?.data?.map((d: any) => [d?.x, d?.y])})), chart: {...options.chart, width: widget?.size?.width, height: widget?.size?.height - 20}}}/>
+    return <HighchartsReact highcharts={Highcharts} options={{
+        ...options, 
+        legend: {enabled: legend?.value}, 
+        series: widget?.data?.series?.map((x: any) => ({name: x?.id, type: x?.type, data: x?.data?.map((d: any) => [d?.x, d?.y])})), 
+        chart: {...options.chart, width: widget?.size?.width, height: widget?.size?.height - 20},
+        yAxis: {
+            ...options.yAxis,
+            plotLines: widget?.data?.plotLines,
+            max: widget?.data?.plotLines ? 1.25 * widget?.data?.plotLines?.[0]?.value : null
+        }
+    }} />
 }
