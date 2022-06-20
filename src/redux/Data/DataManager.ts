@@ -179,7 +179,7 @@ const dataManager: IDataManager = {
                     pctHeight: 33
                 },
                 main: {
-                    type: MainType.Contact
+                    type: MainType.HothContact
                 },      
                 inputs: [{
                     id: "maximize",
@@ -194,7 +194,7 @@ const dataManager: IDataManager = {
                 name: "Institution Contact",
                 fn: "institutionContact",
                 main: {
-                    type: MainType.Contact
+                    type: MainType.InstitutionContact
                 },
                 pos: {
                     pctX: 50,

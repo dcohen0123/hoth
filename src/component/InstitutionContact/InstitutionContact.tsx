@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { IState } from "../../interface/IState";
 import { IWidget } from "../../interface/IWidget";
 
-const StyledHothContact = styled.div`
+const StyledInstitutionContact = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
@@ -19,42 +19,26 @@ const StyledInfo = styled.div`
 
 const StyledSplit = styled.div`
     width: 1px;
-    height: 70px;
+    height: 80px;
     background: #d9d9d9;
-    margin: 0 15px;
+    margin: 3px;
 `
 
-const StyledDiv = styled.div`
-    text-align: center;
-    h3 {
-        margin: 0;
-    }
-    img {
-        margin-bottom: 5px;
-    }
-`
-
-export interface IHothContact {
+export interface IInstitutionContact {
     viewId: string;
     widgetId: string;
 }
 
-const HothContact = ({viewId, widgetId}: IHothContact) => {
+const InstitutionContact = ({viewId, widgetId}: IInstitutionContact) => {
     const widget: IWidget = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.widgets?.find((x: IWidget) => x?.id === widgetId));
-    return  <StyledHothContact>
-        <StyledDiv>
-            <div><img src="/hoth/contact.png" width="85px" height="85px" /></div>
-            <div><h3>{widget?.data?.contact?.first_name + " " + widget?.data?.contact?.last_name}</h3></div>
-            <div>{widget?.data?.contact?.title}</div>
-        </StyledDiv>
+    return  <StyledInstitutionContact>
+        <div>{widget?.data?.contact?.first_name + " " + widget?.data?.contact?.last_name + " " + widget?.data?.contact?.title}</div>
         <StyledSplit />
         <StyledInfo>
             <div><label><strong>Email:</strong></label><span>{widget?.data?.contact?.email}</span></div>
             <div><label><strong>Phone:</strong></label><span>{widget?.data?.contact?.phone}</span></div>
-            <div><label><strong>Most Recent Visit:</strong></label><span>{widget?.data?.schedule?.last_visit ?? "N/A"}</span></div>
-            <div><label><strong>Next Visit:</strong></label><span>{widget?.data?.schedule?.next_visit ?? "N/A"}</span></div>
         </StyledInfo>
-    </StyledHothContact>
+    </StyledInstitutionContact>
 }
 
-export default HothContact;
+export default InstitutionContact;

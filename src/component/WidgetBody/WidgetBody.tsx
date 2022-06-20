@@ -4,11 +4,12 @@ import { MainType } from "../../interface/IMain";
 import { IState } from "../../interface/IState";
 import { IWidget } from "../../interface/IWidget";
 import { Chart } from "../Chart/Chart";
-import Contact from "../HothContact/HothContact";
+import HothContact from "../HothContact/HothContact";
 import DataGrid from "../DataGrid/DataGrid";
 import { Stats } from "../Stats/Stats";
 import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
+import InstitutionContact from "../InstitutionContact/InstitutionContact";
 
 const StyledWidgetBody = styled.div`
     background: #fff;
@@ -42,15 +43,17 @@ export const bodyMap: Map<MainType, any> = new Map<MainType, any>([
     [MainType.Grid, DataGrid],
     [MainType.Chart, Chart],
     [MainType.Stats, Stats],
-    [MainType.Contact, Contact]
+    [MainType.HothContact, HothContact],
+    [MainType.InstitutionContact, InstitutionContact]
 ])
 
 const WidgetBody = ({viewId, widgetId}: IWidgetBodyProps) => {
     const widget: IWidget = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.widgets?.find((x: IWidget) => x?.id === widgetId));
     const Elmt: any = bodyMap.get(widget?.main?.type);
     return <StyledWidgetBody>
+        {!widget?.data ? <StyledDiv><StyledSpan>No Data</StyledSpan></StyledDiv> : null}
         {widget?.loading ? <StyledDiv><StyledSpan>Loading</StyledSpan><Spin indicator={<LoadingOutlined style={{ fontSize: 22 }} spin />} /></StyledDiv> : null}
-        {Elmt ? <Elmt viewId={viewId} widgetId={widgetId} /> : null}
+        {widget?.data && Elmt ? <Elmt viewId={viewId} widgetId={widgetId} /> : null}
     </StyledWidgetBody>
 }
 

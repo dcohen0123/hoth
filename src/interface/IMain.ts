@@ -2,7 +2,8 @@ export enum MainType {
     Chart="chart",
     Grid="grid",
     Stats="stats",
-    Contact="contact"
+    HothContact="hothContact",
+    InstitutionContact="institutionContact"
 }
 
 export interface IMain {
