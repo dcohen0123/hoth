@@ -1,14 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 //@ts-ignore
-import { DatePicker, Input, Select } from "antd";
+import { DatePicker, Input, Radio, Select } from "antd";
 import { IDashboard } from "../../interface/IDashboard";
 import { IInput, InputType } from "../../interface/IInput";
 import { IState } from "../../interface/IState";
-import { UpdateDashboardInput } from "../../redux/Workspace/WorkspaceActions";
 import { IInstitution } from "../../interface/IInstitution";
 import moment from "moment";
-import { RunDashboard } from "../../redux/Dashboard/DashboardActions";
+import { RunDashboard, UpdateDashboardInput, UpdateDatePickerInput, UpdateDateRangeInput } from "../../redux/Dashboard/DashboardActions";
 
 const StyledInputs = styled.div`
     flex: 0;
@@ -72,6 +71,18 @@ const StyledInputText = styled(Input)`
     border: 1px solid #c2c2c2 !important;
 `
 
+const StyledRadio = styled(Radio.Group)`
+    height: 18px !important;
+    .ant-radio-button-wrapper {
+        height: 22px !important;
+        font-size: 13px !important;
+    }
+    .ant-radio-button-wrapper > span {
+        position: relative;
+        bottom: 1px;
+    }
+`
+
 const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
     const dispatch = useDispatch();
     const institutions: IInstitution[] = useSelector((state: IState) => state?.dataManager?.institutions);
@@ -96,6 +107,10 @@ const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
                 result = getInstitution(x);
                 break;
             }
+            case InputType.DatePicker: {
+                result = getDatePicker(x);
+                break;
+            }
             default: {
                 result = null;
             }
@@ -104,7 +119,7 @@ const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
     }
     const getDateRange = (x: IInput) => {
         const handleChange = (dates: any) => {
-            dispatch({type: UpdateDashboardInput, payload: {viewId, inputId: x.id, value: dates?.map((d: any) => moment(d).format("YYYY-MM-DD"))}});
+            dispatch({type: UpdateDateRangeInput, payload: {viewId, inputId: x.id, value: dates?.map((d: any) => moment(d).format("YYYY-MM-DD"))}});
             dispatch({type: RunDashboard, payload: {viewId}});
         }
         return <StyledRangePicker size="small" value={x?.value?.map((d: any) => moment(d, "YYYY-MM-DD"))} onChange={handleChange} />
@@ -145,6 +160,15 @@ const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
         >
             {institutions?.map((y: any) => (<Option key={y.name} value={y.id}>{y.name}</Option>))}
         </StyledSelect>
+    }
+    const getDatePicker = (x: IInput) => {
+        const handleChange = (e: any) => {
+            dispatch({type: UpdateDatePickerInput, payload: {viewId, inputId: x.id, value: e?.target?.value}});
+            dispatch({type: RunDashboard, payload: {viewId}});
+        }
+        return <StyledRadio size={"small"} value={x?.value} onChange={handleChange}>
+            {x?.meta?.options?.map((d: any) => <Radio.Button value={d?.value}>{d?.key}</Radio.Button>)}
+        </StyledRadio>
     }
     const getSearch = (x: IInput) => {
         return <StyledInputText allowClear placeholder={x?.meta?.placeholder} />

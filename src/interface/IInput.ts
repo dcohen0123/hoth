@@ -8,7 +8,8 @@ export enum InputType {
     Popin="popin",
     Close="close",
     DateRange="daterange",
-    Institution="institution"
+    Institution="institution",
+    DatePicker="datepicker"
 }
 
 export type Align = "left" | "right";

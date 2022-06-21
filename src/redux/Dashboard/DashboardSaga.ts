@@ -9,7 +9,7 @@ import { IView, ViewType } from "../../interface/IView";
 import { IWidget } from "../../interface/IWidget";
 import { fetchPost } from "../../util/RestUtils";
 import { AddView } from "../Workspace/WorkspaceActions";
-import { AddDashboard, RunDashboard, RunWidget, RunWidgetComplete, ToggleWidgetLoading } from "./DashboardActions";
+import { AddDashboard, RunDashboard, RunWidget, RunWidgetComplete, ToggleWidgetLoading, UpdateDashboardInput, UpdateDatePickerInput, UpdateDateRangeInput } from "./DashboardActions";
 
 export function* runDashboardHandler(action: any){
     try {
@@ -56,8 +56,11 @@ export function* addDashboardHandler(action: any){
         for (let i: number = 0; i < dashboard?.inputs?.length; i++) {
             if (dashboard?.inputs?.[i]?.type === InputType.Institution) {
                 dashboard.inputs[i].value = institutions?.[0]?.id;
-            } else if (dashboard?.inputs?.[i]?.type === InputType.DateRange) {
-                dashboard.inputs[i].value = [moment().startOf("year").format("YYYY-MM-DD"), moment().format("YYYY-MM-DD")];
+            } else if (dashboard?.inputs?.[i]?.type === InputType.DatePicker) {
+                const date: moment.Moment | undefined = datePickerMap?.get(dashboard?.inputs?.[i]?.value);
+                const value = [date?.format("YYYY-MM-DD"), moment()?.format("YYYY-MM-DD")];
+                const daterange: IInput = dashboard?.inputs?.find((x: IInput) => x?.type === InputType.DateRange);
+                daterange.value = value;
             }
         }
         yield put({type: AddView, payload: {id: action.payload?.viewId, name: dashboard?.name, type: ViewType.Dashboard, meta: dashboard}});
@@ -68,4 +71,49 @@ export function* addDashboardHandler(action: any){
 
 export function* addDashboardListener(){
     yield takeEvery(AddDashboard, addDashboardHandler);
+}
+
+
+const datePickerMap = new Map<string, moment.Moment>([
+    ["1d", moment().subtract(1, "d")],
+    ["1w", moment().subtract(1, "week")],
+    ["1m", moment().subtract(1, "month")],
+    ["1y", moment().subtract(1, "year")],
+    ["ytd", moment().startOf("year")],
+    ["max", moment({year: 2022, month: 1, day: 1})]
+]);
+
+export function* updateDatePickerInputHandler(action: any){
+    try {
+        const view: IView = yield select((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === action.payload?.viewId));
+        const dateRangeInput: IInput | undefined = view?.meta?.inputs?.find((x: IInput) => x?.type === InputType.DateRange);
+        const date: moment.Moment | undefined = datePickerMap?.get(action?.payload?.value);
+        const value = [date?.format("YYYY-MM-DD"), moment()?.format("YYYY-MM-DD")];
+        console.log(dateRangeInput, value)
+        yield put({type: UpdateDashboardInput, payload: {...action.payload}});
+        yield put({type: UpdateDashboardInput, payload: {...action.payload, inputId: dateRangeInput?.id, value}})
+    } catch(e) {
+        console.error(e);
+    }
+}
+
+export function* updateDatePickerInputListener(){
+    yield takeEvery(UpdateDatePickerInput, updateDatePickerInputHandler);
+}
+
+export function* updateDateRangeInputHandler(action: any){
+    try {
+        const view: IView = yield select((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === action.payload?.viewId));
+        const datePickerInput: IInput | undefined = view?.meta?.inputs?.find((x: IInput) => x?.type === InputType.DatePicker);
+        yield put({type: UpdateDashboardInput, payload: {...action.payload}});
+        if (datePickerInput) {
+            yield put({type: UpdateDashboardInput, payload: {...action.payload, inputId: datePickerInput?.id, value: null}})
+        }
+    } catch(e) {
+        console.error(e);
+    }
+}
+
+export function* updateDateRangeInputListener(){
+    yield takeEvery(UpdateDateRangeInput, updateDateRangeInputHandler);
 }

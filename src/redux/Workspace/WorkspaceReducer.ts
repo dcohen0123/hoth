@@ -2,10 +2,10 @@ import { IInput } from "../../interface/IInput";
 import { IView } from "../../interface/IView";
 import { IWidget } from "../../interface/IWidget";
 import { AddNewPatientComplete, AddOperationComplete } from "../AddPatient/AddPatientActions";
-import { RunWidgetComplete, ToggleWidgetLoading } from "../Dashboard/DashboardActions";
+import { RunWidgetComplete, ToggleWidgetLoading, UpdateDashboardInput, UpdateWidgetDimensions, UpdateWidgetInput } from "../Dashboard/DashboardActions";
 import { EditOperationComplete, EditPatientComplete, GetOperationComplete, GetPatientsComplete } from "../EditPatient/EditPatientActions";
 import State from "../State";
-import { AddView, SelectWorkspace, UpdateDashboardInput, UpdateWidgetDimensions, UpdateWidgetInput } from "./WorkspaceActions";
+import { AddView, SelectWorkspace } from "./WorkspaceActions";
 
 export default function workspaceReducer(state = State.workspaceManager, action: { type: string, payload?: any }) {
     switch (action.type) {
@@ -49,7 +49,7 @@ export default function workspaceReducer(state = State.workspaceManager, action:
         const viewIdx: number = selected.views.findIndex((x: IView) => x.id === action.payload.viewId)
         selected.views[viewIdx] = {...selected.views[viewIdx]};
         selected.views[viewIdx].meta = {...selected.views[viewIdx].meta}
-        selected.views[viewIdx].meta.inptues = [...selected.views[viewIdx].meta.inputs];
+        selected.views[viewIdx].meta.inputs = [...selected.views[viewIdx].meta.inputs];
         const inputIdx: number =  selected.views[viewIdx].meta.inputs.findIndex((x: IInput) => x.id === action.payload.inputId);
         selected.views[viewIdx].meta.inputs[inputIdx] = {...selected.views[viewIdx].meta.inputs[inputIdx]};
         selected.views[viewIdx].meta.inputs[inputIdx].value = action.payload.value;

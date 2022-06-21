@@ -7,6 +7,33 @@
         "type": "institution",
         "align": "left"
     }, {
+        "id": "datepicker",
+        "name": "Date Picker",
+        "type": "datepicker",
+        "align": "right",
+        "value": "ytd",
+        "meta": {
+            "options": [{
+                "key": "1D",
+                "value": "1d"
+            }, {
+                "key": "1W",
+                "value": "1w"
+            }, {
+                "key": "1M",
+                "value": "1m"
+            }, {
+                "key": "1Y",
+                "value": "1y"
+            }, {
+                "key": "YTD",
+                "value": "ytd"
+            },  {
+                "key": "MAX",
+                "value": "max"
+            }]
+        } 
+    }, {
         "id": "date",
         "name": "Date",
         "type": "daterange",
