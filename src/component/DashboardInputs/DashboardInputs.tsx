@@ -81,6 +81,9 @@ const StyledRadio = styled(Radio.Group)`
         position: relative;
         bottom: 1px;
     }
+    .ant-radio-button-wrapper {
+        border: 1px solid #c2c2c2 !important;
+    }
 `
 
 const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
@@ -122,7 +125,10 @@ const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
             dispatch({type: UpdateDateRangeInput, payload: {viewId, inputId: x.id, value: dates?.map((d: any) => moment(d).format("YYYY-MM-DD"))}});
             dispatch({type: RunDashboard, payload: {viewId}});
         }
-        return <StyledRangePicker size="small" value={x?.value?.map((d: any) => moment(d, "YYYY-MM-DD"))} onChange={handleChange} />
+        const handleFocus = () => {
+            dispatch({type: UpdateDateRangeInput, payload: {viewId, inputId: x.id, value: null}});
+        }
+        return <StyledRangePicker size="small" value={x?.value?.map((d: any) => moment(d, "YYYY-MM-DD"))} onFocus={handleFocus} onChange={handleChange} />
     }
     const getSelect = (x: IInput) => {
         const handleChange = (value: any) => {
@@ -166,7 +172,7 @@ const DashboardInputs = ({viewId}: IDashboardInputsProps) => {
             dispatch({type: UpdateDatePickerInput, payload: {viewId, inputId: x.id, value: e?.target?.value}});
             dispatch({type: RunDashboard, payload: {viewId}});
         }
-        return <StyledRadio size={"small"} value={x?.value} onChange={handleChange}>
+        return <StyledRadio size={"small"} buttonStyle="solid" value={x?.value} onChange={handleChange}>
             {x?.meta?.options?.map((d: any) => <Radio.Button value={d?.value}>{d?.key}</Radio.Button>)}
         </StyledRadio>
     }
