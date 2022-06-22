@@ -13,6 +13,8 @@ const StyledWidgetHead = styled.div`
 
 const StyledHeader = styled.h5`
     font-weight: 800;
+    position: relative;
+    bottom: 1px;
 `;
 
 export interface IWidgetHeadProps {
