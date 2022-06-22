@@ -51,7 +51,7 @@
             "pos": {
                 "pctX": 0,
                 "pctY": 0,
-                "pctWidth": 85,
+                "pctWidth": 90,
                 "pctHeight": 33
             },
             "inputs": [{
@@ -90,9 +90,9 @@
                 "type": "stats"
             },
             "pos": {
-                "pctX": 85,
+                "pctX": 90,
                 "pctY": 0,
-                "pctWidth": 15,
+                "pctWidth": 10,
                 "pctHeight": 33
             },
             "inputs": [{
