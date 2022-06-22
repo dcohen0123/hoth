@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { IPatient } from "../../interface/IPatient";
 import { IState } from "../../interface/IState";
+import { RunAllDashboards } from "../../redux/Dashboard/DashboardActions";
 import { EditOperation, EditPatient, GetOperation, GetPatients } from "../../redux/EditPatient/EditPatientActions";
 
 export interface IEditPatientProps {
@@ -120,6 +121,7 @@ const EditPatientComp = ({viewId}: IEditPatientProps) => {
                     confidence
                 }
             }})
+            dispatch({type: RunAllDashboards});
         } else if (view?.meta?.data?.editPatient?.isSuccess === false) {
             notification.open({
                 type: "error",
@@ -152,7 +154,7 @@ const EditPatientComp = ({viewId}: IEditPatientProps) => {
                 firstName,
                 lastName
             }
-        }})
+        }});
     }
     const clearInputs = () => {
         setPatient(undefined)

@@ -8,3 +8,4 @@ export const UpdateWidgetInput = "UPDATE_WIDGET_INPUT"
 export const UpdateDatePickerInput = "UPDATE_DATE_PICKER";
 export const UpdateDashboardInput = "UPDATE_DASHBOARD_INPUT";
 export const UpdateDateRangeInput = "UPDATE_DATE_RANGE_INPUT";
+export const RunAllDashboards = "RUN_ALL_DASHBOARDS";

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { IState } from "../../interface/IState";
 import { AddNewPatient, AddOperation } from "../../redux/AddPatient/AddPatientActions";
+import { RunAllDashboards } from "../../redux/Dashboard/DashboardActions";
 
 export interface IAddPatientProps {
     viewId: string;
@@ -101,6 +102,7 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
                     confidence
                 }
             }})   
+            dispatch({type: RunAllDashboards});
         }
     }, [view?.meta?.patient_id])
     useEffect(() => {

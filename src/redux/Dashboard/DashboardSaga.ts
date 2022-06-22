@@ -9,7 +9,24 @@ import { IView, ViewType } from "../../interface/IView";
 import { IWidget } from "../../interface/IWidget";
 import { fetchPost } from "../../util/RestUtils";
 import { AddView } from "../Workspace/WorkspaceActions";
-import { AddDashboard, RunDashboard, RunWidget, RunWidgetComplete, ToggleWidgetLoading, UpdateDashboardInput, UpdateDatePickerInput, UpdateDateRangeInput } from "./DashboardActions";
+import { AddDashboard, RunAllDashboards, RunDashboard, RunWidget, RunWidgetComplete, ToggleWidgetLoading, UpdateDashboardInput, UpdateDatePickerInput, UpdateDateRangeInput } from "./DashboardActions";
+
+export function* runAllDashboardsHandler(action: any){
+    try {
+        const views: IView[] = yield select((state: IState) => state?.workspaceManager?.selected?.views);
+        for (let i: number = 0; i < views?.length; i++){
+            if (views?.[i]?.type === ViewType.Dashboard) {
+                yield put({type: RunDashboard, payload: {viewId: views?.[i]?.id}});
+            }
+        }
+    } catch(e) {
+        console.error(e);
+    }
+}
+
+export function* runAllDashboardsListener(){
+    yield takeEvery(RunAllDashboards, runAllDashboardsHandler)
+}
 
 export function* runDashboardHandler(action: any){
     try {

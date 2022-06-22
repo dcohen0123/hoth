@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
 import { addNewPatientListener, addOperationListener } from './AddPatient/AddPatientSaga';
 import { initConfigListener } from './AppConfig/ConfigSaga';
-import { addDashboardListener, runDashboardListener, runWidgetListener, updateDatePickerInputListener, updateDateRangeInputListener } from './Dashboard/DashboardSaga';
+import { addDashboardListener, runAllDashboardsListener, runDashboardListener, runWidgetListener, updateDatePickerInputListener, updateDateRangeInputListener } from './Dashboard/DashboardSaga';
 import { initDataListener } from './Data/DataSaga';
 import { editOperationListener, editPatientListener, getOperationListener, getPatientsListener } from './EditPatient/EditPatientSaga';
 import { initSettingsListener } from './Settings/SettingsSaga';
@@ -25,6 +25,7 @@ export default function* rootSaga() {
         initSettingsListener(),
         initConfigListener(),
         updateDatePickerInputListener(),
-        updateDateRangeInputListener()
+        updateDateRangeInputListener(),
+        runAllDashboardsListener()
     ]);
 }
