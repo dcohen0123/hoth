@@ -200,7 +200,7 @@ const EditPatientComp = ({viewId}: IEditPatientProps) => {
                 <StyledSelect filterOption={(input: any, option: any) => option?.label?.toLowerCase()?.includes(input?.trim()?.toLowerCase())} options={institutions?.map(x => ({label: x?.name, value: x?.id}))} showSearch allowClear value={institution} onChange={handleInstitution} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Institution"}</span>}/ >
             </StyledDiv>
             <StyledDiv>
-                <StyledSelect filterOption={(input: any, option: any) => option?.label?.toLowerCase()?.includes(input?.trim()?.toLowerCase())} options={patients?.map(x => ({label: `${x?.firstName} ${x?.lastName}`, value: x?.id}))} showSearch allowClear value={patient} onChange={handlePatient} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Patient"}</span>}/ >
+                <StyledSelect filterOption={(input: any, option: any) => option?.label?.toLowerCase()?.includes(input?.trim()?.toLowerCase())} options={patients?.map(x => ({label: `${x?.firstName} ${x?.lastName} - ${x?.id}`, value: x?.id}))} showSearch allowClear value={patient} onChange={handlePatient} size="small" placeholder={<span style={{color: "#6f6f6f"}}>{"Patient"}</span>}/ >
             </StyledDiv>
         </StyledWrapper>
         <StyledWrapper>

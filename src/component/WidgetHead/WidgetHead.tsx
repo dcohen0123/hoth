@@ -13,13 +13,7 @@ const StyledWidgetHead = styled.div`
 
 const StyledHeader = styled.h5`
     font-weight: 800;
-    font-size: 12px;
-    margin: 0;
-    position: relative;
-    top: 1px;
 `;
-
-const StyledInputs = styled.div``;
 
 export interface IWidgetHeadProps {
     viewId: string;

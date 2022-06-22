@@ -18,7 +18,7 @@ const StyledNavbar = styled.div`
 `
 
 const StyledImg = styled.img`
-    width: 27px;
+    width: 25px;
     margin: 10px 5px 2px 5px;
 `
 
@@ -27,8 +27,8 @@ const StyledIcon = styled.div<{selected?: boolean, indicator?: boolean}>`
     position: relative;
     padding: 8.5px 0px;
     svg {
-        width: 17px !important;
-        height: 17px !important;
+        width: 16px !important;
+        height: 16px !important;
     }
     ${props => props.selected && props.indicator && `:before {
         content: "";
