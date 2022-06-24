@@ -1,4 +1,5 @@
 import { Button, Input, notification, Radio, Select } from "antd";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -129,6 +130,7 @@ const AddPatient = ({viewId}: IAddPatientProps) => {
                 institution_id: institution, 
                 firstName,
                 lastName, 
+                dateAdded: moment().format("YYYY-MM-DD")
             }
         }})
     }
