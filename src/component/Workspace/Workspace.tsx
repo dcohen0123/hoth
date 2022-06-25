@@ -101,17 +101,17 @@ class Workspace extends React.Component<any, any> {
     private initGoldenLayout() {
         this.gl = new GoldenLayout(config, this.layoutRef.current);
         this.gl.registerComponent('View', this.wrapComponent(View, store));
-        this.gl.init();
         this.gl.on('componentCreated', (component: any) => {
             component.container.on('resize', (e: any) => {
-                this.props.resize(component?.config?.props?.viewId);
+                setTimeout(() => this.props.resize(component?.config?.props?.viewId), 0);
             });
         });
         this.gl.on('stackCreated', (s: any) => {
             s.on('activeContentItemChanged', (e: any) => {
-                this.props.resize(e?.config?.props?.viewId);
+                setTimeout(() => this.props.resize(e?.config?.props?.viewId), 0);
             })
-        })
+        });
+        this.gl.init();
     }
 
     componentDidUpdate(prevProps: any) {
