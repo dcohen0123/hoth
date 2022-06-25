@@ -103,12 +103,12 @@ class Workspace extends React.Component<any, any> {
         this.gl.registerComponent('View', this.wrapComponent(View, store));
         this.gl.on('componentCreated', (component: any) => {
             component.container.on('resize', (e: any) => {
-                setTimeout(() => this.props.resize(component?.config?.props?.viewId), 0);
+                this.props.resize(component?.config?.props?.viewId);
             });
         });
         this.gl.on('stackCreated', (s: any) => {
             s.on('activeContentItemChanged', (e: any) => {
-                setTimeout(() => this.props.resize(e?.config?.props?.viewId), 0);
+                this.props.resize(e?.config?.props?.viewId);
             })
         });
         this.gl.init();

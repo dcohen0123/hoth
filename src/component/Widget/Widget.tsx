@@ -33,7 +33,6 @@ const Widget = ({viewId, widgetId}: IWidgetProps) => {
     const event: IEvent | null = useSelector((state: IState) => state?.eventManager?.event)
     useEffect(() => {
         if (event?.type === EventType.Resize) {
-            if (viewId !== event?.meta?.viewId) return;
             if (event?.meta?.widgetId && widgetId !== event?.meta?.widgetId) return;
             const rect = widgetRef?.current?.getBoundingClientRect()
             dispatch({type: UpdateWidgetDimensions, payload: {viewId, widgetId, width: rect?.width, height: rect?.height}})
