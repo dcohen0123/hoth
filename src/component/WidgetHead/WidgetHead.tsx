@@ -9,6 +9,7 @@ const StyledWidgetHead = styled.div`
     display: flex;
     justify-content: space-between;
     padding-left: 2px;
+    height: 21px;
 `;
 
 const StyledHeader = styled.h5`

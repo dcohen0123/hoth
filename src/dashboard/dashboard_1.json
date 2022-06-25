@@ -107,17 +107,17 @@
             "pos": {
                 "pctX": 0,
                 "pctY": 33,
-                "pctWidth": 70,
+                "pctWidth": 50,
                 "pctHeight": 33
             },
             "main": {
                 "type": "grid",
                 "meta": {
                     "colDefs": [
-                        {"field": "id", "headerName": "Patient ID", "width": 100},
+                        {"field": "id", "headerName": "ID", "width": 60},
                         {"field": "first_name", "headerName": "First Name", "width": 120},
                         {"field": "last_name", "headerName": "Last Name", "width": 120},
-                        {"colId": "completenessBar", "field": "completeness", "headerName": "Completeness", "width": 400, "cellRenderer": "ProgressBar"},
+                        {"colId": "completenessBar", "field": "completeness", "headerName": "Completeness", "width": 300, "cellRenderer": "ProgressBar"},
                         {"colId": "completeness", "field": "completeness", "headerName": "Percent", "type": "percent", "width": 100}
                     ]
                 }
@@ -138,9 +138,9 @@
             "name": "# Patients",
             "fn": "numPatientsGrid",
             "pos": {
-                "pctX": 70,    
+                "pctX": 50,    
                 "pctY": 33,
-                "pctWidth": 30,
+                "pctWidth": 50,
                 "pctHeight": 33
             },
             "main": {
