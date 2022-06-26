@@ -158,7 +158,6 @@ const EditPatientComp = ({viewId}: IEditPatientProps) => {
     }
     const clearInputs = () => {
         setPatient(undefined)
-        setInstitution(undefined);
         setFirstName(undefined);
         setLastName(undefined);
         setNumInsertions(undefined);
@@ -174,6 +173,7 @@ const EditPatientComp = ({viewId}: IEditPatientProps) => {
     const handleInstitution = (value: any) => {
         dispatch({type: GetPatients, payload: {viewId: viewId, institution_id: value}})
         setInstitution(value);
+        clearInputs();
     }
     const handlePatient = (value: any) => {
         dispatch({type: GetOperation, payload: {viewId: viewId, patient_id: value}})

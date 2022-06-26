@@ -105,7 +105,6 @@ export function* updateDatePickerInputHandler(action: any){
         const dateRangeInput: IInput | undefined = view?.meta?.inputs?.find((x: IInput) => x?.type === InputType.DateRange);
         const date: moment.Moment | undefined = datePickerMap?.get(action?.payload?.value);
         const value = [date?.format("YYYY-MM-DD"), moment()?.format("YYYY-MM-DD")];
-        console.log(dateRangeInput, value)
         yield put({type: UpdateDashboardInput, payload: {...action.payload}});
         yield put({type: UpdateDashboardInput, payload: {...action.payload, inputId: dateRangeInput?.id, value}})
     } catch(e) {
