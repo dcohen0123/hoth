@@ -55,7 +55,6 @@ export function* runWidgetHandler(action: any){
         const response: Promise<any> = yield call(fetchPost, `${config?.widgetsURL}/${widget?.fn}`, request)
         const data: Object = yield response
         yield put({type: RunWidgetComplete, payload: {viewId: view?.id, widgetId: widget?.id, data}});
-        yield put({type: ToggleWidgetLoading, payload: {viewId: view?.id, widgetId: widget?.id, loading: false}});
     } catch(e) {
         console.error(e);
     }
