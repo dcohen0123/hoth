@@ -107,7 +107,7 @@
             "pos": {
                 "pctX": 0,
                 "pctY": 33,
-                "pctWidth": 50,
+                "pctWidth": 25,
                 "pctHeight": 33
             },
             "main": {
@@ -129,6 +129,35 @@
                     "placeholder": "Patient"
                 }
             }, {
+                "id": "maximize",
+                "type": "maximize"
+            }]
+        },
+        {   
+            "id": "patientInfo",
+            "name": "Patient Info",
+            "fn": "patientInfo",
+            "pos": {
+                "pctX": 25,
+                "pctY": 33,
+                "pctWidth": 25,
+                "pctHeight": 33
+            },
+            "hide": true,
+            "main": {
+                "type": "grid",
+                "meta": {
+                    "colDefs": [
+                        {"field": "id", "headerName": "ID", "width": 60},
+                        {"field": "first_name", "headerName": "First Name", "width": 120},
+                        {"field": "last_name", "headerName": "Last Name", "width": 120},
+                        {"colId": "completeness", "field": "completeness", "headerName": "Percent", "type": "percent", "width": 100},
+                        {"field": "confidence", "headerName": "Confidence", "width": 120},
+                        {"field": "dateAdded", "headerName": "Date Added", "width": 120}
+                    ]
+                }
+            },
+            "inputs": [{
                 "id": "maximize",
                 "type": "maximize"
             }]

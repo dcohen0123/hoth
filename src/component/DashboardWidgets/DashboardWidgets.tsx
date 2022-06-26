@@ -92,6 +92,20 @@ const getTree = (groups: any[]) => {
     return tree;
 }
 
+const mergeTree = (tree: any[]) => {
+    const nodes = [...tree];
+    while (nodes.length > 0) {
+        const node = nodes.pop();
+        if (node?.value?.anchor?.pos?.pctX + node?.value?.anchor?.pos?.pctWidth < node?.children?.[0]?.value?.anchor?.pos?.pctX) {
+            node.value.anchor.pos.pctWidth = node?.children?.[0]?.value?.anchor?.pos?.pctX - node?.value?.anchor?.pos?.pctX;
+        }
+        if (node?.children?.length > 0) {
+            nodes.push(...node?.children)
+        }
+    }
+    return tree;
+}
+
 const getResult = (tree: any[], viewId: string) => {
     if (!tree || tree.length === 0) {
         return null;
@@ -134,10 +148,11 @@ const getResult = (tree: any[], viewId: string) => {
 const DashboardWidgets = ({viewId}: IDashboardWidgetsProps) => {
     const dashboard: IDashboard = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x.id === viewId))?.meta
     const result = useMemo(() => {
-        const widgets: IWidget[] = [...dashboard?.widgets].sort(sortWidgets)
+        const widgets: IWidget[] = [...dashboard?.widgets?.filter(x => !x?.hide)].sort(sortWidgets)
         const groups: any[] = getGroups(widgets);
-        const tree: any[] = getTree(groups)
-        const result: any = getResult(tree, viewId)
+        const tree: any[] = getTree(groups);
+        const mergedTree: any[] = mergeTree(tree);
+        const result: any = getResult(mergedTree, viewId)
         return result;
     }, [])
     return <StyledDashboardWidgets>{result}</StyledDashboardWidgets>

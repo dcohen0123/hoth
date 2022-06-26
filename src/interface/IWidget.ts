@@ -17,4 +17,5 @@ export interface IWidget {
     size: ISize;
     pos: IPos;
     loading: boolean;
+    hide: boolean;
 }
