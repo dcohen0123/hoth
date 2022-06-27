@@ -3,7 +3,7 @@ import { INavList } from "../../interface/INavList";
 import { INavListItem } from "../../interface/INavListItem";
 
 const StyledNavList = styled.ul`
-    background: #f3f3f3ff;
+    background: #f0f0f0;
     height: 100%;
     list-style: none;
     padding: 0px;
@@ -18,7 +18,7 @@ const StyledNavListItem = styled.li`
         background: #e9e9e9;
     }
     :last-child {
-        border-bottom: 1px solid #e9e9e9;
+        border-bottom: 1px solid #e3e3e3;
     }
 `;
 

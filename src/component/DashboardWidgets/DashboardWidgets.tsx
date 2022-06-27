@@ -93,7 +93,7 @@ const getTree = (groups: any[]) => {
 }
 
 const mergeTree = (tree: any[]) => {
-    const nodes = [...tree];
+    let nodes = [...tree];
     while (nodes.length > 0) {
         const node = nodes.pop();
         if (node?.value?.anchor?.pos?.pctX + node?.value?.anchor?.pos?.pctWidth < node?.children?.[0]?.value?.anchor?.pos?.pctX) {
@@ -101,6 +101,20 @@ const mergeTree = (tree: any[]) => {
         }
         if (node?.children?.length > 0) {
             nodes.push(...node?.children)
+        }
+    }
+    nodes = [tree];
+    while (nodes.length > 0) {
+        const items = nodes.pop();
+        for (let i: number = 0; i < items.length; i++) {
+            if (items[0]?.value?.anchor?.pos?.pctY + items[0]?.value?.anchor?.pos?.pctHeight < items?.[1]?.value?.anchor?.pos?.pctY) {
+                items[0].value.anchor.pos.pctHeight = items?.[1]?.value?.anchor?.pos?.pctY - items?.[0]?.value?.anchor?.pos?.pctY;
+            }
+        }
+        for (let i: number = 0; i < items.length; i++) {
+            if (items?.[i]?.children?.length > 0) {
+                nodes.push(items?.[i]?.children)
+            }
         }
     }
     return tree;
@@ -148,7 +162,7 @@ const getResult = (tree: any[], viewId: string) => {
 const DashboardWidgets = ({viewId}: IDashboardWidgetsProps) => {
     const dashboard: IDashboard = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x.id === viewId))?.meta
     const result = useMemo(() => {
-        const widgets: IWidget[] = [...dashboard?.widgets?.filter(x => !x?.hide)].sort(sortWidgets)
+        const widgets = dashboard?.widgets?.filter(x => !x?.hide).sort(sortWidgets);
         const groups: any[] = getGroups(widgets);
         const tree: any[] = getTree(groups);
         const mergedTree: any[] = mergeTree(tree);

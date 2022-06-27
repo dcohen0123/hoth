@@ -10,7 +10,7 @@ import { Align, INavItem, NavItemType } from '../../interface/INavItem';
 const StyledNavbar = styled.div`
     display: inline-flex;
     height: 100%;
-    background: #434343ff;
+    background: #414141;
     text-align: center;
     flex-direction: column;
     justify-content: space-between;
