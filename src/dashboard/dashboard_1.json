@@ -107,12 +107,13 @@
             "pos": {
                 "pctX": 0,
                 "pctY": 33,
-                "pctWidth": 25,
+                "pctWidth": 50,
                 "pctHeight": 33
             },
             "main": {
                 "type": "grid",
                 "meta": {
+                    "drillCols": ["id", "first_name", "last_name"],
                     "colDefs": [
                         {"field": "id", "headerName": "ID", "width": 60},
                         {"field": "first_name", "headerName": "First Name", "width": 120},
@@ -138,28 +139,38 @@
             "name": "Patient Info",
             "fn": "patientInfo",
             "pos": {
-                "pctX": 25,
-                "pctY": 33,
-                "pctWidth": 25,
-                "pctHeight": 33
+                "pctX": 50,
+                "pctY": 0,
+                "pctWidth": 50,
+                "pctHeight": 100
             },
             "hide": true,
+            "events": [{
+                "type": "WIDGET_DRILL",
+                "meta": {
+                    "widgetId": "completeness"
+                }
+            }],
             "main": {
                 "type": "grid",
                 "meta": {
                     "colDefs": [
                         {"field": "id", "headerName": "ID", "width": 60},
-                        {"field": "first_name", "headerName": "First Name", "width": 120},
-                        {"field": "last_name", "headerName": "Last Name", "width": 120},
-                        {"colId": "completeness", "field": "completeness", "headerName": "Percent", "type": "percent", "width": 100},
-                        {"field": "confidence", "headerName": "Confidence", "width": 120},
-                        {"field": "dateAdded", "headerName": "Date Added", "width": 120}
+                        {"field": "first_name", "headerName": "First Name", "width": 110},
+                        {"field": "last_name", "headerName": "Last Name", "width": 110},
+                        {"field": "num_insertions", "headerName": "# Insertions", "width": 120},
+                        {"field": "num_correct_insertions", "headerName": "# Correct Insertions", "width": 120},
+                        {"field": "confidence", "headerName": "Confidence", "width": 110},
+                        {"field": "date_added", "headerName": "Date Created", "type": "date", "width": 120}
                     ]
                 }
             },
             "inputs": [{
                 "id": "maximize",
                 "type": "maximize"
+            }, {
+                "id": "close",
+                "type": "close"
             }]
         },
         {

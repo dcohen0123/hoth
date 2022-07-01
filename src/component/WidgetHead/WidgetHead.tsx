@@ -1,7 +1,10 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { IEvent, EventType } from "../../interface/IEvent";
 import { IState } from "../../interface/IState";
 import { IWidget } from "../../interface/IWidget";
+import { RunWidget, UpdateDrill, UpdateWidgetDimensions } from "../../redux/Dashboard/DashboardActions";
 import WidgetInputs from "../WidgetInputs/WidgetInputs";
 
 const StyledWidgetHead = styled.div`
@@ -12,10 +15,23 @@ const StyledWidgetHead = styled.div`
     height: 21px;
 `;
 
-const StyledHeader = styled.h5`
+const StyledHeader = styled.div`
+    &> span {
+        margin-right: 8px;
+    }
+`;
+
+const StyledKey = styled.span`
+    margin-right: 8px;
+`
+
+const StyledName = styled.h5`
     font-weight: 800;
     position: relative;
     bottom: 1px;
+    display: inline-block;
+    margin-right: 5px;
+    font-size: 12px;
 `;
 
 export interface IWidgetHeadProps {
@@ -47,7 +63,7 @@ export const StyledInput = styled.div`
 const WidgetHead = ({viewId, widgetId}: IWidgetHeadProps) => {
     const widget: IWidget = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === viewId)?.meta?.widgets?.find((x: IWidget) => x?.id === widgetId));
     return <StyledWidgetHead>
-        <StyledHeader>{widget?.name}</StyledHeader>
+        <StyledHeader><StyledName>{widget?.name}</StyledName>{widget?.drill?.map(x => <span><StyledKey>{x.name}</StyledKey><span><strong>{x.value}</strong></span></span>)}</StyledHeader>
         <WidgetInputs viewId={viewId} widgetId={widgetId} />
     </StyledWidgetHead>
 }

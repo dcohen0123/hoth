@@ -32,7 +32,9 @@ export function* runDashboardHandler(action: any){
     try {
         const view: IView = yield select((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x?.id === action.payload?.viewId));
         for (let i: number = 0; i < view?.meta?.widgets?.length; i++){
-            yield put({type: RunWidget, payload: {viewId: view?.id, widgetId: view?.meta?.widgets?.[i]?.id}})
+            if (!view?.meta?.widgets?.[i]?.hide) {
+                yield put({type: RunWidget, payload: {viewId: view?.id, widgetId: view?.meta?.widgets?.[i]?.id}});
+            }
         }
     } catch(e) {
         console.error(e);

@@ -2,14 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 //@ts-ignore
 import { EntypoBarGraph } from "react-entypo";
-import { Maximize, Minimize, OpenInNewOutlined } from "@mui/icons-material"
+import { Maximize, Minimize, OpenInNewOutlined, Close } from "@mui/icons-material"
 import { Input, Select } from "antd";
 import { IInput, InputType } from "../../interface/IInput";
 import { IState } from "../../interface/IState";
 import { IWidget } from "../../interface/IWidget";
 import { AddEvent } from "../../redux/Event/EventAction";
 import { EventType } from "../../interface/IEvent";
-import { RunWidget, UpdateWidgetInput } from "../../redux/Dashboard/DashboardActions";
+import { RunWidget, UpdateWidgetInput, CloseWidget } from "../../redux/Dashboard/DashboardActions";
 
 const StyledInputs = styled.div``;
 
@@ -21,6 +21,7 @@ export interface IWidgetHeadProps {
 const { Option } = Select;
 
 export const StyledMuiIcon = styled.div`
+    margin: 0;
     svg {
         width: 19px !important;
         height: 19px !important;
@@ -109,6 +110,10 @@ const WidgetInputs = ({viewId, widgetId}: IWidgetInputsProps) => {
                 result = getSearch(x);
                 break;
             }
+            case InputType.Close: {
+                result = getClose(x);
+                break;
+            }
             default: {
                 result = null;
             }
@@ -144,6 +149,10 @@ const WidgetInputs = ({viewId, widgetId}: IWidgetInputsProps) => {
     const getLegend = (x: IInput) => {
         const handleClick = () => dispatch({type: UpdateWidgetInput, payload: {viewId, widgetId, inputId: x.id, value: !x?.value}})
         return <StyledEntypoIcon onClick={handleClick}><EntypoBarGraph /></StyledEntypoIcon>
+    }
+    const getClose = (x: IInput) => {
+        const handleClick = () => dispatch({type: CloseWidget, payload: {viewId, widgetId}})
+        return <StyledMuiIcon onClick={handleClick}><Close /></StyledMuiIcon>
     }
     const getMaximize = (x: IInput) => {
         const handleClick = () => {

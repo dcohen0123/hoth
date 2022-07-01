@@ -6,6 +6,7 @@ import { IInput, InputType } from "../../interface/IInput";
 import { IState } from "../../interface/IState";
 import { IWidget } from "../../interface/IWidget";
 import { UpdateWidgetDimensions } from "../../redux/Dashboard/DashboardActions";
+import { AddEvent } from "../../redux/Event/EventAction";
 import WidgetBody from "../WidgetBody/WidgetBody";
 import WidgetHead from "../WidgetHead/WidgetHead";
 

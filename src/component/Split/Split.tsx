@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { EventType } from "../../interface/IEvent";
@@ -38,7 +38,7 @@ const StyledDiv = styled.div<{direction: "vertical" | "horizontal", size: number
 const Split = ({viewId, direction="horizontal", children, initSplit}: ISplitProps) => {
     const dispatch = useDispatch()
     const filteredChildren = children.filter(x => x)
-    const [split, setSplit] = useState(initSplit ?? Array(filteredChildren.length - 1).fill(null).map((x, i) => (i + 1) / filteredChildren.length));
+    const [split, setSplit] = useState<any>(initSplit ?? Array(filteredChildren.length - 1).fill(null).map((x, i) => (i + 1) / filteredChildren.length));
     const isMouseDown = useRef<boolean>(false);
     const splitIndex = useRef<number>(0);
     const box = useRef<any>();

@@ -1,9 +1,12 @@
-import { useMemo } from "react"
-import { useSelector } from "react-redux"
+import { useEffect, useMemo } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
-import { IDashboard } from "../../interface/IDashboard"
+import { IEvent, EventType } from "../../interface/IEvent"
 import { IState } from "../../interface/IState"
+import { IView } from "../../interface/IView"
 import { IWidget } from "../../interface/IWidget"
+import { UpdateDrill, RunWidget } from "../../redux/Dashboard/DashboardActions"
+import { AddEvent } from "../../redux/Event/EventAction"
 import Split from "../Split/Split"
 import Widget from "../Widget/Widget"
 
@@ -92,34 +95,6 @@ const getTree = (groups: any[]) => {
     return tree;
 }
 
-const mergeTree = (tree: any[]) => {
-    let nodes = [...tree];
-    while (nodes.length > 0) {
-        const node = nodes.pop();
-        if (node?.value?.anchor?.pos?.pctX + node?.value?.anchor?.pos?.pctWidth < node?.children?.[0]?.value?.anchor?.pos?.pctX) {
-            node.value.anchor.pos.pctWidth = node?.children?.[0]?.value?.anchor?.pos?.pctX - node?.value?.anchor?.pos?.pctX;
-        }
-        if (node?.children?.length > 0) {
-            nodes.push(...node?.children)
-        }
-    }
-    nodes = [tree];
-    while (nodes.length > 0) {
-        const items = nodes.pop();
-        for (let i: number = 0; i < items.length; i++) {
-            if (items[0]?.value?.anchor?.pos?.pctY + items[0]?.value?.anchor?.pos?.pctHeight < items?.[1]?.value?.anchor?.pos?.pctY) {
-                items[0].value.anchor.pos.pctHeight = items?.[1]?.value?.anchor?.pos?.pctY - items?.[0]?.value?.anchor?.pos?.pctY;
-            }
-        }
-        for (let i: number = 0; i < items.length; i++) {
-            if (items?.[i]?.children?.length > 0) {
-                nodes.push(items?.[i]?.children)
-            }
-        }
-    }
-    return tree;
-}
-
 const getResult = (tree: any[], viewId: string) => {
     if (!tree || tree.length === 0) {
         return null;
@@ -139,7 +114,7 @@ const getResult = (tree: any[], viewId: string) => {
         const pctHeight: any = items.map(x => x.props["data-pos"].pctHeight)
         const pctY: any = items.map(x => x.props["data-pos"].pctY)
         const pctX: any = items.map(x => x.props["data-pos"].pctX)
-        const totalWidth: any = items.map(x => x.props["data-pos"].pctWidth).reduce((acc, curr) => acc + curr)
+        const totalWidth: any = Math.min(items.map(x => x.props["data-pos"].pctWidth).reduce((acc, curr) => acc + curr), 100)
         const initSplit=items.map(x => (x.props["data-pos"].pctX - pctX[0]) / totalWidth).slice(1)
         return tree[0].parent?.children.length !== 1 ? <Split key={tree[0].value.anchor.id} viewId={viewId} data-pos={{pctX: pctX[0], pctWidth: totalWidth, pctY: pctY[0], pctHeight: pctHeight[0]}} direction="vertical" initSplit={initSplit}>{items}</Split> :items
 
@@ -153,23 +128,36 @@ const getResult = (tree: any[], viewId: string) => {
         const pctX: any = items.map(x => x.props["data-pos"].pctX)
         const pctY: any = items.map(x => x.props["data-pos"].pctY)
         const pctWidth: any = items.map(x => x.props["data-pos"].pctWidth)
-        const totalHeight: any = items.map(x => x.props["data-pos"].pctHeight).reduce((acc, curr) => acc + curr)
+        const totalHeight: any = Math.min(items.map(x => x.props["data-pos"].pctHeight).reduce((acc, curr) => acc + curr), 100)
         const initSplit=items.map(x => (x.props["data-pos"].pctY - pctY[0]) / totalHeight).slice(1)
         return <Split viewId={viewId} data-pos={{pctX: pctX[0], pctY: pctY[0], pctWidth: pctWidth[0], pctHeight: totalHeight}} direction="horizontal" initSplit={initSplit}>{items}</Split>
     }
 }
 
 const DashboardWidgets = ({viewId}: IDashboardWidgetsProps) => {
-    const dashboard: IDashboard = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x.id === viewId))?.meta
+    const view: IView | undefined = useSelector((state: IState) => state?.workspaceManager?.selected?.views?.find(x => x.id === viewId))
+    const event: IEvent | null = useSelector((state: IState) => state?.eventManager?.event)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        if (event?.type === EventType.WidgetDrill) {
+            if (event?.meta?.viewId !== viewId) return;
+            for (let i: number = 0; i < view?.meta?.widgets?.length; i++) {
+                if (view?.meta?.widgets[i]?.events?.some((x: IEvent) => x.type === EventType.WidgetDrill && x?.meta?.widgetId === event?.meta?.widgetId)) {
+                    dispatch({type: UpdateDrill, payload: {viewId, widgetId: view?.meta?.widgets?.[i]?.id, drill: event?.meta?.drill}});
+                    dispatch({type: RunWidget, payload: {viewId, widgetId: view?.meta?.widgets?.[i]?.id}});
+                    dispatch({type: AddEvent, payload: {type: EventType.Resize, meta: {viewId}}})
+                }
+            }
+        }
+    }, [event]);
     const result = useMemo(() => {
-        const widgets = dashboard?.widgets?.filter(x => !x?.hide).sort(sortWidgets);
+        const widgets = JSON.parse(JSON.stringify(view?.meta?.widgets?.filter((x: any) => !x?.hide))).sort(sortWidgets);
         const groups: any[] = getGroups(widgets);
         const tree: any[] = getTree(groups);
-        const mergedTree: any[] = mergeTree(tree);
-        const result: any = getResult(mergedTree, viewId)
+        const result: any = getResult(tree, viewId)
         return result;
-    }, [])
-    return <StyledDashboardWidgets>{result}</StyledDashboardWidgets>
+  }, [view?.meta?.widgets])
+   return <StyledDashboardWidgets>{result}</StyledDashboardWidgets>
 }
 
 export default DashboardWidgets;
