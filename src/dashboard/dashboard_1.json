@@ -121,7 +121,7 @@
                         {"field": "full_name", "headerName": "Name", "hide": true},
                         {"colId": "completenessBar", "field": "completeness", "headerName": "Completeness", "width": 300, "cellRenderer": "ProgressBar"},
                         {"colId": "completeness", "field": "completeness", "headerName": "Percent", "type": "percent", "width": 100},
-                        {"field": "drill_patient", "headerName": "Drill Patient", "width": 130}
+                        {"field": "drill_patient", "headerName": "Drill Patient", "width": 150}
                     ]
                 }
             },
