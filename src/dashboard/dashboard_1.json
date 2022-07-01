@@ -113,13 +113,15 @@
             "main": {
                 "type": "grid",
                 "meta": {
-                    "drillCols": ["id", "first_name", "last_name"],
+                    "drillCols": ["id", "full_name"],
                     "colDefs": [
                         {"field": "id", "headerName": "ID", "width": 60},
                         {"field": "first_name", "headerName": "First Name", "width": 120},
                         {"field": "last_name", "headerName": "Last Name", "width": 120},
+                        {"field": "full_name", "headerName": "Name", "hide": true},
                         {"colId": "completenessBar", "field": "completeness", "headerName": "Completeness", "width": 300, "cellRenderer": "ProgressBar"},
-                        {"colId": "completeness", "field": "completeness", "headerName": "Percent", "type": "percent", "width": 100}
+                        {"colId": "completeness", "field": "completeness", "headerName": "Percent", "type": "percent", "width": 100},
+                        {"field": "drill_patient", "headerName": "Drill Patient", "width": 130}
                     ]
                 }
             },
@@ -139,9 +141,9 @@
             "name": "Patient Info",
             "fn": "patientInfo",
             "pos": {
-                "pctX": 50,
+                "pctX": 70,
                 "pctY": 0,
-                "pctWidth": 50,
+                "pctWidth": 30,
                 "pctHeight": 100
             },
             "hide": true,
