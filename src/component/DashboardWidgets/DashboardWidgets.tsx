@@ -32,7 +32,13 @@ const sortWidgets = (a: IWidget, b: IWidget) => {
         } else if (a?.pos?.pctY > b?.pos?.pctY) {
             return 1;
         } else {
-            return 0;
+            if (a?.pos?.pctWidth < b?.pos?.pctWidth) {
+                return -1;
+            } else if (a?.pos?.pctWidth > b?.pos?.pctWidth) {
+                return 1;
+            } else {
+                return a?.isDrill ? -1 : b?.isDrill ? 1 : 0;
+            }
         }
     }
 }
@@ -90,6 +96,28 @@ const getTree = (groups: any[]) => {
             node.children.push({value: groups[i], children: [], parent: node})
         } else {
             tree.push({value: groups[i], children: [], parent: null});
+        }
+    }
+    return tree;
+}
+
+const getMergeTree = (tree: any) => {
+    const nodes = [...tree]
+    while (nodes.length > 0) {
+        const node = nodes.pop();
+        if (node?.value?.anchor?.pos?.pctX + node?.value?.anchor?.pos?.pctWidth > node?.children?.[0]?.value?.anchor?.pos?.pctX) {
+            if (node?.value?.anchor?.isDrill) {                  
+                const val = node?.value?.anchor?.pos?.pctX + node?.value?.anchor?.pos?.pctWidth;
+                if (val < 100) {
+                    node.children[0].value.anchor.pos.pctX = val;
+                } else if (val !== 100) {
+                    const val = (node?.value?.anchor?.pos?.pctX + node?.value?.anchor?.pos?.pctWidth) - node?.children?.[0]?.value?.anchor?.pos?.pctX
+                    node.value.anchor.pos.pctX = Math.max(0, node.value.anchor.pos.pctX - val); 
+                }
+            }
+        }
+        if (node.children) {
+            nodes.push(...node.children)
         }
     }
     return tree;
@@ -154,7 +182,8 @@ const DashboardWidgets = ({viewId}: IDashboardWidgetsProps) => {
         const widgets = JSON.parse(JSON.stringify(view?.meta?.widgets?.filter((x: any) => !x?.hide))).sort(sortWidgets);
         const groups: any[] = getGroups(widgets);
         const tree: any[] = getTree(groups);
-        const result: any = getResult(tree, viewId)
+        const mergeTree: any = getMergeTree(tree);
+        const result: any = getResult(mergeTree, viewId)
         return result;
   }, [view?.meta?.widgets])
    return <StyledDashboardWidgets>{result}</StyledDashboardWidgets>

@@ -13,6 +13,7 @@ export interface IWidget {
     inputs: IInput[];
     events: IEvent[];
     main: IMain;
+    isDrill: boolean;
     data: any;
     size: ISize;
     pos: IPos;

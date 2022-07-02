@@ -42,6 +42,13 @@ const Split = ({viewId, direction="horizontal", children, initSplit}: ISplitProp
     const isMouseDown = useRef<boolean>(false);
     const splitIndex = useRef<number>(0);
     const box = useRef<any>();
+    const childrenRef = useRef(children)
+    useEffect(() => {
+        if (children?.length !== childrenRef?.current?.length) {
+            setSplit(initSplit)
+            childrenRef.current = children;
+        }
+    }, [initSplit])
     const handleMouseDown = (i: number) => {
         return () => {
             isMouseDown.current = true;

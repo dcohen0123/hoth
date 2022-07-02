@@ -141,11 +141,12 @@
             "name": "Patient Info",
             "fn": "patientInfo",
             "pos": {
-                "pctX": 70,
+                "pctX": 50,
                 "pctY": 0,
-                "pctWidth": 30,
+                "pctWidth": 50,
                 "pctHeight": 100
             },
+            "isDrill": true,
             "hide": true,
             "events": [{
                 "type": "WIDGET_DRILL",
