@@ -33,7 +33,7 @@ export const columnTypes: {[key: string]: ColDef} = {
         filterValueGetter: (params) => params?.getValue("completeness") * 100
     },
     "date": {
-        valueFormatter: (params) => moment.utc(params?.value)?.local()?.format("YYYY-MM-DD")
+        valueFormatter: (params) => moment.utc(params?.value).format("YYYY-MM-DD")
     }
 }
 
