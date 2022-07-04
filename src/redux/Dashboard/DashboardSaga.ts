@@ -98,7 +98,7 @@ const datePickerMap = new Map<string, moment.Moment>([
     ["1m", moment().subtract(1, "month")],
     ["1y", moment().subtract(1, "year")],
     ["ytd", moment().startOf("year")],
-    ["max", moment({year: 2022, month: 1, day: 1})]
+    ["max", moment({year: 2022, month: 0, day: 1})]
 ]);
 
 export function* updateDatePickerInputHandler(action: any){
