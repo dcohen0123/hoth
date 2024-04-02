@@ -2,7 +2,7 @@
   "name": "hoth",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dcohen0123.github.io",
+  "homepage": "https://dcohen0123.github.io/hoth",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
