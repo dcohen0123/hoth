@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import ReactFlow, { Background, Controls, MiniMap, addEdge, useEdgesState, useNodesState } from "@xyflow/react";
+import { ReactFlow, Background, Controls, MiniMap, addEdge, useEdgesState, useNodesState } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -85,11 +85,11 @@ const WorkflowManager = () => {
     return (
         <div style={{ display: 'flex', height: '100%', width: '100%' }}>
             <div style={{ width: 200, borderRight: '1px solid #ccc', padding: 5 }}>
-                <button onClick={handleNew}>New Workflow</button>
+                <button onClick={handleNew}>Create Workflow</button>
                 <ul style={{ listStyle: 'none', padding: 0 }}>
                     {workflows.map(w => (
-                        <li key={w.id} style={{ marginTop: 5 }}>
-                            <span style={{ cursor: 'pointer' }} onClick={() => handleSelect(w.id)}>{w.name}</span>
+                        <li key={w.id} style={{ marginTop: 5, display: 'flex', alignItems: 'center' }}>
+                            <span style={{ cursor: 'pointer', flex: 1 }} onClick={() => handleSelect(w.id)}>{w.name}</span>
                             <button style={{ marginLeft: 5 }} onClick={() => handleDelete(w.id)}>Delete</button>
                         </li>
                     ))}
@@ -98,7 +98,10 @@ const WorkflowManager = () => {
             <div style={{ flex: 1, padding: 5 }}>
                 {selectedId && (
                     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                        <input value={name} onChange={e => setName(e.target.value)} style={{ marginBottom: 5 }} />
+                        <div style={{display: 'flex', alignItems: 'top'}}>
+                            <input value={name} onChange={e => setName(e.target.value)} style={{ flex: 1, marginRight: 5 }} />
+                            <button onClick={handleSave}>Save</button>
+                        </div>
                         <div style={{ flex: 1 }}>
                             <ReactFlow nodes={nodes} edges={edges} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect} fitView>
                                 <MiniMap />
@@ -106,7 +109,6 @@ const WorkflowManager = () => {
                                 <Background />
                             </ReactFlow>
                         </div>
-                        <button onClick={handleSave} style={{ marginTop: 5 }}>Save</button>
                     </div>
                 )}
             </div>

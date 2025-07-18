@@ -2,9 +2,6 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { IState } from "../../interface/IState";
 import { ViewType } from "../../interface/IView";
-import AddPatient from "../AddPatient/AddPatient";
-import Dashboard from "../Dashboard/Dashboard";
-import EditPatient from "../EditPatient/EditPatient";
 import WorkflowManager from "../WorkflowManager/WorkflowManager";
 
 export interface IViewProps {
@@ -12,9 +9,6 @@ export interface IViewProps {
 }
 
 export const viewMap: Map<ViewType, any> = new Map<ViewType, any>([
-    [ViewType.Dashboard, Dashboard],
-    [ViewType.NewPatient, AddPatient],
-    [ViewType.EditPatient, EditPatient],
     [ViewType.WorkflowManager, WorkflowManager]
 ])
 

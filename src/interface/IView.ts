@@ -1,7 +1,4 @@
 export enum ViewType {
-    Dashboard="dashboard",
-    NewPatient="newPatient",
-    EditPatient="editPatient",
     WorkflowManager="workflowManager"
 }
 

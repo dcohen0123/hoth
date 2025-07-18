@@ -3,7 +3,7 @@ import { put } from "redux-saga/effects";
 import { InitSettings } from "../Settings/SettingsActions";
 import { InitUser } from "./UserActions";
 
-export function* initUserHandler(action: any) {
+export function* initUserHandler() {
     try {
         //TODO - Fetch User Info.
         yield put({type: InitSettings})
