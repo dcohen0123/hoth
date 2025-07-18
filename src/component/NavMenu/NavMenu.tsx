@@ -2,23 +2,13 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { IState } from '../../interface/IState';
 import { Align, NavItemType } from '../../interface/INavItem';
-import DashboardMenu from '../DashboardMenu/DashboardMenu';
-import ExportMenu from '../ExportMenu/ExportMenu';
-import BrowseMenu from '../BrowseMenu/BrowseMenu';
-import LearnMenu from '../LearnMenu/LearnMenu';
-import MoreMenu from '../MoreMenu/MoreMenu';
 import UserMenu from '../User/User';
 import HelpMenu from '../Help/Help';
 import SettingsMenu from '../Settings/Settings';
-import CreateMenu from '../CreateMenu/CreateMenu';
+import WorkflowMenu from '../WorkflowMenu/WorkflowMenu';
 
 export const menuMap: Map<NavItemType, JSX.Element> = new Map<NavItemType, JSX.Element>([
-    [NavItemType.DashBoard, <DashboardMenu />],
-    [NavItemType.Create, <CreateMenu />],
-    [NavItemType.Export, <ExportMenu />],
-    [NavItemType.Browse, <BrowseMenu />],
-    [NavItemType.Learn, <LearnMenu />],
-    [NavItemType.More, <MoreMenu />],
+    [NavItemType.Workflow, <WorkflowMenu />],
     [NavItemType.User, <UserMenu />],
     [NavItemType.Help, <HelpMenu />],
     [NavItemType.Settings, <SettingsMenu />]

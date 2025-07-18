@@ -3,34 +3,9 @@ import { INavManager } from "../../interface/INavManager";
 
 const navManager: INavManager = {
     items: [{
-        id: "dashboard",
-        type: NavItemType.DashBoard,
-        name: "Dashboard",
-        align: Align.Top
-    }, {
-        id: "create",
-        type: NavItemType.Create,
-        name: "Create",
-        align: Align.Top
-    }, {
-        id: "export",
-        type: NavItemType.Export,
-        name: "Export",
-        align: Align.Top
-    }, {
-        id: "browse",
-        type: NavItemType.Browse,
-        name: "Browse",
-        align: Align.Top
-    }, {
-        id: "learn",
-        type: NavItemType.Learn,
-        name: "Learn",
-        align: Align.Top
-    }, {
-        id: "more",
-        type: NavItemType.More,
-        name: "More",
+        id: "workflows",
+        type: NavItemType.Workflow,
+        name: "Workflows",
         align: Align.Top
     }, {
         id: "user",
