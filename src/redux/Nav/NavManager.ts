@@ -13,6 +13,11 @@ const navManager: INavManager = {
         name: "Create",
         align: Align.Top
     }, {
+        id: "workflows",
+        type: NavItemType.Workflow,
+        name: "Workflows",
+        align: Align.Top
+    }, {
         id: "export",
         type: NavItemType.Export,
         name: "Export",

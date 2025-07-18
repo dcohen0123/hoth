@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 //@ts-ignore
-import { EntypoLineGraph, EntypoExport, EntypoDatabase, EntypoBook, EntypoCircleWithPlus, EntypoUser, EntypoHelp, EntypoCog, EntypoEdit } from 'react-entypo';
+import { EntypoLineGraph, EntypoExport, EntypoDatabase, EntypoBook, EntypoCircleWithPlus, EntypoUser, EntypoHelp, EntypoCog, EntypoEdit, EntypoFlowTree } from 'react-entypo';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '../../interface/IState';
 import { Tooltip } from 'antd';
@@ -50,7 +50,8 @@ export const iconMap: Map<NavItemType, JSX.Element> = new Map<NavItemType, JSX.E
     [NavItemType.User, <EntypoUser />],
     [NavItemType.Help, <EntypoHelp />],
     [NavItemType.Settings, <EntypoCog />],
-    [NavItemType.Create, <EntypoEdit />]
+    [NavItemType.Create, <EntypoEdit />],
+    [NavItemType.Workflow, <EntypoFlowTree />]
 ])
 
 const Navbar = () => {

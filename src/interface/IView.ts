@@ -1,7 +1,8 @@
 export enum ViewType {
     Dashboard="dashboard",
     NewPatient="newPatient",
-    EditPatient="editPatient"
+    EditPatient="editPatient",
+    WorkflowManager="workflowManager"
 }
 
 export interface IView {

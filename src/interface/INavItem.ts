@@ -7,7 +7,8 @@ export enum NavItemType {
     User="user",
     Settings="settings",
     Help="help",
-    Create="create"
+    Create="create",
+    Workflow="workflow"
 }
 
 export enum Align {
