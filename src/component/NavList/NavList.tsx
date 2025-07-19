@@ -3,7 +3,7 @@ import { INavList } from "../../types/INavList";
 import { INavListItem } from "../../types/INavListItem";
 
 const StyledNavList = styled.ul`
-    background: #f0f0f0;
+    background: #f2f2f2;
     height: 100%;
     list-style: none;
     padding: 0px;

@@ -24,17 +24,18 @@ const StyledLi = styled.li`
     &:hover {
         background: #f2f2f2;
     }
-    padding: 3px;
     cursor: pointer;
     margin-top: 5px;
     display: flex;
     align-items: center; 
+    padding: 3px 10px;
+    justify-content: space-between;
 `;
 
 const StyledDiv = styled.div`
-    padding: 6.5px 4px 10px 7px;
+    padding: 6px 0px 6px 0px;
     color: #000;
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
 `;
 
@@ -105,16 +106,16 @@ const WorkflowManager = () => {
 
     return (
         <div style={{ display: 'flex', height: '100%', width: '100%' }}>
-            <div style={{ width: 225, padding: "0 10px", borderRight: '1px solid #ccc', }}>
-                <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #ccc"}}>
+            <div style={{ width: 225, borderRight: '1px solid #ccc',}}>
+                <div style={{padding: "0 10px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #ccc"}}>
                     <StyledDiv><strong>Workflow Manager</strong></StyledDiv>
-                    <Tooltip title="Create Workflow"><Button type="text" size="small" onClick={handleNew}><PlusCircleOutlined /></Button></Tooltip>
+                    <Tooltip placement="right" title="Create Workflow"><Button type="text" size="small" onClick={handleNew}><PlusCircleOutlined /></Button></Tooltip>
                 </div>
                 <ul style={{ listStyle: 'none', padding: 0 }}>
                     {workflows.map(w => (
                         <StyledLi key={w.id} onClick={() => handleSelect(w.id)}>
                             <span style={{  flex: 1 }}>{w.name}</span>
-                            <Tooltip title="Delete Workflow"><Button type="text" size="small" style={{ marginLeft: 5  }} onClick={() => handleDelete(w.id)}><DeleteOutlined /></Button></Tooltip>
+                            <Tooltip placement="right" title="Delete Workflow"><Button type="text" size="small" style={{ marginLeft: 5  }} onClick={() => handleDelete(w.id)}><DeleteOutlined /></Button></Tooltip>
                         </StyledLi>
                     ))}
                 </ul>
