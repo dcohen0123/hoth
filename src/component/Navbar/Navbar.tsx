@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 //@ts-ignore
-import { EntypoUser, EntypoHelp, EntypoCog, EntypoEdit,  } from 'react-entypo';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '../../interface/IState';
 import { Tooltip } from 'antd';
 import { NavItemSelected } from '../../redux/Nav/NavActions';
 import { Align, INavItem, NavItemType } from '../../interface/INavItem';
 import aia from '../../assets/aia.png'
+import { EditFilled, SettingFilled, UserOutlined } from '@ant-design/icons';
+import { Help } from '@mui/icons-material';
 
 const StyledNavbar = styled.div`
     display: inline-flex;
@@ -43,10 +44,10 @@ const StyledIcon = styled.div<{selected?: boolean, indicator?: boolean}>`
 `
 
 export const iconMap: Map<NavItemType, JSX.Element> = new Map<NavItemType, JSX.Element>([
-    [NavItemType.User, <EntypoUser />],
-    [NavItemType.Help, <EntypoHelp />],
-    [NavItemType.Settings, <EntypoCog />],
-    [NavItemType.Workflow, <EntypoEdit />]
+    [NavItemType.User, <UserOutlined />],
+    [NavItemType.Help, <Help />],
+    [NavItemType.Settings, <SettingFilled />],
+    [NavItemType.Workflow, <EditFilled />]
 ])
 
 const Navbar = () => {

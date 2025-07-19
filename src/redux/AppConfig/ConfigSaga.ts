@@ -5,7 +5,6 @@ import { InitConfigComplete, InitConfig } from "./ConfigActions";
 
 export function* initConfigHandler(action: any) {
     try {
-        console.log(process.env);
         yield put({
             type: InitConfigComplete, 
             payload: {
