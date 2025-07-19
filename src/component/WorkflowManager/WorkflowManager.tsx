@@ -108,7 +108,7 @@ const WorkflowManager = () => {
             <div style={{ width: 200, borderRight: '1px solid #ccc', background: "#f2f2f2"}}>
                 <div style={{paddingLeft: "10px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #ccc", background: "#555"}}>
                     <StyledDiv><strong>Workflow Manager</strong></StyledDiv>
-                    <Tooltip placement="right" title="Create Workflow"><Button style={{color: "#fff"}} type="text" size="small" onClick={handleNew}><PlusCircleOutlined /></Button></Tooltip>
+                    <Tooltip placement="right" title="Add Workflow"><Button style={{color: "#fff"}} type="text" size="small" onClick={handleNew}><PlusCircleOutlined /></Button></Tooltip>
                 </div>
                 <ul style={{ listStyle: 'none', padding: 0 }}>
                     {workflows.length === 0 && <h4 style={{textAlign: "center", marginTop: 15}}>No Workflows.</h4>}
@@ -124,7 +124,7 @@ const WorkflowManager = () => {
                 {selectedId && (
                     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                         <div style={{display: 'flex', alignItems: 'top'}}>
-                            <Input autoFocus value={name} placeholder="Enter a workflow name" onChange={e => setName(e.target.value)} style={{ flex: 1, marginRight: 5 }} />
+                            <Input autoFocus value={name} placeholder="Enter a new workflow name" onChange={e => setName(e.target.value)} style={{ flex: 1, marginRight: 5 }} />
                             <Button type="primary" onClick={handleSave}>Save</Button>
                         </div>
                         <div style={{ flex: 1 }}>
