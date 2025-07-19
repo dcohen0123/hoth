@@ -12,7 +12,7 @@ import { Help } from '@mui/icons-material';
 const StyledNavbar = styled.div`
     display: inline-flex;
     height: 100%;
-    background: #414141;
+    background: #333;
     text-align: center;
     flex-direction: column;
     justify-content: space-between;

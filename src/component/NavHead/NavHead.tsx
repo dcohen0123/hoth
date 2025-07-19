@@ -7,7 +7,7 @@ import { ChevronLeft } from "@mui/icons-material";
 
 const StyledDiv = styled.div`
     padding: 6.5px 4px 6.5px 7px;
-    background: #636363;
+    background: #414141;
     color: #fff;
     font-size: 13px;
     display: flex;

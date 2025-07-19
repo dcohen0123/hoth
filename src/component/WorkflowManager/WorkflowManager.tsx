@@ -21,20 +21,19 @@ const initialNodes = [
 const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
 
 const StyledLi = styled.li`
-    &:hover {
-        background: #f2f2f2;
-    }
     cursor: pointer;
-    margin-top: 5px;
     display: flex;
     align-items: center; 
-    padding: 3px 10px;
+    padding: 5px 10px;
+    padding-right: 0px;
     justify-content: space-between;
+    background: #fff;
+    font-weight: 600;
 `;
 
 const StyledDiv = styled.div`
-    padding: 6px 0px 6px 0px;
-    color: #000;
+    padding: 6.5px 0px 6.5px 0px;
+    color: #fff;
     font-size: 13px;
     text-align: center;
 `;
@@ -106,12 +105,13 @@ const WorkflowManager = () => {
 
     return (
         <div style={{ display: 'flex', height: '100%', width: '100%' }}>
-            <div style={{ width: 225, borderRight: '1px solid #ccc',}}>
-                <div style={{padding: "0 10px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #ccc"}}>
+            <div style={{ width: 200, borderRight: '1px solid #ccc', background: "#f2f2f2"}}>
+                <div style={{paddingLeft: "10px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #ccc", background: "#555"}}>
                     <StyledDiv><strong>Workflow Manager</strong></StyledDiv>
-                    <Tooltip placement="right" title="Create Workflow"><Button type="text" size="small" onClick={handleNew}><PlusCircleOutlined /></Button></Tooltip>
+                    <Tooltip placement="right" title="Create Workflow"><Button style={{color: "#fff"}} type="text" size="small" onClick={handleNew}><PlusCircleOutlined /></Button></Tooltip>
                 </div>
                 <ul style={{ listStyle: 'none', padding: 0 }}>
+                    {workflows.length === 0 && <h4 style={{textAlign: "center", marginTop: 15}}>No Workflows.</h4>}
                     {workflows.map(w => (
                         <StyledLi key={w.id} onClick={() => handleSelect(w.id)}>
                             <span style={{  flex: 1 }}>{w.name}</span>
