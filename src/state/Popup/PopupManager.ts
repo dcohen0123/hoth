@@ -1,4 +1,4 @@
-import { IPopupManager } from "../../interface/IPopupManager";
+import { IPopupManager } from "../../types/IPopupManager";
 
 const popupManager: IPopupManager = {
     popups: []

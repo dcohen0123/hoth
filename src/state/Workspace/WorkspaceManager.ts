@@ -1,4 +1,4 @@
-import { IWorkspaceManager } from "../../interface/IWorkspaceManager"
+import { IWorkspaceManager } from "../../types/IWorkspaceManager"
 
 const workspaceManager: IWorkspaceManager = {
     selected: null,

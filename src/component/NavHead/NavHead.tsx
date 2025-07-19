@@ -1,8 +1,8 @@
 import styled from "styled-components";
 //@ts-ignore
 import { useSelector, useDispatch } from "react-redux";
-import { IState } from "../../interface/IState";
-import { NavItemSelected } from "../../redux/Nav/NavActions";
+import { IState } from "../../types/IState";
+import { NavItemSelected } from "../../state/Nav/NavActions";
 import { ChevronLeft } from "@mui/icons-material";
 
 const StyledDiv = styled.div`

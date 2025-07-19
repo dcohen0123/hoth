@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { IState } from '../../interface/IState';
-import { Align, NavItemType } from '../../interface/INavItem';
+import { IState } from '../../types/IState';
+import { Align, NavItemType } from '../../types/INavItem';
 import UserMenu from '../User/User';
 import HelpMenu from '../Help/Help';
 import SettingsMenu from '../Settings/Settings';

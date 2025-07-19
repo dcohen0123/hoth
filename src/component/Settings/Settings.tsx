@@ -1,6 +1,6 @@
 import { Modal } from "antd"
 import { useDispatch } from "react-redux";
-import { NavItemSelected } from "../../redux/Nav/NavActions";
+import { NavItemSelected } from "../../state/Nav/NavActions";
 
 const SettingsMenu = () => {
     const dispatch = useDispatch()

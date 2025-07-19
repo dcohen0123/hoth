@@ -1,6 +1,5 @@
 import { put, takeEvery } from "@redux-saga/core/effects";
-import { ViewType } from "../../interface/IView";
-import { AddView, InitWorkspace, SelectWorkspace } from "./WorkspaceActions";
+import { InitWorkspace, SelectWorkspace } from "./WorkspaceActions";
 
 export function* initWorkspaceHandler() {
     try {

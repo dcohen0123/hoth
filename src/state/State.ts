@@ -1,4 +1,4 @@
-import { IState } from "../interface/IState";
+import { IState } from "../types/IState";
 import configManager from "./AppConfig/ConfigManager";
 import eventManager from "./Event/EventManager";
 import navManager from "./Nav/NavManager";

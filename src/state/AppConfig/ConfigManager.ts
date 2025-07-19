@@ -1,4 +1,4 @@
-import IConfigManager from "../../interface/IConfigManager"
+import IConfigManager from "../../types/IConfigManager"
 
 const configManager: IConfigManager = {
     config: null

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
-import { EventType } from "../../interface/IEvent";
-import { IState } from "../../interface/IState";
-import { AddEvent } from "../../redux/Event/EventAction";
+import { EventType } from "../../types/IEvent";
+import { IState } from "../../types/IState";
+import { AddEvent } from "../../state/Event/EventAction";
 import Workspace from "./Workspace";
 
 function mapStateToProps(state: IState) {

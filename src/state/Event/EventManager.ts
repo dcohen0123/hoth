@@ -1,4 +1,4 @@
-import { IEventManager } from "../../interface/IEventManager";
+import { IEventManager } from "../../types/IEventManager";
 
 const eventManager: IEventManager = {
     event: null

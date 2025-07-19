@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { IState } from "../../interface/IState";
-import { ViewType } from "../../interface/IView";
+import { IState } from "../../types/IState";
+import { ViewType } from "../../types/IView";
 import WorkflowManager from "../WorkflowManager/WorkflowManager";
 
 export interface IViewProps {

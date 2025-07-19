@@ -1,4 +1,4 @@
-import { ISettingsManager } from "../../interface/ISettingsManager";
+import { ISettingsManager } from "../../types/ISettingsManager";
 
 const settingsManager: ISettingsManager =  {
     settings: null

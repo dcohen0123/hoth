@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
-import { INavListItem } from "../../interface/INavListItem";
-import { ViewType } from "../../interface/IView";
-import { AddView } from "../../redux/Workspace/WorkspaceActions";
+import { INavListItem } from "../../types/INavListItem";
+import { ViewType } from "../../types/IView";
+import { AddView } from "../../state/Workspace/WorkspaceActions";
 import NavHead from "../NavHead/NavHead";
 import NavList from "../NavList/NavList";
 import { v4 as uuidv4 } from 'uuid';

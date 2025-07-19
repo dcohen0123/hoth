@@ -2,6 +2,9 @@ import { useCallback, useEffect, useState } from "react";
 import { ReactFlow, Background, Controls, MiniMap, addEdge, useEdgesState, useNodesState } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { v4 as uuidv4 } from 'uuid';
+import { Button, Input, Tooltip } from "antd";
+import styled from 'styled-components';
+import { DeleteOutlined, PlusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 interface Workflow {
     id: string;
@@ -16,6 +19,24 @@ const initialNodes = [
 ];
 
 const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
+
+const StyledLi = styled.li`
+    &:hover {
+        background: #f2f2f2;
+    }
+    padding: 3px;
+    cursor: pointer;
+    margin-top: 5px;
+    display: flex;
+    align-items: center; 
+`;
+
+const StyledDiv = styled.div`
+    padding: 6.5px 4px 10px 7px;
+    color: #000;
+    font-size: 14px;
+    text-align: center;
+`;
 
 const WorkflowManager = () => {
     const [workflows, setWorkflows] = useState<Workflow[]>([]);
@@ -51,7 +72,7 @@ const WorkflowManager = () => {
     const handleNew = () => {
         const id = uuidv4();
         setSelectedId(id);
-        setName('New Workflow');
+        setName('');
         setNodes(initialNodes);
         setEdges(initialEdges);
     };
@@ -84,14 +105,17 @@ const WorkflowManager = () => {
 
     return (
         <div style={{ display: 'flex', height: '100%', width: '100%' }}>
-            <div style={{ width: 200, borderRight: '1px solid #ccc', padding: 5 }}>
-                <button onClick={handleNew}>Create Workflow</button>
+            <div style={{ width: 225, padding: "0 10px", borderRight: '1px solid #ccc', }}>
+                <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #ccc"}}>
+                    <StyledDiv><strong>Workflow Manager</strong></StyledDiv>
+                    <Tooltip title="Create Workflow"><Button type="text" size="small" onClick={handleNew}><PlusCircleOutlined /></Button></Tooltip>
+                </div>
                 <ul style={{ listStyle: 'none', padding: 0 }}>
                     {workflows.map(w => (
-                        <li key={w.id} style={{ marginTop: 5, display: 'flex', alignItems: 'center' }}>
-                            <span style={{ cursor: 'pointer', flex: 1 }} onClick={() => handleSelect(w.id)}>{w.name}</span>
-                            <button style={{ marginLeft: 5 }} onClick={() => handleDelete(w.id)}>Delete</button>
-                        </li>
+                        <StyledLi key={w.id} onClick={() => handleSelect(w.id)}>
+                            <span style={{  flex: 1 }}>{w.name}</span>
+                            <Tooltip title="Delete Workflow"><Button type="text" size="small" style={{ marginLeft: 5  }} onClick={() => handleDelete(w.id)}><DeleteOutlined /></Button></Tooltip>
+                        </StyledLi>
                     ))}
                 </ul>
             </div>
@@ -99,8 +123,8 @@ const WorkflowManager = () => {
                 {selectedId && (
                     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                         <div style={{display: 'flex', alignItems: 'top'}}>
-                            <input value={name} onChange={e => setName(e.target.value)} style={{ flex: 1, marginRight: 5 }} />
-                            <button onClick={handleSave}>Save</button>
+                            <Input autoFocus value={name} placeholder="Enter a workflow name" onChange={e => setName(e.target.value)} style={{ flex: 1, marginRight: 5 }} />
+                            <Button type="primary" onClick={handleSave}>Save</Button>
                         </div>
                         <div style={{ flex: 1 }}>
                             <ReactFlow nodes={nodes} edges={edges} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect} fitView>

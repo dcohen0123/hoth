@@ -1,4 +1,4 @@
-import { IUserManager } from "../../interface/IUserManager";
+import { IUserManager } from "../../types/IUserManager";
 
 const userManager: IUserManager = {
     user: null

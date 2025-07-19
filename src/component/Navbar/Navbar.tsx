@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 //@ts-ignore
 import { useDispatch, useSelector } from 'react-redux';
-import { IState } from '../../interface/IState';
+import { IState } from '../../types/IState';
 import { Tooltip } from 'antd';
-import { NavItemSelected } from '../../redux/Nav/NavActions';
-import { Align, INavItem, NavItemType } from '../../interface/INavItem';
+import { NavItemSelected } from '../../state/Nav/NavActions';
+import { Align, INavItem, NavItemType } from '../../types/INavItem';
 import aia from '../../assets/aia.png'
 import { EditFilled, SettingFilled, UserOutlined } from '@ant-design/icons';
 import { Help } from '@mui/icons-material';

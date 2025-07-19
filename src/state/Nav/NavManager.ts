@@ -1,5 +1,5 @@
-import { Align, NavItemType } from "../../interface/INavItem";
-import { INavManager } from "../../interface/INavManager";
+import { Align, NavItemType } from "../../types/INavItem";
+import { INavManager } from "../../types/INavManager";
 
 const navManager: INavManager = {
     items: [{

@@ -1,9 +1,9 @@
 import { put, takeEvery } from "@redux-saga/core/effects";
-import IAppConfig from "../../interface/IAppConfig";
+import IAppConfig from "../../types/IAppConfig";
 import { InitUser } from "../User/UserActions";
 import { InitConfigComplete, InitConfig } from "./ConfigActions";
 
-export function* initConfigHandler(action: any) {
+export function* initConfigHandler() {
     try {
         yield put({
             type: InitConfigComplete, 

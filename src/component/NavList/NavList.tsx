@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { INavList } from "../../interface/INavList";
-import { INavListItem } from "../../interface/INavListItem";
+import { INavList } from "../../types/INavList";
+import { INavListItem } from "../../types/INavListItem";
 
 const StyledNavList = styled.ul`
     background: #f0f0f0;
