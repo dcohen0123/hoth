@@ -1,9 +1,9 @@
 import styled from "styled-components";
 //@ts-ignore
-import { EntypoChevronThinLeft } from 'react-entypo';
 import { useSelector, useDispatch } from "react-redux";
 import { IState } from "../../interface/IState";
 import { NavItemSelected } from "../../redux/Nav/NavActions";
+import { ChevronLeft } from "@mui/icons-material";
 
 const StyledDiv = styled.div`
     padding: 6.5px 4px 6.5px 7px;
@@ -32,7 +32,7 @@ const NavHead = () => {
     }
     return <StyledDiv>
         <strong>{selected?.name}</strong>
-        <StyledIcon onClick={handleClick}><EntypoChevronThinLeft /></StyledIcon>
+        <StyledIcon onClick={handleClick}><ChevronLeft /></StyledIcon>
     </StyledDiv>
 }
 

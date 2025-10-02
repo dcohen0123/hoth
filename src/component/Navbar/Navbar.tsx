@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 //@ts-ignore
-import { EntypoLineGraph, EntypoExport, EntypoDatabase, EntypoBook, EntypoCircleWithPlus, EntypoUser, EntypoHelp, EntypoCog, EntypoEdit } from 'react-entypo';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '../../interface/IState';
 import { Tooltip } from 'antd';
 import { NavItemSelected } from '../../redux/Nav/NavActions';
 import { Align, INavItem, NavItemType } from '../../interface/INavItem';
+import aia from '../../assets/aia.png'
+import { EditFilled, SettingFilled, UserOutlined } from '@ant-design/icons';
+import { Help } from '@mui/icons-material';
 
 const StyledNavbar = styled.div`
     display: inline-flex;
@@ -19,7 +21,7 @@ const StyledNavbar = styled.div`
 
 const StyledImg = styled.img`
     width: 25px;
-    margin: 10px 5px 2px 5px;
+    margin: 10px 5px 10px 5px;
 `
 
 const StyledIcon = styled.div<{selected?: boolean, indicator?: boolean}>`
@@ -42,15 +44,10 @@ const StyledIcon = styled.div<{selected?: boolean, indicator?: boolean}>`
 `
 
 export const iconMap: Map<NavItemType, JSX.Element> = new Map<NavItemType, JSX.Element>([
-    [NavItemType.DashBoard, <EntypoLineGraph />],
-    [NavItemType.Export, <EntypoExport />],
-    [NavItemType.Browse, <EntypoDatabase />],
-    [NavItemType.Learn, <EntypoBook />],
-    [NavItemType.More, <EntypoCircleWithPlus />],
-    [NavItemType.User, <EntypoUser />],
-    [NavItemType.Help, <EntypoHelp />],
-    [NavItemType.Settings, <EntypoCog />],
-    [NavItemType.Create, <EntypoEdit />]
+    [NavItemType.User, <UserOutlined />],
+    [NavItemType.Help, <Help />],
+    [NavItemType.Settings, <SettingFilled />],
+    [NavItemType.Workflow, <EditFilled />]
 ])
 
 const Navbar = () => {
@@ -69,7 +66,7 @@ const Navbar = () => {
     }
     return <StyledNavbar>
         <div>
-            <StyledImg src='/logo.webp' />
+            <StyledImg src={aia} />
             {items?.filter(x => x.align === Align.Top)?.map(x => getIcon(x))}
         </div>
         <div>

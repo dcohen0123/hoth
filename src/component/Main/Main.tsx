@@ -8,11 +8,11 @@ const StyledDiv = styled.div`
     height: 100vh;
 `;
 
-const Hoth = () => {
+const Main = () => {
     return <StyledDiv>
         <Nav />
         <WorkspaceContainer />
     </StyledDiv>
 }
 
-export default Hoth;
+export default Main;

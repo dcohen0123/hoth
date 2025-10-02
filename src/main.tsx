@@ -5,8 +5,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './redux/ReduxMain';
 import { Provider } from 'react-redux';
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

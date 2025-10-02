@@ -1,12 +1,12 @@
 import { takeEvery } from "@redux-saga/core/effects";
 import { put } from "redux-saga/effects";
-import { InitData } from "../Data/DataActions";
+import { InitWorkspace } from "../Workspace/WorkspaceActions";
 import { InitSettings } from "./SettingsActions";
 
 export function* initSettingsHandler(action: any) {
     try {
         // TODO - Fetch Settings Info.
-        yield put({type: InitData})
+        yield put({type: InitWorkspace});
     } catch(e) {
 
     }

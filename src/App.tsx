@@ -1,5 +1,5 @@
 import './App.css';
-import Hoth from './component/Hoth/Hoth';
+import Main from './component/Main/Main';
 import 'antd/dist/antd.css';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -10,7 +10,7 @@ const App = () => {
   useEffect(() => {
     dispatch({type: InitConfig})
   }, [])
-  return <Hoth />;
+  return <Main />;
 }
 
 export default App;
